@@ -1,10 +1,11 @@
 """
-11/15 회의 내용
-1. code 분석이 완벽하게 필요하다 아직 잘 모르는 부분이 필요(민철, 지호)
+11/16 공부 내용
+1. code 분석이 완벽하게 필요하다 아직 잘 모르는 부분이 필요(민철, 지호) --> 11/16일 부분 확인
 2. 대각선 요소에 g 값 최신화에 거리를 1로 설정하였다. 이것을 대각선으로 이동할 때 if 문을 이용하여 abs(x) + abs(y) = 2 일 때는 거리를 root(2)가 되도록 다시 설정
+--> 어는 부분을 고쳐야할지 확인 (11/16일)
 3. 구상한 heuristic 함수를 적용하는 것을 해보자.
-4. 결과를 시각화 : 경로를 map 상에 표시해서 결과 자체를 map 으로 보여주기 ( 이동 경로 표시 : *)
-!!! 그 closed랑 open에 새 노드 넣어줄때 부모가 다른 같은 노드에 대해서 대소 판단없이 둘이 같이 존재해서 오류나게 됨((7,6)->(6,7)이동)
+--> 구성한 heuristic 함수 적용, 아직 안전성을 고려한 가중치 값 수정 x (11/16)
+4. 결과를 시각화 : 경로를 map 상에 표시해서 결과 자체를 map 으로 보여주기 ( 이동 경로 표시 : *) --> (11/16일 수정 완료)
 """
 
 """
@@ -14,6 +15,14 @@
 3. 구성에서 중요한 점은 heuristic 함수에서의 값을 구할 떄 Robot 과 goal point 직선 과 MOB 의 직선 거리를 따진다.
 4. 3번에 따라 직선거리가 안전한 거리 내인지 아닌지에 따라 가중치를 바꿔준다.
 """
+
+
+"""
+* 코드 분석에서 이해가 어려운 부분 --> 헷갈리는 내용 해당 line 윗 부분에 내용 적어놓음
+1. 126번 line 
+2. 202번 line
+"""
+
 
 """
 * 점과 직선 사이의 거리를 구하는 코드
@@ -25,8 +34,20 @@ def dist(P, A, B):  P, A, B 자체를 node 로 생각하여 재구성 필요
     
 """
 
-##############################################################################
-#Node Class###################################################################
+
+"""
+다익스트라 알고리즘 : 시작 노드만을 지정해 다른 모든 노드에 대한 최단 경로를 파악하는 알고리즘
+"""
+
+
+"""
+A-star algorithm : 시작 노드와 목적지 노드를 분명하게 지정해 이 두 노드 간의 최단 경로를 파악할 수 있다.
+heuristic function : 알고리즘을 개선하는 함수, 휴리스틱 추정값을 어떤 방식으로 제공하느냐에 따라 신속성이 달라짐
+--> grid를 map 그 자체로 사용하는 a* algorithm 이기때문에 우리는 F, G, H score를 측정할 때 해당 노드의 x,y 좌표를 이용한 두 점 사이의 거리를 통해서 계산
+
+"""
+
+
 class Node:
     def __init__(self, parent=None, position=None):
         self.parent = parent  # 이전 노드
@@ -42,52 +63,60 @@ class Node:
 
 """
 *Node 설명
-1. position 은 x-y 좌표계를 사용하여 파악 
-2. f : 출발 지점에서 목적지까지의 총 cost 합
+1. position 은 x-y 좌표계를 사용하여 파악
+2. parent 는 이전 노드인데 이전 노드
+--> 이전 노드를 저장해두는 이유?  
+2. f : 출발 지점에서 목적지까지의 총 cost 합 , f = g + h 이다. 우리는 f가 가장 작은 경로를 찾아내는 것이 목표이다.
 3. g : 현재 노드에서 출발 지점까지의 총 cost
 4. h : Heuristic(휴리스틱)함수, 현재 노드에서 목적지까지의 추정 거리
-5. equal은 position이 같으면 true, 아니면 false
 """
 
+
 ##############################################################################
-#Heuristic Function###########################################################
-def heuristic_m(node, goal, D=1): #Manhattan Distance
-    dx=abs(node.position[0]-goal.position[0])
-    dy=abs(node.position[1]-goal.position[1])
-    return D*(dx+dy)
-
-def heuristic_d(node, goal, D=1, D2=2**0.5): #Diagonal Distance
-    dx=abs(node.position[0]-goal.position[0])
-    dy=abs(node.position[1]-goal.position[1])
-    return D*(dx+dy)+(D2-2*D)*min(dx,dy)
-
-def heuristic_e(node, goal, D=1, D2=2 ** 0.5):  #Euclidean Distance
+# Heuristic Function###########################################################
+def heuristic_m(node, goal, D=1):  # Manhattan Distance
     dx = abs(node.position[0] - goal.position[0])
     dy = abs(node.position[1] - goal.position[1])
-    return D*(dx**2+dy**2)
+    return D * (dx + dy)
 
-def heuristic(node, goal, MOB): #Our heuristic function
-    #!!!!일단은 MOB가 1개일 때만 생각 -> 여러개인 경우 for문을 이용해 w를 반복적으로 계산
+
+def heuristic_d(node, goal, D=1, D2=2 ** 0.5):  # Diagonal Distance
+    dx = abs(node.position[0] - goal.position[0])
+    dy = abs(node.position[1] - goal.position[1])
+    return D * (dx + dy) + (D2 - 2 * D) * min(dx, dy)
+
+
+def heuristic_e(node, goal, D=1, D2=2 ** 0.5):  # Euclidean Distance
+    dx = abs(node.position[0] - goal.position[0])
+    dy = abs(node.position[1] - goal.position[1])
+    return D * (dx ** 2 + dy ** 2)
+
+
+def heuristic(node, goal, MOB):  # Our heuristic function
+    # !!!!일단은 MOB가 1개일 때만 생각 -> 여러개인 경우 for문을 이용해 w를 반복적으로 계산
     # 현 node와 goal 사이의 직선과 MOB의 직선거리 - 신발끈 공식 사용
-    area = abs(node.position[0]*goal.position[1]+goal.position[0]*MOB.position[1]+MOB.position[0]*node.position[1]
-               -goal.position[0]*node.position[1]-MOB.position[0]*goal.position[1]-node.position[0]*MOB.position[1])
-    d = ( (node.position[0] - goal.position[0]) ** 2 + (node.position[1] - goal.position[1]) ** 2 ) ** 0.5 # agent, goal 사이 거리 재사용!
-    r=area / d
+    area = abs(
+        node.position[0] * goal.position[1] + goal.position[0] * MOB.position[1] + MOB.position[0] * node.position[1]
+        - goal.position[0] * node.position[1] - MOB.position[0] * goal.position[1] - node.position[0] * MOB.position[1])
+    d = ((node.position[0] - goal.position[0]) ** 2 + (
+                node.position[1] - goal.position[1]) ** 2) ** 0.5  # agent, goal 사이 거리 재사용!
+    r = area / d
     # 가중치 계산
-    p, alp, bet, k= 1,1,1,1 #!!!값 수정!
-    if r<alp:
-        w=p
-    elif r<bet:
-        w=k*bet/r
+    p, alp, bet, k = 1, 1, 1, 1  # !!!값 수정!
+    if r < alp:
+        w = p
+    elif r < bet:
+        w = k * bet / r
     else:
-        w=1
+        w = 1
     # 휴리스틱 값
-    h=w*d
+    h = w * d
     return h
-        
+
 
 ##############################################################################
-#aStar function - path finding function#######################################
+
+
 def aStar(maze, start, end):
     # startNode 와 endNode 초기화
     startNode = Node(None, start)
@@ -97,40 +126,59 @@ def aStar(maze, start, end):
     openList = []
     closedList = []
 
+    """
+    OpenList : 최단 경로를 분석하기 위한 상태값들이 계속 경신되는 배열
+    ClosedList : 처리가 완료된 노드를 담아 두기 위한 배열
+    -> 우리는 결국 ClosedList 에 추가되는 노드들 중에서 endNode 에 해당하는 Node 를 끝에 
+    얻은 후에 그것의 parentNode 를 역추적하는 방식으로 경로를 찾는 것이다. 
+    """
+
     openList.append(startNode)
 
-    # path finding 시작 - endNode 를 찾을 때까지 실행
+    # endNode 를 찾을 때까지 실행
     while openList:
-        # currentNode 중에서 가장 작은f값을 갖는 node를 currentNode에, index를 currentidx에 저장
+        # 현재 노드 지정
         currentNode = openList[0]
         currentidx = 0
 
+        """
+        이 부분에서 openList 에 같은 노드가 있을 경우
+        openList의 Node 와 currentNode를 비교해서 g 값이 나은 Node로 OpenList의 Node를 바꿔야하는 것이 아닌가?
+        이 부분 다시 확인!!
+        """
+        # 이미 같은 노드가 openList 에 있고, g 값이 더 크면
+        # currentNode 를 openList 안에 있는 값으로 교체
         for index, item in enumerate(openList):
             if item.f < currentNode.f:
+            # if item.g > currentNode.g:
                 currentNode = item
                 currentidx = index
-        ######################################################################################
-        # currentNode를 openList 에서 제거하고 closedList에 추가
+
+        # openList 에서 제거하고 closedList에 추가
         openList.pop(currentidx)
         closedList.append(currentNode)
-        ######################################################################################
-        # currentNode가 endNode면 path를 구해 return 시키고 maze에 경로를 7로 표시
+
+        # 현재 노드가 목적지면 current.position 추가하고
+        # current 의 부모로 이동
+        """
+        시각화를 할 수 있는 부분으로 역추적을 통해 경로를 알아내기 때문에
+        역추적 과정에서 maze 자체에서 currentNode에 해당하는 좌표에 있는 maze에 *로 경로를 표시
+        """
         if currentNode == endNode:
-            path = []
             current = currentNode
             while current is not None:
                 x, y = current.position
-                maze[x][y] = 7 #maze에 경로를 7로 표시
-                path.append(current.position) #path 구성
+                maze[x][y] = '*'
                 current = current.parent
-            return path[::-1]
+            return maze
 
-        ######################################################################################
-        # currentNode가 endNode가 아니라면, 주변 노드들(children)에 대한 탐색 필요
         children = []
-        # 이동 가능한 주변 노드를 children에 저장##############################################
-        for newPosition in [(0, -1), (0, 1), (1, 0), (-1, -1), (-1, 1), (1, -1), (1, 1)]: #현 노드에서의 이동방향
-            # nodePosition에 좌표 저장해 이동 가능 여부 판단
+        # 인접한 x-y 좌표 전부
+        # 인접한 x-y 좌표를 전부 확인하는 이유는? grid 형식의 a* algorithm
+        # 인접해있는 모든 노드로 움직일 수 있기 때문에 childNode가 모든 방향의 Node가 될 수 있다.
+        # newPosition : currentNode 와 인접해있는 Node 의 x,y를 파악하는 것
+        for newPosition in [(0, -1), (0, 1), (1, 0), (-1, -1), (-1, 1), (1, -1), (1, 1)]:
+            # 노드 위치 업데이트
             nodePostion = (
                 currentNode.position[0] + newPosition[0],
                 currentNode.position[1] + newPosition[1]
@@ -152,33 +200,36 @@ def aStar(maze, start, end):
             if maze[nodePostion[0]][nodePostion[1]] != 0:
                 continue
 
-            # 그 외는 이동 가능하므로 children에 저장
-            new_node = Node(currentNode, nodePostion)
-            children.append(new_node)
-        ###################################################################################
-        # children의 노드들에 대해 closedList, openList에 이미 존재하는 지 확인, 없다면 openList에 저장
+            new_node = Node(currentNode, nodePostion)  # 부모가 currentNode, position이 nodePosition임
+            children.append(new_node)  # 미로인덱스 외, 음수, 장애물 등의 이상 값이 아닌경우 children에 new_node로 저장
+
+        # 자식들 모두 loop
         for child in children:
-            # child가 closedList 에 있으면 continue
+            # 자식이 closedList 에 있으면 continue
+            # 자식이 closedList 에 없는 경우에만 openList에 넣고 F score를 비교해서 closedList에 넣는다.
             if child in closedList:
                 continue
 
             # f, g, h 값 업데이트
+            # 이 부분에서 g 값을 설정할 때 대각선으로 움직일 때는 대각선의 길이를 더 해줘야한다. 따라서 if 문을 통한 구성 필요.
             if (child.position[0] != currentNode.position[0]) and (child.position[1] != currentNode.position[1]):
-                child.g=currentNode.g + 2**(1/2)
-                print(child.g)
+                child.g = currentNode.g + 2 ** (1 / 2)
             else:
-                child.g = currentNode.g + 1 
-            
-            child.h = heuristic_e(child,endNode)
+                child.g = currentNode.g + 1
+
+            child.h = heuristic_e(child, endNode)
+
             child.f = child.g + child.h
             # print(child.h, child.g, child.f)
 
-            # 자식이 openList 에 있고, g값이 더 크면 continue
+            """
+            자식이 openList 에 있고, g값이 더 크면 continue
+            --> 이 부분도 이미 openList에 있는 자식노드의 g 값이 더 크다면 children에 있는 childNode로 바꿔줘야하는 것이 아닌가?
+            """
             if len([openNode for openNode in openList
                     if child == openNode and child.g > openNode.g]) > 0:
                 continue
 
-            # child를 openList에 넣음
             openList.append(child)
 
 
@@ -193,15 +244,18 @@ def main():
             [0, 0, 0, 0, 1, 0, 0, 1, 1, 0],
             [0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 1, 1, 0]]
-    
-    
-    start = (0, 0)
-    end = (8,8)
 
-    path = aStar(maze, start, end)
-    print(path)
-    for k in range(len(maze)):
-        print(maze[k])
+    start = (0, 0)
+    end = (9, 9)
+
+    path = aStar(maze, start, end)  # path 자체가 maze에서 a* algorithm을 통해서 구한 경로
+
+    # 밑의 코드는 path 자체를 시각화하여서 표현한 것이다!. 이것을 위에 시각화 부분을 수정.
+    for i in range(10):
+        for j in range(10):
+            print(path[i][j], end=" ")
+        print()
+
 
 if __name__ == '__main__':
     main()
