@@ -1,10 +1,10 @@
 """
-11/16 공부 내용
-1. code 분석이 완벽하게 필요하다 아직 잘 모르는 부분이 필요(민철, 지호) --> 11/16일 부분 확인
+11/17 공부 내용
+1. code 분석이 완벽하게 필요하다 아직 잘 모르는 부분이 필요(민철, 지호) --> 11/17일 확인
 2. 대각선 요소에 g 값 최신화에 거리를 1로 설정하였다. 이것을 대각선으로 이동할 때 if 문을 이용하여 abs(x) + abs(y) = 2 일 때는 거리를 root(2)가 되도록 다시 설정
---> 어는 부분을 고쳐야할지 확인 (11/16일)
+--> 수정 완료 (11/17일)
 3. 구상한 heuristic 함수를 적용하는 것을 해보자.
---> 구성한 heuristic 함수 적용, 아직 안전성을 고려한 가중치 값 수정 x (11/16)
+--> 구성한 heuristic 함수 적용, 아직 안전성을 고려한 가중치 값 수정
 4. 결과를 시각화 : 경로를 map 상에 표시해서 결과 자체를 map 으로 보여주기 ( 이동 경로 표시 : *) --> (11/16일 수정 완료)
 """
 
@@ -18,33 +18,8 @@
 
 
 """
-* 코드 분석에서 이해가 어려운 부분 --> 헷갈리는 내용 해당 line 윗 부분에 내용 적어놓음
-1. 126번 line 
-2. 202번 line
-"""
-
-
-"""
-* 점과 직선 사이의 거리를 구하는 코드
-
-def dist(P, A, B):  P, A, B 자체를 node 로 생각하여 재구성 필요
-    area = abs ( (A.x - P.x) * (B.y - P.y) - (A.y - P.y) * (B.x - P.x) )
-    AB = ( (A.x - B.x) ** 2 + (A.y - B.y) ** 2 ) ** 0.5
-    return ( area / AB )
-    
-"""
-
-
-"""
-다익스트라 알고리즘 : 시작 노드만을 지정해 다른 모든 노드에 대한 최단 경로를 파악하는 알고리즘
-"""
-
-
-"""
-A-star algorithm : 시작 노드와 목적지 노드를 분명하게 지정해 이 두 노드 간의 최단 경로를 파악할 수 있다.
-heuristic function : 알고리즘을 개선하는 함수, 휴리스틱 추정값을 어떤 방식으로 제공하느냐에 따라 신속성이 달라짐
---> grid를 map 그 자체로 사용하는 a* algorithm 이기때문에 우리는 F, G, H score를 측정할 때 해당 노드의 x,y 좌표를 이용한 두 점 사이의 거리를 통해서 계산
-
+* 코드 분석에서 이해가 어려운 부분 & 수정해야하는 부분--> 헷갈리는 내용 해당 line 윗 부분에 내용 적어놓음
+1. 135line ~ 146line
 """
 
 
@@ -138,16 +113,14 @@ def aStar(maze, start, end):
     # endNode 를 찾을 때까지 실행
     while openList:
         # 현재 노드 지정
+        # currentNode : 탐색을 시작할 Node 로 그 주위와 연결되어있는 Node를 찾기위해서 선정하는 하나의 Node일 뿐이다.
         currentNode = openList[0]
         currentidx = 0
 
-        """
-        이 부분에서 openList 에 같은 노드가 있을 경우
-        openList의 Node 와 currentNode를 비교해서 g 값이 나은 Node로 OpenList의 Node를 바꿔야하는 것이 아닌가?
-        이 부분 다시 확인!!
-        """
         # 이미 같은 노드가 openList 에 있고, g 값이 더 크면
         # currentNode 를 openList 안에 있는 값으로 교체
+        # 밑의 code 의미 : currentNode 자체를 바꾸는 것이다.
+        # 그러니까 최적화를 위해서 openList에 포함된 모든 Node에 대해서 주위 Node에 대한 경로찾기 실행 x, 가장 작은 f 값을 가지고 있는 Node에 대해서만 경로찾기 실행
         for index, item in enumerate(openList):
             if item.f < currentNode.f:
             # if item.g > currentNode.g:
@@ -212,8 +185,9 @@ def aStar(maze, start, end):
 
             # f, g, h 값 업데이트
             # 이 부분에서 g 값을 설정할 때 대각선으로 움직일 때는 대각선의 길이를 더 해줘야한다. 따라서 if 문을 통한 구성 필요.
+            # 여기서 대각선 길이를 2 ** (1/2)로 넣는 것 보다는 그냥 2로 넣는 것이 더 좋을 것 같다. --> 데이터의 크기 및 소수점 비교에서 오류가 생길 수 있다.
             if (child.position[0] != currentNode.position[0]) and (child.position[1] != currentNode.position[1]):
-                child.g = currentNode.g + 2 ** (1 / 2)
+                child.g = currentNode.g + 2
             else:
                 child.g = currentNode.g + 1
 
@@ -225,10 +199,17 @@ def aStar(maze, start, end):
             """
             자식이 openList 에 있고, g값이 더 크면 continue
             --> 이 부분도 이미 openList에 있는 자식노드의 g 값이 더 크다면 children에 있는 childNode로 바꿔줘야하는 것이 아닌가?
+            이 부분을 아예 바꿔줘야할 것 같다. 
+            for 문을 통해서 구문 자체를 새롭게 만드는 것이 필요
             """
-            if len([openNode for openNode in openList
-                    if child == openNode and child.g > openNode.g]) > 0:
-                continue
+
+            # openList : 아직 조사하지 않은 노드이다.
+            # 우리는 openList 에 있는 Node들의 f 값을 비교해서 더 작은 Node들을 closedNode에 넣어야 한다.
+            # 따라서 우리는 openList를 새롭게 갱신해줄 필요가 있다.
+            # 갱신해주는 조건 : 같은 위치에 있는 Node를 비교하는 것. But openList에 들어가는 child는 g값이 작은 Node가 들어가야한다.
+            for openNode in openList:
+                if (child.position == openNode.position) and (child.g < openNode.g):
+                    openList.pop(openNode)  # 여기서 해당 openNode를 openList에서 빼기
 
             openList.append(child)
 
