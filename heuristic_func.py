@@ -1,3 +1,5 @@
+import numpy as np
+
 ##############################################################################
 # Heuristic Function###########################################################
 
@@ -18,6 +20,16 @@ def heuristic_e(node, goal, D=1, D2=2 ** 0.5):  # Euclidean Distance
     dx = abs(node.position[0] - goal.position[0])
     dy = abs(node.position[1] - goal.position[1])
     return D * (dx ** 2 + dy ** 2)
+
+
+def get_index_to_goal(node, goal):
+    idx = []
+    if goal.position[0] - node.position[0] == goal.position[1] - node.position[1]:
+        idx = np.vstack((np.arange(node.position[0], goal.position[0] + 1, 1),
+                         np.arange(node.position[0], goal.position[0] + 1, 1))).tolist()
+    else:
+        idx = []  # 추가 예정
+    return idx
 
 
 def heuristic(node, goal, MOB):  # Our heuristic function
