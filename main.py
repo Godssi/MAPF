@@ -155,7 +155,7 @@ def aStar(maze, start, end, origin_maze):
             else:
                 child.g = currentNode.g + 1
 
-            child.h = heuristic_e(child, endNode)
+            child.h = heuristic(child, endNode, maze)
 
             child.f = child.g + child.h
             # print(child.h, child.g, child.f)

@@ -17,7 +17,7 @@ def potential_map_generator(maze):
                     for m in range(j - outer_r, j + outer_r + 1):
                         # 안전거리 이내인 경우 inf로 설정
                         if (k - i) ** 2 + (m - j) ** 2 <= inner_r ** 2 and 0 <= k < h and 0 <= m < w:       
-                            potential_map[k][m] += np.inf
+                            potential_map[k][m] += 100000
                         # 적정거리까지 장애물을 고려하는 것을 반영
                         if (k - i) ** 2 + (m - j) ** 2 <= outer_r ** 2 and 0 <= k < h and 0 <= m < w:
                             potential_map[k][m] += alpha * np.sqrt((k - i) ** 2 + (m - j) ** 2)
