@@ -31,6 +31,7 @@ import numpy as np
 import map_gen
 from map_gen import potential_map_generator, random_maze_gen
 from heuristic_func import heuristic, heuristic_e
+import time
 
 
 class Node:
@@ -137,7 +138,7 @@ def aStar(maze, start, end, origin_maze):
                 continue
 
             # 장애물이 있으면 다른 위치 불러오기
-            if maze[nodePostion[0]][nodePostion[1]] >= 100000:
+            if origin_maze[nodePostion[0]][nodePostion[1]] == 1:
                 continue
 
             new_node = Node(currentNode, nodePostion)  # 부모가 currentNode, position이 nodePosition임
@@ -176,8 +177,8 @@ def aStar(maze, start, end, origin_maze):
             # 따라서 우리는 openList를 새롭게 갱신해줄 필요가 있다.
             # 갱신해주는 조건 : 같은 위치에 있는 Node를 비교하는 것. But openList에 들어가는 child는 g값이 작은 Node가 들어가야한다.
             # print(openList)
+            print("openList len:", len(openList))
             for openNode in openList:
-                # print(openNode)
                 if (child.position == openNode.position) and (child.g < openNode.g) and not openList:
                     openList.pop(openNode)  # 여기서 해당 openNode를 openList에서 빼기
 
@@ -206,10 +207,17 @@ def main():
     #     for j in range(len(origin_maze[i])):
     #         print(path[i][j], end=" ")
     #     print()
+    start_time = time.time()
     new_maze = random_maze_gen()
     potential_map = potential_map_generator(new_maze)
-    start = (0, 0)
-    end = (len(new_maze)-1, len(new_maze)-1)
+    print("map_gen time:", time.time() - start_time, " (s)")
+    np.set_printoptions(linewidth=np.inf)
+    print(potential_map)
+    map_gen.plot_origin_map_2d(new_maze)
+    map_gen.plot_map_2d(potential_map)
+    map_gen.plot_map_3d(potential_map)
+    start = (1, 1)
+    end = (len(new_maze)-2, len(new_maze)-2)
 
     path, path_idx = aStar(potential_map, start, end, new_maze)  # path 자체가 maze에서 a* algorithm을 통해서 구한 경로
 
@@ -219,6 +227,7 @@ def main():
             print(path[i][j], end=" ")
         print()
     map_gen.plot_origin_map_2d(new_maze, path_idx)
+    print("end time:", time.time() - start_time, " (s)")
 
 
 if __name__ == '__main__':
