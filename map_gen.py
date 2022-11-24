@@ -20,7 +20,8 @@ def potential_map_generator(maze):
                             potential_map[k][m] += 1000000
                         # 적정거리까지 장애물을 고려하는 것을 반영
                         if (k - i) ** 2 + (m - j) ** 2 <= outer_r ** 2 and 0 <= k < h and 0 <= m < w:
-                            potential_map[k][m] += alpha * np.sqrt((k - i) ** 2 + (m - j) ** 2)
+                            potential_map[k][m] += -alpha * (np.sqrt((k - i) ** 2 + (m - j) ** 2) - inner_r)\
+                                                   / (outer_r - inner_r) + alpha + 1
     return potential_map
 
 
@@ -52,6 +53,47 @@ def plot_map_2d(maze):
     plt.show()
 
 
+def plot_origin_map_2d(maze, path=None):
+    h = len(maze)
+    w = len(maze[0])
+
+    fig = plt.figure(figsize=(20, 20))
+    x_idx = []
+    y_idx = []
+    for i in range(h):
+        for j in range(w):
+            if maze[i][j] == 1:
+                x_idx.append(i)
+                y_idx.append(j)
+    if 10 <= h <= 13:
+        plt.scatter(x_idx, y_idx, s=5300, marker='s')
+    elif 13 < h <= 17:
+        plt.scatter(x_idx, y_idx, s=4900, marker='s')
+    elif 17 < h <= 20:
+        plt.scatter(x_idx, y_idx, s=4500, marker='s')
+
+    if path is not None:
+        x = np.array(path).T[0]
+        y = np.array(path).T[1]
+        plt.plot(x, y, 'r', linewidth=20)
+    plt.show()
+
+
+def random_maze_gen():
+    map_size = np.random.randint(10, 20)
+    new_map = np.zeros((map_size, map_size), dtype=np.int64)
+    for i in range(map_size):
+        for j in range(map_size):
+            new_map[i, j] = np.random.randint(0, 6)
+            if new_map[i, j] <= 4:
+                new_map[i, j] = 0
+            else:
+                new_map[i, j] = 1
+    new_map[0, 0] = 0
+    new_map[map_size - 1, map_size - 1] = 0
+    return new_map.tolist()
+
+
 if __name__ == '__main__':
     np.set_printoptions(linewidth=np.inf)
     maze = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
@@ -64,6 +106,8 @@ if __name__ == '__main__':
             [0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
             [0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 1, 1, 0]]
+    maze = random_maze_gen()
+    plot_origin_map_2d(maze)
+    print(maze)
     maze = potential_map_generator(maze)
-    plot_map_3d(maze)
     print(maze)

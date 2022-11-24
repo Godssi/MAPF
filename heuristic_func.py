@@ -82,7 +82,7 @@ def heuristic(node, goal, maze):  # Our heuristic function
             h1 += maze[idx[0][i][0]][[idx[0][i][1]]][0]
         for i in range(len(idx[1])):
             h2 += maze[idx[1][i][0]][[idx[1][i][1]]][0]
-        if len(idx[0]) != 0 and len(idx[1]) != 0 :
+        if len(idx[0]) != 0 and len(idx[1]) != 0:
             h1 = (h1 / len(idx[0])) * np.sqrt(h)        # 경로상의 node 수 보정
             h2 = (h2 / len(idx[1])) * np.sqrt(h)        # 경로상의 node 수 보정
         h += min(h1, h2)

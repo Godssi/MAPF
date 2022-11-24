@@ -28,7 +28,8 @@
 
 
 import numpy as np
-from map_gen import potential_map_generator
+import map_gen
+from map_gen import potential_map_generator, random_maze_gen
 from heuristic_func import heuristic, heuristic_e
 
 
@@ -103,11 +104,13 @@ def aStar(maze, start, end, origin_maze):
         """
         if currentNode == endNode:
             current = currentNode
+            path_index = []
             while current is not None:
                 x, y = current.position
                 origin_maze[x][y] = '*'
                 current = current.parent
-            return origin_maze
+                path_index.append([x, y])
+            return origin_maze, path_index
 
         children = []
         # 인접한 x-y 좌표 전부
@@ -192,17 +195,30 @@ def main():
                    [0, 0, 0, 0, 1, 0, 0, 1, 1, 0],
                    [0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
                    [0, 0, 0, 0, 0, 0, 0, 1, 1, 0]]
-    potential_map = potential_map_generator(origin_maze)
+    # potential_map = potential_map_generator(origin_maze)
+    # start = (0, 0)
+    # end = (len(origin_maze)-1, len(origin_maze)-1)
+    #
+    # path = aStar(potential_map, start, end, origin_maze)  # path 자체가 maze에서 a* algorithm을 통해서 구한 경로
+    #
+    # # 밑의 코드는 path 자체를 시각화하여서 표현한 것이다!. 이것을 위에 시각화 부분을 수정.
+    # for i in range(len(origin_maze)):
+    #     for j in range(len(origin_maze[i])):
+    #         print(path[i][j], end=" ")
+    #     print()
+    new_maze = random_maze_gen()
+    potential_map = potential_map_generator(new_maze)
     start = (0, 0)
-    end = (9, 9)
+    end = (len(new_maze)-1, len(new_maze)-1)
 
-    path = aStar(potential_map, start, end, origin_maze)  # path 자체가 maze에서 a* algorithm을 통해서 구한 경로
+    path, path_idx = aStar(potential_map, start, end, new_maze)  # path 자체가 maze에서 a* algorithm을 통해서 구한 경로
 
     # 밑의 코드는 path 자체를 시각화하여서 표현한 것이다!. 이것을 위에 시각화 부분을 수정.
-    for i in range(10):
-        for j in range(10):
+    for i in range(len(new_maze)):
+        for j in range(len(new_maze[i])):
             print(path[i][j], end=" ")
         print()
+    map_gen.plot_origin_map_2d(new_maze, path_idx)
 
 
 if __name__ == '__main__':
