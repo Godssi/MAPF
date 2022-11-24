@@ -7,9 +7,9 @@ def potential_map_generator(maze):
     h = len(maze)
     w = len(maze[0])
     potential_map = np.ones((h, w))
-    outer_r = 3     # 장애물을 고려해야하는 최대 거리
+    outer_r = 2     # 장애물을 고려해야하는 최대 거리
     inner_r = 0     # 충돌방지 최소 거리
-    alpha = 3       # 장애물의 위험도 가중치 계수
+    alpha = 4       # 장애물의 위험도 가중치 계수
     for i in range(len(maze)):
         for j in range(len(maze[0])):
             if maze[i][j] == 1:
@@ -17,7 +17,7 @@ def potential_map_generator(maze):
                     for m in range(j - outer_r, j + outer_r + 1):
                         # 안전거리 이내인 경우 inf로 설정
                         if (k - i) ** 2 + (m - j) ** 2 <= inner_r ** 2 and 0 <= k < h and 0 <= m < w:       
-                            potential_map[k][m] += 100
+                            potential_map[k][m] += 1000000
                         # 적정거리까지 장애물을 고려하는 것을 반영
                         if (k - i) ** 2 + (m - j) ** 2 <= outer_r ** 2 and 0 <= k < h and 0 <= m < w:
                             potential_map[k][m] += alpha * np.sqrt((k - i) ** 2 + (m - j) ** 2)

@@ -35,33 +35,33 @@ def get_index_to_goal(node, goal):
         if node.position[0] <= goal.position[0] and node.position[1] <= goal.position[1]:
             for i in range(node.position[0], goal.position[0] + 1, 1):
                 for j in range(node.position[1], goal.position[1] + 1, 1):
-                    if (goal.position[1] - node.position[1] + 1) * i >= (goal.position[0] - node.position[0] + 1) * j:
+                    if (goal.position[1] - node.position[1] + 1) * (i - goal.position[0]) >= (goal.position[0] - node.position[0] + 1) * (j - goal.position[1]):
                         upper_idx.append([i, j])
-                    if (goal.position[1] - node.position[1] + 1) * i <= (goal.position[0] - node.position[0] + 1) * j:
+                    if (goal.position[1] - node.position[1] + 1) * (i - goal.position[0]) <= (goal.position[0] - node.position[0] + 1) * (j - goal.position[1]):
                         lower_idx.append([i, j])
         # 목적지가 2사분면에 있는 경우
         elif node.position[0] >= goal.position[0] and node.position[1] <= goal.position[1]:
             for i in range(node.position[0], goal.position[0] - 1, -1):
                 for j in range(node.position[1], goal.position[1] + 1, 1):
-                    if (goal.position[1] - node.position[1] + 1) * i >= (goal.position[0] - node.position[0] - 1) * j:
+                    if (goal.position[1] - node.position[1] + 1) * (i - goal.position[0]) >= (goal.position[0] - node.position[0] - 1) * (j - goal.position[1]):
                         upper_idx.append([i, j])
-                    if (goal.position[1] - node.position[1] + 1) * i <= -(goal.position[0] - node.position[0] - 1) * j:
+                    if (goal.position[1] - node.position[1] + 1) * (i - goal.position[0]) <= (goal.position[0] - node.position[0] - 1) * (j - goal.position[1]):
                         lower_idx.append([i, j])
         # 목적지가 3사분면에 있는 경우
         elif node.position[0] >= goal.position[0] and node.position[1] >= goal.position[1]:
             for i in range(node.position[0], goal.position[0] - 1, -1):
                 for j in range(node.position[1], goal.position[1] - 1, -1):
-                    if (goal.position[1] - node.position[1] - 1) * i >= (goal.position[0] - node.position[0] - 1) * j:
+                    if (goal.position[1] - node.position[1] - 1) * (i - goal.position[0]) >= (goal.position[0] - node.position[0] - 1) * (j - goal.position[1]):
                         upper_idx.append([i, j])
-                    if (goal.position[1] - node.position[1] - 1) * i <= (goal.position[0] - node.position[0] - 1) * j:
+                    if (goal.position[1] - node.position[1] - 1) * (i - goal.position[0]) <= (goal.position[0] - node.position[0] - 1) * (j - goal.position[1]):
                         lower_idx.append([i, j])
         # 목적지가 4사분면에 있는 경우
         elif node.position[0] <= goal.position[0] and node.position[1] >= goal.position[1]:
             for i in range(node.position[0], goal.position[0] + 1, 1):
                 for j in range(node.position[1], goal.position[1] - 1, -1):
-                    if (goal.position[1] - node.position[1] - 1) * i >= -(goal.position[0] + node.position[0] + 1) * j:
+                    if (goal.position[1] - node.position[1] - 1) * (i - goal.position[0]) >= (goal.position[0] + node.position[0] + 1) * (j - goal.position[1]):
                         upper_idx.append([i, j])
-                    if (goal.position[1] - node.position[1] - 1) * i <= (goal.position[0] + node.position[0] + 1) * j:
+                    if (goal.position[1] - node.position[1] - 1) * (i - goal.position[0]) <= (goal.position[0] + node.position[0] + 1) * (j - goal.position[1]):
                         lower_idx.append([i, j])
         return [upper_idx, lower_idx]
 
@@ -93,22 +93,22 @@ def heuristic(node, goal, maze):  # Our heuristic function
     return h
 
 
-class Node:
-    def __init__(self, parent=None, position=None):
-        self.parent = parent  # 이전 노드
-        self.position = position  # 현재 위치
-
-        self.f = 0
-        self.g = 0
-        self.h = 0
-
-    def __eq__(self, other):
-        return self.position == other.position
-
-
+# class Node:
+#     def __init__(self, parent=None, position=None):
+#         self.parent = parent  # 이전 노드
+#         self.position = position  # 현재 위치
+#
+#         self.f = 0
+#         self.g = 0
+#         self.h = 0
+#
+#     def __eq__(self, other):
+#         return self.position == other.position
+#
+#
 # from map_gen import potential_map_generator
-
-
+#
+#
 # if __name__ == '__main__':
 #     np.set_printoptions(linewidth=np.inf)
 #     maze = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
@@ -123,4 +123,4 @@ class Node:
 #             [0, 0, 0, 0, 0, 0, 0, 1, 1, 0]]
 #     potential_map = potential_map_generator(maze)
 #     print(heuristic(Node(position=(0, 0)), Node(position=(8, 9)), potential_map))
-#     print(get_index_to_goal(Node(position=(3, 2)), Node(position=(7, 1))))
+#     print(get_index_to_goal(Node(position=(1, 2)), Node(position=(-2, 4))))

@@ -134,7 +134,7 @@ def aStar(maze, start, end, origin_maze):
                 continue
 
             # 장애물이 있으면 다른 위치 불러오기
-            if maze[nodePostion[0]][nodePostion[1]] == np.inf:
+            if maze[nodePostion[0]][nodePostion[1]] >= 100000:
                 continue
 
             new_node = Node(currentNode, nodePostion)  # 부모가 currentNode, position이 nodePosition임
