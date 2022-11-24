@@ -74,20 +74,22 @@ def heuristic(node, goal, maze):  # Our heuristic function
     # 대각선이 존재하는 경우
     if len(idx) == 1:
         for i in range(len(idx[0])):
-            h += maze[idx[0][i][0]][[idx[0][i][1]]]
+            h += maze[idx[0][i][0]][[idx[0][i][1]]][0]
             h = h / len(idx[0]) * np.sqrt(h)        # 경로상의 node 수 보정
     else:
         h1 = 0; h2 = 0
         for i in range(len(idx[0])):
-            h1 += maze[idx[0][i][0]][[idx[0][i][1]]]
+            h1 += maze[idx[0][i][0]][[idx[0][i][1]]][0]
         for i in range(len(idx[1])):
-            h2 += maze[idx[1][i][0]][[idx[1][i][1]]]
+            h2 += maze[idx[1][i][0]][[idx[1][i][1]]][0]
         if len(idx[0]) != 0 and len(idx[1]) != 0 :
             h1 = (h1 / len(idx[0])) * np.sqrt(h)        # 경로상의 node 수 보정
             h2 = (h2 / len(idx[1])) * np.sqrt(h)        # 경로상의 node 수 보정
         h += min(h1, h2)
-    if type(h) == "numpy.ndarray":
-        h = h[0]
+    if type(h) is not int:
+        h = int(h.astype(np.int64))
+    if h <= 0:
+        h = 0
     return h
 
 

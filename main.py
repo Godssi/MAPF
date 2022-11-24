@@ -156,6 +156,7 @@ def aStar(maze, start, end, origin_maze):
                 child.g = currentNode.g + 1
 
             child.h = heuristic(child, endNode, maze)
+            # child.h = heuristic_e(child, endNode)
 
             child.f = child.g + child.h
             # print(child.h, child.g, child.f)
@@ -171,8 +172,10 @@ def aStar(maze, start, end, origin_maze):
             # 우리는 openList 에 있는 Node들의 f 값을 비교해서 더 작은 Node들을 closedNode에 넣어야 한다.
             # 따라서 우리는 openList를 새롭게 갱신해줄 필요가 있다.
             # 갱신해주는 조건 : 같은 위치에 있는 Node를 비교하는 것. But openList에 들어가는 child는 g값이 작은 Node가 들어가야한다.
+            # print(openList)
             for openNode in openList:
-                if (child.position == openNode.position) and (child.g < openNode.g):
+                # print(openNode)
+                if (child.position == openNode.position) and (child.g < openNode.g) and not openList:
                     openList.pop(openNode)  # 여기서 해당 openNode를 openList에서 빼기
 
             openList.append(child)
