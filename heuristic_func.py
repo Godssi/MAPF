@@ -1,4 +1,5 @@
 import numpy as np
+from multiprocessing import Pool
 
 ##############################################################################
 # Heuristic Function###########################################################
@@ -66,9 +67,14 @@ def get_index_to_goal(node, goal):
         return [upper_idx, lower_idx]
 
 
+def cal_h_value(maze, idx):
+    h = 0
+    for i in range(len(idx)):
+        h += maze[idx[i][0]][[idx[i][1]]][0]
+    return h
+
+
 def heuristic(node, goal, maze):  # Our heuristic function
-    # !!!!일단은 MOB가 1개일 때만 생각 -> 여러개인 경우 for문을 이용해 w를 반복적으로 계산
-    # 현 node와 goal 사이의 직선과 MOB의 직선거리 - 신발끈 공식 사용
     h = heuristic_e(node, goal)
     idx = get_index_to_goal(node, goal)
     # 대각선이 존재하는 경우
@@ -76,6 +82,7 @@ def heuristic(node, goal, maze):  # Our heuristic function
         for i in range(len(idx[0])):
             h += maze[idx[0][i][0]][[idx[0][i][1]]][0]
             h = h / len(idx[0]) * np.sqrt(h)        # 경로상의 node 수 보정
+            print(np.sqrt(h))
     else:
         h1 = 0; h2 = 0
         for i in range(len(idx[0])):
@@ -93,34 +100,29 @@ def heuristic(node, goal, maze):  # Our heuristic function
     return h
 
 
-# class Node:
-#     def __init__(self, parent=None, position=None):
-#         self.parent = parent  # 이전 노드
-#         self.position = position  # 현재 위치
-#
-#         self.f = 0
-#         self.g = 0
-#         self.h = 0
-#
-#     def __eq__(self, other):
-#         return self.position == other.position
-#
-#
-# from map_gen import potential_map_generator
-#
-#
-# if __name__ == '__main__':
-#     np.set_printoptions(linewidth=np.inf)
-#     maze = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-#             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-#             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-#             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-#             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-#             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-#             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-#             [0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
-#             [0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
-#             [0, 0, 0, 0, 0, 0, 0, 1, 1, 0]]
-#     potential_map = potential_map_generator(maze)
-#     print(heuristic(Node(position=(0, 0)), Node(position=(8, 9)), potential_map))
-#     print(get_index_to_goal(Node(position=(1, 2)), Node(position=(-2, 4))))
+# def heuristic(node, goal, maze):  # Our heuristic function
+#     h = heuristic_e(node, goal)
+#     idx = get_index_to_goal(node, goal)
+#     # 대각선이 존재하는 경우
+#     if len(idx) == 1:
+#         for i in range(len(idx[0])):
+#             h += maze[idx[0][i][0]][[idx[0][i][1]]][0]
+#             h = h / len(idx[0]) * np.sqrt(h)        # 경로상의 node 수 보정
+#     else:
+#         h1 = 0; h2 = 0
+#         # pool = Pool(processes=2)
+#         # h1 = pool.map(cal_h_value, [[maze, idx[0]], [maze, idx[1]]])
+#         # pool.close()
+#         # pool.join()
+#         with Pool(processes=2) as pool:
+#             h1 = pool.apply(cal_h_value, [maze, idx[0]])
+#             h2 = pool.apply(cal_h_value, [maze, idx[1]])
+#         if len(idx[0]) != 0 and len(idx[1]) != 0:
+#             h1 = (h1 / len(idx[0])) * np.sqrt(h)        # 경로상의 node 수 보정
+#             h2 = (h2 / len(idx[1])) * np.sqrt(h)        # 경로상의 node 수 보정
+#         h += min(h1, h2)
+#     if type(h) is not int:
+#         h = int(h.astype(np.int64))
+#     if h <= 0:
+#         h = 0
+#     return h

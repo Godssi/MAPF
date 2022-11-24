@@ -117,7 +117,7 @@ def aStar(maze, start, end, origin_maze):
         # 인접한 x-y 좌표를 전부 확인하는 이유는? grid 형식의 a* algorithm
         # 인접해있는 모든 노드로 움직일 수 있기 때문에 childNode가 모든 방향의 Node가 될 수 있다.
         # newPosition : currentNode 와 인접해있는 Node 의 x,y를 파악하는 것
-        for newPosition in [(0, -1), (0, 1), (1, 0), (-1, -1), (-1, 1), (1, -1), (1, 1)]:
+        for newPosition in [(0, -1), (0, 1), (1, 0), (-1, 0)]:
             # 노드 위치 업데이트
             nodePostion = (
                 currentNode.position[0] + newPosition[0],
