@@ -17,10 +17,10 @@ def heuristic_d(node, goal, D=1, D2=2 ** 0.5):  # Diagonal Distance
     return D * (dx + dy) + (D2 - 2 * D) * min(dx, dy)
 
 
-def heuristic_e(node, goal, D=1, D2=2 ** 0.5):  # Euclidean Distance
+def heuristic_e(node, goal):  # Euclidean Distance
     dx = abs(node.position[0] - goal.position[0])
     dy = abs(node.position[1] - goal.position[1])
-    return D * np.sqrt(dx ** 2 + dy ** 2)
+    return np.sqrt(dx ** 2 + dy ** 2)
 
 
 def get_index_to_goal(node, goal):
@@ -88,21 +88,20 @@ def heuristic(node, goal, maze):  # Our heuristic function
     h = heuristic_e(node, goal)
     idx = get_index_to_goal(node, goal)
     R = heuristic_e(node, goal)
-    beta = 10  # 가까이 있는 장애물 보정계수
+    beta = 100  # 가까이 있는 장애물 보정계수
     # 대각선이 존재하는 경우
     if len(idx) == 1:
         h1 = 0
         for i in range(len(idx[0])):
-            h1 += beta * (1 - ((min(idx[0][i][2], R) / (R + 1)) ** 2)) * maze[idx[0][i][0]][[idx[0][i][1]]][0]
-            h *= h1 / (len(idx[0])+0.001) * np.sqrt(h)        # 경로상의 node 수 보정
-            # print("h:", h)
+            h1 += beta * (1 - ((min(idx[0][i][2], R) / (R + 1)) ** 3)) * maze[idx[0][i][0]][[idx[0][i][1]]][0]
+        h *= h1 / len(idx[0]) * np.sqrt(R)        # 경로상의 node 수 보정
     else:
         h1 = 0
         h2 = 0
         for i in range(len(idx[0])):
-            h1 += beta * (1 - ((min(idx[0][i][2], R) / (R + 1)) ** 2)) * maze[idx[0][i][0]][[idx[0][i][1]]][0]
+            h1 += beta * (1 - ((min(idx[0][i][2], R) / (R + 1)) ** 3)) * maze[idx[0][i][0]][[idx[0][i][1]]][0]
         for i in range(len(idx[1])):
-            h2 += beta * (1 - ((min(idx[1][i][2], R) / (R + 1)) ** 2)) * maze[idx[1][i][0]][[idx[1][i][1]]][0]
+            h2 += beta * (1 - ((min(idx[1][i][2], R) / (R + 1)) ** 3)) * maze[idx[1][i][0]][[idx[1][i][1]]][0]
         if len(idx[0]) != 0 and len(idx[1]) != 0:
             h1 = (h1 / len(idx[0])) * np.sqrt(h)        # 경로상의 node 수 보정
             h2 = (h2 / len(idx[1])) * np.sqrt(h)        # 경로상의 node 수 보정

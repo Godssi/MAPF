@@ -21,8 +21,9 @@ def plot_map_3d(maze):
     X, Y = np.meshgrid(X, Y)
     surf = ax.plot_surface(X, Y, maze, cmap=cm.coolwarm,
                            linewidth=0, antialiased=False)
+    plt.axis([-1, w + 1, -1, h + 1])
     fig.colorbar(surf, shrink=0.5, aspect=5)
-    plt.rc('font', size=20)
+    plt.rc('font', size=(-(1/9) * h + 21))
     plt.show()
 
 
@@ -32,9 +33,11 @@ def plot_map_2d(maze):
 
     fig = plt.figure(figsize=(20, 20))
     X = np.arange(0, h, 1)
-    Y = np.arange(w, 0, -1)
-    plt.contourf(X, Y, maze, 1000)
-    plt.rc('font', size=50)
+    Y = np.arange(0, w, 1)
+    plt.contourf(X, Y, maze.T, 500, cmap='seismic')
+    plt.axis([-1, w + 1, -1, h + 1])
+    plt.rc('font', size=(-(1/9) * h + 21))
+    plt.colorbar()
     plt.show()
 
 
@@ -52,7 +55,7 @@ def plot_origin_map_2d(maze, path=None):
                 y_idx.append(j)
     marker_size = 12100         # default marker size
     if h <= 30:
-        f = lambda x: 97/7500 * x ** 5 - 517/375 * x ** 4 + 16139/300 * x ** 3 - 13469/15 * x ** 2 + 4931 * x +11280
+        f = lambda x: 97/7500 * x ** 5 - 517/375 * x ** 4 + 16139/300 * x ** 3 - 13469/15 * x ** 2 + 4931 * x + 11280
         marker_size = f(h)
     elif h <= 50:
         f = lambda x: -1/100 * x ** 3 + 49/20 * x ** 2 - 371/2 * x + 4770
@@ -64,10 +67,10 @@ def plot_origin_map_2d(maze, path=None):
         f = lambda x: -1/750 * x ** 3 + 41/100 * x ** 2 - 1313/30 * x + 1700
         marker_size = f(h)
     plt.scatter(x_idx, y_idx, s=marker_size, marker='s')
-    plt.scatter(1, 1, s=marker_size, marker='s')
-    plt.text(1, 1, 'Start', verticalalignment='center', horizontalalignment='center')
-    plt.scatter(w - 2, h - 2, s=marker_size, marker='s')
-    plt.text(w - 2, h - 2, 'End', verticalalignment='center', horizontalalignment='center')
+    plt.scatter(0, 0, s=marker_size, marker='s')
+    plt.text(0, 0, 'Start', verticalalignment='center', horizontalalignment='center')
+    plt.scatter(w - 1, h - 1, s=marker_size, marker='s')
+    plt.text(w - 1, h - 1, 'End', verticalalignment='center', horizontalalignment='center')
 
     if path is not None:
         x = np.array(path).T[0]
@@ -75,4 +78,3 @@ def plot_origin_map_2d(maze, path=None):
         plt.plot(x, y, 'r', linewidth=(-(1/9) * h + 14))
     plt.axis([-1, w + 1, -1, h + 1])
     plt.show()
-    

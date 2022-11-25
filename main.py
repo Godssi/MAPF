@@ -28,12 +28,10 @@
 
 
 import numpy as np
-import matplotlib.pyplot as plt
-import map_gen
+import time
 from map_gen import potential_map_generator, random_maze_gen
 from heuristic_func import heuristic, heuristic_e
-from operator import attrgetter
-import time
+from plot_map_func import plot_map_console, plot_map_2d, plot_map_3d, plot_origin_map_2d
 
 
 class Node:
@@ -104,25 +102,20 @@ def aStar(maze, start, end, origin_maze):
 
         # 현재 노드가 목적지면 current.position 추가하고
         # current 의 부모로 이동
-        """
-        시각화를 할 수 있는 부분으로 역추적을 통해 경로를 알아내기 때문에
-        역추적 과정에서 maze 자체에서 currentNode에 해당하는 좌표에 있는 maze에 *로 경로를 표시
-        """
+
         if currentNode == endNode:
             current = currentNode
             path_index = []
             while current is not None:
                 x, y = current.position
-                origin_maze[x][y] = '*'
+                origin_maze[x][y] = '*'      # 역추적 과정에서 maze 자체에서 currentNode에 해당하는 좌표에 있는 maze에 *로 경로를 표시
                 current = current.parent
                 path_index.append([x, y])
             return origin_maze, path_index
 
+        # newPosition : currentNode 와 인접해 있는 Node의 x,y
+
         children = []
-        # 인접한 x-y 좌표 전부
-        # 인접한 x-y 좌표를 전부 확인하는 이유는? grid 형식의 a* algorithm
-        # 인접해있는 모든 노드로 움직일 수 있기 때문에 childNode가 모든 방향의 Node가 될 수 있다.
-        # newPosition : currentNode 와 인접해있는 Node 의 x,y를 파악하는 것
         for newPosition in [(0, -1), (0, 1), (1, 0), (-1, 0)]:
             # 노드 위치 업데이트
             nodePostion = (
@@ -130,7 +123,7 @@ def aStar(maze, start, end, origin_maze):
                 currentNode.position[1] + newPosition[1]
             )
 
-            # 미로 maze index 범위 안에 있어야함
+            # 미로 maze index 범위 안에 있어야 함
             within_range_criteria = [
                 nodePostion[0] > (len(maze) - 1),
                 nodePostion[0] < 0,
@@ -202,19 +195,19 @@ def main():
     #                [0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
     #                [0, 0, 0, 0, 0, 0, 0, 1, 1, 0]]
     new_maze = random_maze_gen()
-    map_gen.plot_origin_map_2d(new_maze)
+    plot_origin_map_2d(new_maze)
     potential_map = potential_map_generator(new_maze)
     print("map_gen time:", time.time() - start_time, " (s)")
-    map_gen.plot_map_2d(potential_map)
-    # map_gen.plot_map_3d(potential_map)
-    start = (1, 1)
-    end = (len(new_maze)-2, len(new_maze)-2)
-    
+    plot_map_2d(potential_map)
+    plot_map_console(potential_map)
+    start = (0, 0)
+    end = (len(new_maze)-1, len(new_maze)-1)
+
     # path 자체가 maze에서 a* algorithm을 통해서 구한 경로
     path, path_idx = aStar(potential_map, start, end, new_maze)
 
-    map_gen.plot_map_console(path)
-    map_gen.plot_origin_map_2d(new_maze, path_idx)
+    # plot_map_console(path)
+    plot_origin_map_2d(new_maze, path_idx)
     print("end time:", time.time() - start_time, " (s)")
 
 
