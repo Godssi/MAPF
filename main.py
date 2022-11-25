@@ -28,9 +28,11 @@
 
 
 import numpy as np
+import matplotlib.pyplot as plt
 import map_gen
 from map_gen import potential_map_generator, random_maze_gen
 from heuristic_func import heuristic, heuristic_e
+from operator import attrgetter
 import time
 
 
@@ -63,35 +65,38 @@ def aStar(maze, start, end, origin_maze):
     startNode = Node(None, start)
     endNode = Node(None, end)
 
+    """
+    OpenList : 최단 경로를 분석하기 위한 상태값들이 계속 경신되는 배열
+    ClosedList : 처리가 완료된 노드를 담아 두기 위한 배열
+    """
+
     # openList, closedList 초기화
     openList = []
     closedList = []
 
-    """
-    OpenList : 최단 경로를 분석하기 위한 상태값들이 계속 경신되는 배열
-    ClosedList : 처리가 완료된 노드를 담아 두기 위한 배열
-    -> 우리는 결국 ClosedList 에 추가되는 노드들 중에서 endNode 에 해당하는 Node 를 끝에 
-    얻은 후에 그것의 parentNode 를 역추적하는 방식으로 경로를 찾는 것이다. 
-    """
-
     openList.append(startNode)
+
+    currentNode = openList[0]
+    currentidx = 0
 
     # endNode 를 찾을 때까지 실행
     while openList:
         # 현재 노드 지정
         # currentNode : 탐색을 시작할 Node 로 그 주위와 연결되어있는 Node를 찾기위해서 선정하는 하나의 Node일 뿐이다.
-        currentNode = openList[0]
-        currentidx = 0
 
         # 이미 같은 노드가 openList 에 있고, g 값이 더 크면
         # currentNode 를 openList 안에 있는 값으로 교체
         # 밑의 code 의미 : currentNode 자체를 바꾸는 것이다.
         # 그러니까 최적화를 위해서 openList에 포함된 모든 Node에 대해서 주위 Node에 대한 경로찾기 실행 x, 가장 작은 f 값을 가지고 있는 Node에 대해서만 경로찾기 실행
-        for index, item in enumerate(openList):
-            if item.f < currentNode.f:
-            # if item.g > currentNode.g:
-                currentNode = item
-                currentidx = index
+
+        openList = sorted(openList, key=lambda s: s.f)
+        # print("openList: ", end=' ')
+        # for i in range(len(openList)):
+        #     if i < 15:
+        #         print(openList[i].f, end=' ')
+        # print()
+        currentNode = openList[0]
+        # currentidx = 0            # idx는 정렬을 통해 고정
 
         # openList 에서 제거하고 closedList에 추가
         openList.pop(currentidx)
@@ -152,8 +157,6 @@ def aStar(maze, start, end, origin_maze):
                 continue
 
             # f, g, h 값 업데이트
-            # 이 부분에서 g 값을 설정할 때 대각선으로 움직일 때는 대각선의 길이를 더 해줘야한다. 따라서 if 문을 통한 구성 필요.
-            # 여기서 대각선 길이를 2 ** (1/2)로 넣는 것 보다는 그냥 2로 넣는 것이 더 좋을 것 같다. --> 데이터의 크기 및 소수점 비교에서 오류가 생길 수 있다.
             if (child.position[0] != currentNode.position[0]) and (child.position[1] != currentNode.position[1]):
                 child.g = currentNode.g + 2
             else:
@@ -177,7 +180,7 @@ def aStar(maze, start, end, origin_maze):
             # 따라서 우리는 openList를 새롭게 갱신해줄 필요가 있다.
             # 갱신해주는 조건 : 같은 위치에 있는 Node를 비교하는 것. But openList에 들어가는 child는 g값이 작은 Node가 들어가야한다.
             # print(openList)
-            print("openList len:", len(openList))
+            # print("openList len:", len(openList))
             for openNode in openList:
                 if (child.position == openNode.position) and (child.g < openNode.g) and not openList:
                     openList.pop(openNode)  # 여기서 해당 openNode를 openList에서 빼기
@@ -186,46 +189,31 @@ def aStar(maze, start, end, origin_maze):
 
 
 def main():
-    origin_maze = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-                   [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-                   [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-                   [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-                   [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-                   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                   [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-                   [0, 0, 0, 0, 1, 0, 0, 1, 1, 0],
-                   [0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
-                   [0, 0, 0, 0, 0, 0, 0, 1, 1, 0]]
-    # potential_map = potential_map_generator(origin_maze)
-    # start = (0, 0)
-    # end = (len(origin_maze)-1, len(origin_maze)-1)
-    #
-    # path = aStar(potential_map, start, end, origin_maze)  # path 자체가 maze에서 a* algorithm을 통해서 구한 경로
-    #
-    # # 밑의 코드는 path 자체를 시각화하여서 표현한 것이다!. 이것을 위에 시각화 부분을 수정.
-    # for i in range(len(origin_maze)):
-    #     for j in range(len(origin_maze[i])):
-    #         print(path[i][j], end=" ")
-    #     print()
     start_time = time.time()
+    np.set_printoptions(linewidth=np.inf)
+    # origin_maze = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+    #                [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+    #                [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+    #                [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+    #                [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+    #                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    #                [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+    #                [0, 0, 0, 0, 1, 0, 0, 1, 1, 0],
+    #                [0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
+    #                [0, 0, 0, 0, 0, 0, 0, 1, 1, 0]]
     new_maze = random_maze_gen()
+    map_gen.plot_origin_map_2d(new_maze)
     potential_map = potential_map_generator(new_maze)
     print("map_gen time:", time.time() - start_time, " (s)")
-    np.set_printoptions(linewidth=np.inf)
-    print(potential_map)
-    map_gen.plot_origin_map_2d(new_maze)
     map_gen.plot_map_2d(potential_map)
-    map_gen.plot_map_3d(potential_map)
+    # map_gen.plot_map_3d(potential_map)
     start = (1, 1)
     end = (len(new_maze)-2, len(new_maze)-2)
+    
+    # path 자체가 maze에서 a* algorithm을 통해서 구한 경로
+    path, path_idx = aStar(potential_map, start, end, new_maze)
 
-    path, path_idx = aStar(potential_map, start, end, new_maze)  # path 자체가 maze에서 a* algorithm을 통해서 구한 경로
-
-    # 밑의 코드는 path 자체를 시각화하여서 표현한 것이다!. 이것을 위에 시각화 부분을 수정.
-    for i in range(len(new_maze)):
-        for j in range(len(new_maze[i])):
-            print(path[i][j], end=" ")
-        print()
+    map_gen.plot_map_console(path)
     map_gen.plot_origin_map_2d(new_maze, path_idx)
     print("end time:", time.time() - start_time, " (s)")
 

@@ -27,7 +27,8 @@ def get_index_to_goal(node, goal):
     idx = []
     if goal.position[0] - node.position[0] == goal.position[1] - node.position[1]:
         idx = np.vstack((np.arange(node.position[0], goal.position[0] + 1, 1),
-                         np.arange(node.position[0], goal.position[0] + 1, 1))).T.tolist()
+                         np.arange(node.position[0], goal.position[0] + 1, 1),
+                         np.sqrt(2) * (np.arange(node.position[0], goal.position[0] + 1, 1)))).astype(np.int64).T.tolist()
         return [idx]
     else:
         upper_idx = []
@@ -83,68 +84,32 @@ def get_index_to_goal(node, goal):
         return [upper_idx, lower_idx]
 
 
-def cal_h_value(maze, idx):
-    h = 0
-    for i in range(len(idx)):
-        h += maze[idx[i][0]][[idx[i][1]]][0]
-    return h
-
-
-import time
-
-
 def heuristic(node, goal, maze):  # Our heuristic function
-    start_time = time.time()
     h = heuristic_e(node, goal)
     idx = get_index_to_goal(node, goal)
     R = heuristic_e(node, goal)
+    beta = 10  # 가까이 있는 장애물 보정계수
     # 대각선이 존재하는 경우
     if len(idx) == 1:
+        h1 = 0
         for i in range(len(idx[0])):
-            h += maze[idx[0][i][0]][[idx[0][i][1]]][0]
-            h = h / len(idx[0]) * np.sqrt(h)        # 경로상의 node 수 보정
+            h1 += beta * (1 - ((min(idx[0][i][2], R) / (R + 1)) ** 2)) * maze[idx[0][i][0]][[idx[0][i][1]]][0]
+            h *= h1 / (len(idx[0])+0.001) * np.sqrt(h)        # 경로상의 node 수 보정
+            # print("h:", h)
     else:
-        h1 = 0; h2 = 0
-        beta = 5        # 가까이 있는 장애물 보정계수
+        h1 = 0
+        h2 = 0
         for i in range(len(idx[0])):
-            h1 += beta * (1.1 - (idx[0][i][2] / R) ** 2) * maze[idx[0][i][0]][[idx[0][i][1]]][0]
+            h1 += beta * (1 - ((min(idx[0][i][2], R) / (R + 1)) ** 2)) * maze[idx[0][i][0]][[idx[0][i][1]]][0]
         for i in range(len(idx[1])):
-            h2 += beta * (1.1 - (idx[1][i][2] / R) ** 2) * maze[idx[1][i][0]][[idx[1][i][1]]][0]
+            h2 += beta * (1 - ((min(idx[1][i][2], R) / (R + 1)) ** 2)) * maze[idx[1][i][0]][[idx[1][i][1]]][0]
         if len(idx[0]) != 0 and len(idx[1]) != 0:
             h1 = (h1 / len(idx[0])) * np.sqrt(h)        # 경로상의 node 수 보정
             h2 = (h2 / len(idx[1])) * np.sqrt(h)        # 경로상의 node 수 보정
-        h += min(h1, h2)
+            # print("h1:", h1, "\nh2:", h2)
+        h *= min(h1, h2)
     if type(h) is not int:
         h = int(h.astype(np.int64))
     if h <= 0:
         h = 0
-    print("heuristic time:", time.time() - start_time, " (s)")
     return h
-
-
-# def heuristic(node, goal, maze):  # Our heuristic function
-#     h = heuristic_e(node, goal)
-#     idx = get_index_to_goal(node, goal)
-#     # 대각선이 존재하는 경우
-#     if len(idx) == 1:
-#         for i in range(len(idx[0])):
-#             h += maze[idx[0][i][0]][[idx[0][i][1]]][0]
-#             h = h / len(idx[0]) * np.sqrt(h)        # 경로상의 node 수 보정
-#     else:
-#         h1 = 0; h2 = 0
-#         # pool = Pool(processes=2)
-#         # h1 = pool.map(cal_h_value, [[maze, idx[0]], [maze, idx[1]]])
-#         # pool.close()
-#         # pool.join()
-#         with Pool(processes=2) as pool:
-#             h1 = pool.apply(cal_h_value, [maze, idx[0]])
-#             h2 = pool.apply(cal_h_value, [maze, idx[1]])
-#         if len(idx[0]) != 0 and len(idx[1]) != 0:
-#             h1 = (h1 / len(idx[0])) * np.sqrt(h)        # 경로상의 node 수 보정
-#             h2 = (h2 / len(idx[1])) * np.sqrt(h)        # 경로상의 node 수 보정
-#         h += min(h1, h2)
-#     if type(h) is not int:
-#         h = int(h.astype(np.int64))
-#     if h <= 0:
-#         h = 0
-#     return h
