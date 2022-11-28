@@ -25,9 +25,9 @@ def potential_map_generator(maze):
                             potential_map[k][m] += (1 / (outer_r - inner_r)) * \
                                                    ((inner_r * outer_r * (alpha - 1)) / r + outer_r - inner_r * alpha)
             elif maze[i][j] == 3:
-                outer_r = 5  # 장애물을 고려해야하는 최대 거리
+                outer_r = 3  # 장애물을 고려해야하는 최대 거리
                 inner_r = 1  # 충돌방지 최소 거리
-                alpha = 2       # wall
+                alpha = 0.1       # wall
                 for k in range(i - outer_r, i + outer_r + 1):
                     for m in range(j - outer_r, j + outer_r + 1):
                         r = (k - i) ** 2 + (m - j) ** 2
@@ -45,20 +45,22 @@ def potential_map_generator(maze):
 
 
 def random_maze_gen():
-    # map_size = np.random.randint(30, 50)
-    map_size = 100
-    new_map = np.zeros((map_size, map_size), dtype=np.int64)
-    for i in range(map_size):
-        for j in range(map_size):
+    map_size1 = np.random.randint(30, 50)
+    map_size2 = np.random.randint(30, 50)
+    # map_size = 100
+    new_map = np.zeros((map_size1, map_size2), dtype=np.int64)
+    for i in range(map_size1):
+        for j in range(map_size2):
             new_map[i, j] = np.random.randint(0, 500) / 495
     # 외부 벽 생성
-    for i in range(map_size):
+    for i in range(map_size1):
         new_map[i, 0] = 3
+        new_map[i, map_size2 - 1] = 3
+    for i in range(map_size2):
         new_map[0, i] = 3
-        new_map[i, map_size - 1] = 3
-        new_map[map_size - 1, i] = 3
+        new_map[map_size1 - 1, i] = 3
     new_map[1:3, 1:3] = 0
-    new_map[map_size - 2:map_size - 4, map_size - 2:map_size - 4] = 0
+    new_map[map_size1 - 2:map_size1 - 4, map_size2 - 2:map_size2 - 4] = 0
     # new_map[0:2, 0:2] = 0
     # new_map[map_size - 1:map_size - 3, map_size - 1:map_size - 3] = 0
     return new_map.tolist()
@@ -78,4 +80,26 @@ def test_maze_gen():
             [3, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 3],
             [3, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 3],
             [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]
+    maze = [[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 3],
+            [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 3],
+            [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]
     return maze

@@ -1,5 +1,5 @@
 from node import Node
-from heuristic_func import heuristic, heuristic_e
+from heuristic_func import *
 
 
 """
@@ -110,7 +110,7 @@ def aStar(maze, start, end, origin_maze):
             else:
                 child.g = currentNode.g + 1
 
-            child.h = heuristic(child, endNode, maze)
+            child.h = heuristic(child, endNode, origin_maze, maze)
             # child.h = heuristic_e(child, endNode)
 
             child.f = child.g + child.h

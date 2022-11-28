@@ -16,15 +16,15 @@
 import numpy as np
 import time
 from a_star import aStar
-from map_gen import potential_map_generator, random_maze_gen, test_maze_gen
-from plot_map_func import plot_map_console, plot_map_2d, plot_map_3d, plot_origin_map_2d
+from map_gen import *
+from plot_map_func import *
 
 
 def main():
     start_time = time.time()
     np.set_printoptions(linewidth=np.inf)
 
-    new_maze = test_maze_gen()
+    new_maze = random_maze_gen()
     # plot_origin_map_2d(new_maze)
     potential_map = potential_map_generator(new_maze)
     print("map_gen time:", time.time() - start_time, " (s)")
