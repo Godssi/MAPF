@@ -16,37 +16,30 @@
 import numpy as np
 import time
 from a_star import aStar
-from map_gen import potential_map_generator, random_maze_gen
-from plot_map_func import plot_map_console, plot_map_2d, plot_map_3d, plot_origin_map_2d
+from map_gen import *
+from plot_map_func import *
 
 
 def main():
     start_time = time.time()
     np.set_printoptions(linewidth=np.inf)
-    # origin_maze = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    #                [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    #                [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    #                [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    #                [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    #                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    #                [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    #                [0, 0, 0, 0, 1, 0, 0, 1, 1, 0],
-    #                [0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
-    #                [0, 0, 0, 0, 0, 0, 0, 1, 1, 0]]
+
     new_maze = random_maze_gen()
     # plot_origin_map_2d(new_maze)
     potential_map = potential_map_generator(new_maze)
     print("map_gen time:", time.time() - start_time, " (s)")
-    # plot_map_2d(potential_map)
+    plot_map_2d(potential_map)
     # plot_map_console(potential_map)
-    start = (0, 0)
-    end = (len(new_maze)-1, len(new_maze)-1)
+    # start = (0, 0)
+    # end = (len(new_maze)-1, len(new_maze)-1)
+    start = (1, 1)
+    end = (len(new_maze)-2, len(new_maze[0])-2)
 
     # path 자체가 maze에서 a* algorithm을 통해서 구한 경로
     path, path_idx = aStar(potential_map, start, end, new_maze)
 
     # plot_map_console(path)
-    plot_origin_map_2d(new_maze, path_idx)
+    plot_origin_map_2d(new_maze, path_idx, start, end)
     print("end time:", time.time() - start_time, " (s)")
 
 
