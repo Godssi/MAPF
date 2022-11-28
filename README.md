@@ -28,4 +28,5 @@ Multi Agent Path Finding (MAPF)
 > &rarr; 가까이 있는 장애물이 존재하는 노드의 경우 휴리스틱값이 증가하도록 설정  
 > 2. test용 고정 map제작  
 > 3. map의 x, y값이 다른경우에도 제대로 plot이 되도록 함수 수정  
-> 4. 휴리스틱 함수의 여러 계수 보정  
+> 4. agent class 추가  
+> 5. 휴리스틱 함수의 여러 계수 보정  

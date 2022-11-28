@@ -1,6 +1,7 @@
 import numpy as np
 from matplotlib import cm
 import matplotlib.pyplot as plt
+from agent import Agent
 
 
 def plot_map_console(maze):
@@ -41,33 +42,43 @@ def plot_map_2d(maze):
     plt.show()
 
 
-def plot_origin_map_2d(maze, path=None, start_node=None, end_node=None):
+def plot_origin_map_2d(maze, agent):
     h = len(maze)
     w = len(maze[0])
+    path = agent.path
+    start_node = agent.start
+    end_node = agent.goal
+
     plt.rc('font', size=(-(1/9) * h + 21))
     fig = plt.figure(figsize=(20, 20))
-    x_idx = []
-    y_idx = []
+    fix_x_idx = []
+    fix_y_idx = []
+    mov_x_idx = []
+    mov_y_idx = []
     for i in range(h):
         for j in range(w):
             if maze[i][j] == 1:
-                x_idx.append(i)
-                y_idx.append(j)
+                fix_x_idx.append(i)
+                fix_y_idx.append(j)
+            elif maze[i][j] == 2:
+                mov_x_idx.append(i)
+                mov_y_idx.append(j)
     marker_size = 12100         # default marker size
     map_size = max(h, w)
     if map_size <= 30:
-        f = lambda x: 97/7500 * x ** 5 - 517/375 * x ** 4 + 16139/300 * x ** 3 - 13469/15 * x ** 2 + 4931 * x + 11280
+        f = lambda x: 0.0129334 * x ** 5 - 1.37867 * x ** 4 + 53.8 * x ** 3 - 897.934 * x ** 2 + 4931 * x + 11280
         marker_size = f(map_size)
     elif map_size <= 50:
-        f = lambda x: -1/100 * x ** 3 + 49/20 * x ** 2 - 371/2 * x + 4770
+        f = lambda x: -0.01 * x ** 3 + 2.45 * x ** 2 - 185.5 * x + 4770
         marker_size = f(map_size)
     elif map_size <= 70:
-        f = lambda x: -7/3000 * x ** 3 + 61/100 * x ** 2 - 853/15 * x + 1980
+        f = lambda x: -7/3000 * x ** 3 + 0.61 * x ** 2 - 56.8667 * x + 1980
         marker_size = f(map_size)
     else:
-        f = lambda x: -1/750 * x ** 3 + 41/100 * x ** 2 - 1313/30 * x + 1700
+        f = lambda x: -1/750 * x ** 3 + 0.41 * x ** 2 - 1313/30 * x + 1700
         marker_size = f(map_size)
-    plt.scatter(x_idx, y_idx, s=marker_size, marker='s')
+    plt.scatter(fix_x_idx, fix_y_idx, s=marker_size, marker='s')
+    plt.scatter(mov_x_idx, mov_y_idx, s=marker_size, marker='s')
     if start_node is None and end_node is None:
         plt.scatter(0, 0, s=marker_size, marker='s')
         plt.text(0, 0, 'Start', verticalalignment='center', horizontalalignment='center')

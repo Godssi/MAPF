@@ -43,11 +43,6 @@ def aStar(maze, start, end, origin_maze):
         # 그러니까 최적화를 위해서 openList에 포함된 모든 Node에 대해서 주위 Node에 대한 경로찾기 실행 x, 가장 작은 f 값을 가지고 있는 Node에 대해서만 경로찾기 실행
 
         openList = sorted(openList, key=lambda s: s.f)
-        # print("openList: ", end=' ')
-        # for i in range(len(openList)):
-        #     if i < 15:
-        #         print(openList[i].f, end=' ')
-        # print()
         currentNode = openList[0]
         # currentidx = 0            # idx는 정렬을 통해 고정
 
@@ -63,13 +58,11 @@ def aStar(maze, start, end, origin_maze):
             path_index = []
             while current is not None:
                 x, y = current.position
-                origin_maze[x][y] = '*'      # 역추적 과정에서 maze 자체에서 currentNode에 해당하는 좌표에 있는 maze에 *로 경로를 표시
                 current = current.parent
                 path_index.append([x, y])
-            return origin_maze, path_index
+            return path_index
 
         # newPosition : currentNode 와 인접해 있는 Node의 x,y
-
         children = []
         for newPosition in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
             # 노드 위치 업데이트
@@ -91,7 +84,9 @@ def aStar(maze, start, end, origin_maze):
                 continue
 
             # 장애물이 있으면 다른 위치 불러오기
-            if origin_maze[nodePostion[0]][nodePostion[1]] == 1 or origin_maze[nodePostion[0]][nodePostion[1]] == 3:
+            if origin_maze[nodePostion[0]][nodePostion[1]] == 1 or \
+                    origin_maze[nodePostion[0]][nodePostion[1]] == 2 or \
+                    origin_maze[nodePostion[0]][nodePostion[1]] == 3:
                 continue
 
             new_node = Node(currentNode, nodePostion)  # 부모가 currentNode, position이 nodePosition임
@@ -105,10 +100,7 @@ def aStar(maze, start, end, origin_maze):
                 continue
 
             # f, g, h 값 업데이트
-            if (child.position[0] != currentNode.position[0]) and (child.position[1] != currentNode.position[1]):
-                child.g = currentNode.g + 2
-            else:
-                child.g = currentNode.g + 1
+            child.g = currentNode.g + 1
 
             child.h = heuristic(child, endNode, origin_maze, maze)
             # child.h = heuristic_e(child, endNode)

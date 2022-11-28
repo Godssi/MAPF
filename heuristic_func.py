@@ -106,6 +106,8 @@ def heuristic_around_obstacle(node, goal, origin_maze, potential_map):
     for i in range(len(idx)):
         if origin_maze[idx[i][0]][idx[i][1]] == 1:
             h1 += 1.5 * potential_map[idx[i][0]][idx[i][1]]
+        elif origin_maze[idx[i][0]][idx[i][1]] == 2:
+            h1 += 4 * potential_map[idx[i][0]][idx[i][1]]
         elif origin_maze[idx[i][0]][idx[i][1]] == 3:
             h1 += potential_map[idx[i][0]][idx[i][1]]
     if len(idx) != 0:
