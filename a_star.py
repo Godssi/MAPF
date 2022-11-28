@@ -71,7 +71,7 @@ def aStar(maze, start, end, origin_maze):
         # newPosition : currentNode 와 인접해 있는 Node의 x,y
 
         children = []
-        for newPosition in [(0, -1), (0, 1), (1, 0), (-1, 0)]:
+        for newPosition in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
             # 노드 위치 업데이트
             nodePostion = (
                 currentNode.position[0] + newPosition[0],
@@ -91,7 +91,7 @@ def aStar(maze, start, end, origin_maze):
                 continue
 
             # 장애물이 있으면 다른 위치 불러오기
-            if origin_maze[nodePostion[0]][nodePostion[1]] == 1:
+            if origin_maze[nodePostion[0]][nodePostion[1]] == 1 or origin_maze[nodePostion[0]][nodePostion[1]] == 3:
                 continue
 
             new_node = Node(currentNode, nodePostion)  # 부모가 currentNode, position이 nodePosition임

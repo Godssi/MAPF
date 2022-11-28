@@ -88,16 +88,18 @@ def heuristic(node, goal, maze):  # Our heuristic function
     h = heuristic_e(node, goal)
     idx = get_index_to_goal(node, goal)
     R = heuristic_e(node, goal)
-    beta = 100  # 가까이 있는 장애물 보정계수
+    beta = 7  # 가까이 있는 장애물 보정계수
     # 대각선이 존재하는 경우
     if len(idx) == 1:
-        h1 = 0
+        h1 = 1
         for i in range(len(idx[0])):
             h1 += beta * (1 - ((min(idx[0][i][2], R) / (R + 1)) ** 3)) * maze[idx[0][i][0]][[idx[0][i][1]]][0]
+        if len(idx[0]) == 0:
+            return 1
         h *= h1 / len(idx[0]) * np.sqrt(R)        # 경로상의 node 수 보정
     else:
-        h1 = 0
-        h2 = 0
+        h1 = 1
+        h2 = 1
         for i in range(len(idx[0])):
             h1 += beta * (1 - ((min(idx[0][i][2], R) / (R + 1)) ** 3)) * maze[idx[0][i][0]][[idx[0][i][1]]][0]
         for i in range(len(idx[1])):
@@ -110,5 +112,6 @@ def heuristic(node, goal, maze):  # Our heuristic function
     if type(h) is not int:
         h = int(h.astype(np.int64))
     if h <= 0:
-        h = 0
+        h = 1
+    print("h:", h)
     return h
