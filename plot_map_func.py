@@ -77,8 +77,11 @@ def plot_origin_map_2d(maze, agent):
     else:
         f = lambda x: -1/750 * x ** 3 + 0.41 * x ** 2 - 1313/30 * x + 1700
         marker_size = f(map_size)
+
     plt.scatter(fix_x_idx, fix_y_idx, s=marker_size, marker='s')
     plt.scatter(mov_x_idx, mov_y_idx, s=marker_size, marker='s')
+    plt.scatter(agent.current[0], agent.current[1], s=marker_size, marker='s')
+    plt.text(agent.current[0], agent.current[1], f'{agent.name}', verticalalignment='center', horizontalalignment='center')
     if start_node is None and end_node is None:
         plt.scatter(0, 0, s=marker_size, marker='s')
         plt.text(0, 0, 'Start', verticalalignment='center', horizontalalignment='center')
@@ -94,5 +97,6 @@ def plot_origin_map_2d(maze, agent):
         x = np.array(path).T[0]
         y = np.array(path).T[1]
         plt.plot(x, y, 'r', linewidth=(-(1/9) * h + 14))
+
     plt.axis([-1, h + 1, -1, w + 1])
     plt.show()
