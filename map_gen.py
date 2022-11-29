@@ -52,7 +52,7 @@ def modify_potential_map(maze, potential_map):
             if maze[i][j] == 2:
                 outer_r = 7  # 장애물을 고려해야하는 최대 거리
                 inner_r = 2  # 충돌방지 최소 거리
-                alpha = 30  # 사람의 위험도 가중치 계수
+                alpha = 28  # 사람의 위험도 가중치 계수
                 for k in range(i - outer_r, i + outer_r + 1):
                     for m in range(j - outer_r, j + outer_r + 1):
                         r = (k - i) ** 2 + (m - j) ** 2

@@ -21,8 +21,6 @@ class Agent:
 
     def move_path(self):
         if len(self.path) != 2:
-            print(len(self.path))
-            print(self.current)
             self.current = self.path[-2]
             return True
         return False
