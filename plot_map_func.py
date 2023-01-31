@@ -42,7 +42,7 @@ def plot_map_2d(maze):
     plt.show()
 
 
-def plot_origin_map_2d(maze, agent):
+def plot_origin_map_2d(maze, agent, id):
     h = len(maze)
     w = len(maze[0])
     path = agent.path
@@ -96,15 +96,17 @@ def plot_origin_map_2d(maze, agent):
     if path is not None:
         x = np.array(path).T[0]
         y = np.array(path).T[1]
-        plt.plot(x, y, 'r', linewidth=(-(1/9) * h + 14))
+        plt.plot(x, y, 'r', linewidth=(-(1/9) * h + 13))
 
+    plt.title("A* algorithm")
     plt.axis([-1, h + 1, -1, w + 1])
     plt.show(block=False)
+    plt.savefig(f"{id}test-image", dpi=200)
     plt.pause(1)
     plt.close()
 
 
-def plot_origin_map_2d_small(maze, agent):
+def plot_origin_map_2d_small(maze, agent, id):
     h = len(maze)
     w = len(maze[0])
     path = agent.path
@@ -162,5 +164,6 @@ def plot_origin_map_2d_small(maze, agent):
 
     plt.axis([-1, h + 1, -1, w + 1])
     plt.show(block=False)
+    plt.savefig(f"{id}test-image", dpi=200)
     plt.pause(0.3)
     plt.close()

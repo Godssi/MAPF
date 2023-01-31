@@ -12,26 +12,36 @@ def main():
     start_time = check_time = time.time()
     np.set_printoptions(linewidth=np.inf)
 
-    new_maze = test_maze_gen_2()
+    new_maze = test_maze_gen_1()
     potential_map = potential_map_generator(new_maze)
     print("map_gen time:", time.time() - start_time, " (s)")
     Agent_A = Agent((1, 1), [1, 1], (len(new_maze)-2, len(new_maze[0])-2), "A")
+
+    Obstacle_B = Obstacle([12, 12], "B")
+    Obstacle_C = Obstacle([17, 4], "C")
+    # Obstacle_D = Obstacle([2, 16], "D")
+
+    new_maze = Obstacle_B.random_moving(new_maze)
+    new_maze = Obstacle_C.random_moving(new_maze)
+    # new_maze = Obstacle_D.random_moving(new_maze)
+    potential_map2 = modify_potential_map(new_maze, potential_map)
+
     Agent_A.set_astar_path(new_maze, potential_map, 'init')
-    plot_origin_map_2d_small(new_maze, Agent_A)
+    plot_origin_map_2d(new_maze, Agent_A, 0)
     print(f"{1}-step time:", time.time() - check_time, " (s)")
 
-    Obstacle_B = Obstacle([6, 12], "B")
-    Obstacle_C = Obstacle([11, 7], "C")
-    Obstacle_D = Obstacle([2, 16], "D")
+    # Obstacle_B = Obstacle([6, 17], "B")
+    # Obstacle_C = Obstacle([11, 5], "C")
+    # Obstacle_D = Obstacle([2, 16], "D")
     flag = True
     i = 0
     while flag:
         new_maze = Obstacle_B.random_moving(new_maze)
         new_maze = Obstacle_C.random_moving(new_maze)
-        new_maze = Obstacle_D.random_moving(new_maze)
+        # new_maze = Obstacle_D.random_moving(new_maze)
         potential_map2 = modify_potential_map(new_maze, potential_map)
         Agent_A.set_astar_path(new_maze, potential_map2, 'renew')
-        plot_origin_map_2d_small(new_maze, Agent_A)
+        plot_origin_map_2d(new_maze, Agent_A, i)
         flag = Agent_A.move_path()
         i = i + 1
         print(f"{i + 1}-step time:", time.time() - check_time, " (s)")

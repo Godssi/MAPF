@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8a7e78f1-8002-4d20-b653-6757d3d4f0a3" name="변경" comment="commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map_gen.py" beforeDir="false" afterPath="$PROJECT_DIR$/map_gen.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/moving_obstacle.py" beforeDir="false" afterPath="$PROJECT_DIR$/moving_obstacle.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_map_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_map_func.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,6 +136,7 @@
       <workItem from="1669701172463" duration="807000" />
       <workItem from="1669702017652" duration="739000" />
       <workItem from="1669702777286" duration="1628000" />
+      <workItem from="1669722950481" duration="1195000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1669099545486</created>
