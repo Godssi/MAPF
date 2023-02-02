@@ -1,6 +1,0 @@
-﻿  Assigner.cpp
-  Constraints.cpp
-  planner.cpp
-  코드를 생성하고 있습니다...
-main.obj : error LNK2005: main이(가) Constraints.obj에 이미 정의되어 있습니다.
-C:\Users\pjh15\OneDrive\문서\카카오톡 받은 파일\MapfCPP (1)\x64\Debug\MapfCPP.exe : fatal error LNK1169: 여러 번 정의된 기호가 있습니다.
