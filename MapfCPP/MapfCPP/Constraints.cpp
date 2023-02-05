@@ -1,6 +1,7 @@
 #include "Constraints.h"
 
-Constraints Constraints::fork(Agent agent, p obstacle, int start, int end)
+Constraints Constraints::fork(Agent agent, p obstacle, int start, int end) 
+// 충돌이 발생하면 두 개의 에이전트 중 하나의 에이전트의 경로를 바꾼다.
 {
     map<Agent, map<int, set<p>>> agent_constraints_copy = agent_constraints;
     for (int time = start; time < end; time++) {

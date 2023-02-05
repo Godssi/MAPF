@@ -15,9 +15,10 @@ class Constraints
 public:
     Constraints() {}
 
-    map<Agent, map<int, set<p>>> agent_constraints;
+    map<Agent, map<int, set<p>>> agent_constraints; // 에이전트별 시간에 따른 못가는 좌표
 
     Constraints fork(Agent agent, p obstacle, int start, int end);
+    // start시간부터 end시간까지 해당 agent는 obstacle 좌표에 갈 수 없다.
     map<int, set<p>>& operator[](Agent agent);
 
     auto begin();
