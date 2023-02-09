@@ -1,5 +1,6 @@
 #include "Constraints.h"
 
+// 단순하게 충돌이 일어나는 시간과 constriant의 위치를 deep copy 하는 코드
 Constraints Constraints::fork(Agent agent, p obstacle, int start, int end)
 {
     map<Agent, map<int, set<p>>> agent_constraints_copy = agent_constraints;
@@ -11,21 +12,34 @@ Constraints Constraints::fork(Agent agent, p obstacle, int start, int end)
     return new_constraints;
 }
 
-map<int, set<p>>& Constraints::operator[](Agent agent)
+// Agent 별롤 충돌이 일어나는 시간과 충돌이 일어나는 위치를 넣어주는 것
+std::map<int, std::set<p>> Constraints::setdefault(Agent agent, map<int, set<p>> constraint)
 {
-    return agent_constraints[agent];
+    if (agent_constraints.find(agent) != agent_constraints.end())
+        return agent_constraints[agent];
+    else
+    {
+        agent_constraints.insert({ agent, constraint });
+        return agent_constraints[agent];
+    }
 }
 
-auto Constraints::begin()
+// agent별로의 시간에 따른 constraint를 반환
+map<int, set<p>> Constraints::getitem(Agent agent)
 {
-    return this->agent_constraints.begin();
+    return this->agent_constraints[agent];
 }
 
-auto Constraints::end()
+// 전체 constriant에 저장되어있는 Agent들을 반환
+std::vector<Agent> Constraints::iter()
 {
-    return this->agent_constraints.end();
+    std::vector<Agent> agent_list;
+    for ( auto constraint : agent_constraints)
+        agent_list.push_back(constraint.first);
+    return agent_list;
 }
 
+// 단순하게 agent_constraint를 string형으로 반환하는 코드
 std::ostream& operator<< (std::ostream& os, const Constraints& Constraints) // unordered_map<Agent, map<int, set<pair<int, int>>>> agent_constraints_copy = agent_constraints; // {a:{2:{(3,3)}}}
 {
     for (auto iter = Constraints.agent_constraints.begin(); iter != Constraints.agent_constraints.end(); iter++)
@@ -35,17 +49,3 @@ std::ostream& operator<< (std::ostream& os, const Constraints& Constraints) // u
     return os;
 }
 
-int main()
-{
-    Agent a({ 1,5 }, { 3,2 }, "a");
-    Agent b({ 1,5 }, { 3,2 }, "b");
-    std::vector<std::pair<int, int>> solution1 = { {3,3},{2,3},{3,2} };
-    std::vector<std::pair<int, int>> solution2 = { {1,5},{2,3},{4,1} };
-    map<Agent, std::vector<pair<int, int>>> sol1;
-    std::pair<int, int> obs = { 1,2 };
-    sol1[a] = solution1;
-    sol1[b] = solution2;
-    Constraints con;
-    con.fork(a, obs, 1, 4);
-    std::cout << con; 
-}

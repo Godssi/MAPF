@@ -14,14 +14,11 @@ class Constraints
 {
 public:
     Constraints() {}
-
     map<Agent, map<int, set<p>>> agent_constraints;
-
     Constraints fork(Agent agent, p obstacle, int start, int end);
-    map<int, set<p>>& operator[](Agent agent);
-
-    auto begin();
-    auto end();
+    map<int, set<p>> setdefault(Agent agent, map<int, set<p>> constraint);
+    map<int, set<p>> getitem(Agent);
+    std::vector<Agent> iter();
     friend std::ostream& operator<< (std::ostream& os, const Constraints& Constraints);
 }; 
 
