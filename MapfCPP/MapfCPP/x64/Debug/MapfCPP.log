@@ -1,6 +1,282 @@
-﻿  Assigner.cpp
+﻿  Agent.cpp
+  Assigner.cpp
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\Assigner.cpp(7,9): error C2561: 'min_cost': 함수는 값을 반환해야 합니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\Assigner.cpp(3): message : 'min_cost' 선언을 참조하십시오.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\Assigner.cpp(28,49): error C2065: 'col_ind': 선언되지 않은 식별자입니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\Assigner.cpp(28,60): error C2440: '<function-style-cast>': '_Ty'에서 'Agent'(으)로 변환할 수 없습니다.
+          with
+          [
+              _Ty=p
+          ]
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\Assigner.cpp(28,60): message : 소스 형식을 가져올 수 있는 생성자가 없거나 생성자 오버로드 확인이 모호합니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\Assigner.cpp(36,9): error C2561: 'greedy_assign': 함수는 값을 반환해야 합니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\Assigner.cpp(33): message : 'greedy_assign' 선언을 참조하십시오.
   Constraints.cpp
+  CTNode.cpp
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\CTNode.cpp(3,13): error C2511: 'int CTNode::sic(std::map<Agent,std::vector<int,std::pair<int,int>>,std::less<Agent>,std::allocator<std::pair<const Agent,std::vector<int,std::pair<int,int>>>>>)': 오버로드된 멤버 함수가 'CTNode'에 없습니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\CTNode.h(6): message : 'CTNode' 선언을 참조하십시오.
+  Hungarian.cpp
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\Hungarian.cpp(27,40): warning C4267: '초기화 중': 'size_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\Hungarian.cpp(28,43): warning C4267: '초기화 중': 'size_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  main.cpp
   planner.cpp
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\planner.cpp(50,54): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\planner.cpp(66,24): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\planner.cpp(69,24): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\planner.cpp(74,6): error C2664: 'int Planner::dist(std::vector<std::vector<int,std::allocator<int>>,std::allocator<std::vector<int,std::allocator<int>>>>,std::vector<std::vector<int,std::allocator<int>>,std::allocator<std::vector<int,std::allocator<int>>>>)': 인수 1을(를) '_Ty'에서 'std::vector<std::vector<int,std::allocator<int>>,std::allocator<std::vector<int,std::allocator<int>>>>'(으)로 변환할 수 없습니다.
+          with
+          [
+              _Ty=std::vector<int,std::allocator<int>>
+          ]
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\planner.cpp(74,30): message : 이 변환을 수행할 수 있는 사용 가능한 사용자 정의 변환 연산자가 없거나 연산자를 호출할 수 없습니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\planner.h(36,13): message : 'Planner::dist' 선언을 참조하십시오.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\planner.cpp(84,9): warning C4244: 'return': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(526,45): error C2039: 'value_type': 'std::pair<int,int>'의 멤버가 아닙니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\Agent.h(16): message : 'std::pair<int,int>' 선언을 참조하십시오.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(706): message : 컴파일되는 클래스 템플릿 인스턴스화 'std::_Normal_allocator_traits<_Alloc>'에 대한 참조를 확인하세요.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(502): message : 컴파일되는 클래스 템플릿 인스턴스화 'std::allocator_traits<_Alloc>'에 대한 참조를 확인하세요.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(502): message : 컴파일되는 별칭 템플릿 인스턴스화 'std::_Rebind_alloc_t<_Alloc,_Ty>'에 대한 참조를 확인하세요.
+          with
+          [
+              _Alloc=std::pair<int,int>,
+              _Ty=int
+          ]
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\planner.cpp(109): message : 컴파일되는 클래스 템플릿 인스턴스화 'std::vector<int,std::pair<int,int>>'에 대한 참조를 확인하세요.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(526,1): error C2061: 구문 오류: 식별자 'value_type'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(334,32): error C2039: 'value_type': 'std::pair<int,int>'의 멤버가 아닙니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\Agent.h(16): message : 'std::pair<int,int>' 선언을 참조하십시오.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(528): message : 컴파일되는 클래스 템플릿 인스턴스화 'std::_Get_pointer_type<_Alloc,void>'에 대한 참조를 확인하세요.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(334,1): error C2061: 구문 오류: 식별자 'value_type'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(528,68): error C2039: 'type': 'std::_Get_pointer_type<_Alloc,void>'의 멤버가 아닙니다.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(528): message : 'std::_Get_pointer_type<_Alloc,void>' 선언을 참조하십시오.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(528,1): error C2061: 구문 오류: 식별자 'type'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(346,53): error C2039: 'type': 'std::_Get_pointer_type<_Alloc,void>'의 멤버가 아닙니다.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(528): message : 'std::_Get_pointer_type<_Alloc,void>' 선언을 참조하십시오.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(529): message : 컴파일되는 클래스 템플릿 인스턴스화 'std::_Get_const_pointer_type<_Alloc,void>'에 대한 참조를 확인하세요.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(346,1): error C2061: 구문 오류: 식별자 'type'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(347,34): error C2039: 'value_type': 'std::pair<int,int>'의 멤버가 아닙니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\Agent.h(16): message : 'std::pair<int,int>' 선언을 참조하십시오.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(347,1): error C2061: 구문 오류: 식별자 'value_type'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(348,44): error C2065: '_Ptrty': 선언되지 않은 식별자입니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(348,29): error C2923: 'std::pointer_traits': '_Ptrty'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(348): message : '_Ptrty' 선언을 참조하십시오.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(348,1): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(348,75): error C2146: 구문 오류: '>'이(가) '_Valty' 식별자 앞에 없습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(360,53): error C2039: 'type': 'std::_Get_pointer_type<_Alloc,void>'의 멤버가 아닙니다.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(528): message : 'std::_Get_pointer_type<_Alloc,void>' 선언을 참조하십시오.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(530): message : 컴파일되는 클래스 템플릿 인스턴스화 'std::_Get_void_pointer_type<_Alloc,void>'에 대한 참조를 확인하세요.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(360,1): error C2061: 구문 오류: 식별자 'type'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(361,44): error C2065: '_Ptrty': 선언되지 않은 식별자입니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(361,29): error C2923: 'std::pointer_traits': '_Ptrty'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(361): message : '_Ptrty' 선언을 참조하십시오.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(371,53): error C2039: 'type': 'std::_Get_pointer_type<_Alloc,void>'의 멤버가 아닙니다.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(528): message : 'std::_Get_pointer_type<_Alloc,void>' 선언을 참조하십시오.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(531): message : 컴파일되는 클래스 템플릿 인스턴스화 'std::_Get_const_void_pointer_type<_Alloc,void>'에 대한 참조를 확인하세요.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(371,1): error C2061: 구문 오류: 식별자 'type'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(372,44): error C2065: '_Ptrty': 선언되지 않은 식별자입니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(372,29): error C2923: 'std::pointer_traits': '_Ptrty'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(372): message : '_Ptrty' 선언을 참조하십시오.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(382,53): error C2039: 'type': 'std::_Get_pointer_type<_Alloc,void>'의 멤버가 아닙니다.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(528): message : 'std::_Get_pointer_type<_Alloc,void>' 선언을 참조하십시오.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(393): message : 컴파일되는 클래스 템플릿 인스턴스화 'std::_Get_difference_type<_Ty,void>'에 대한 참조를 확인하세요.
+          with
+          [
+              _Ty=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(533): message : 컴파일되는 클래스 템플릿 인스턴스화 'std::_Get_size_type<_Alloc,void>'에 대한 참조를 확인하세요.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(382,1): error C2061: 구문 오류: 식별자 'type'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(383,44): error C2065: '_Ptrty': 선언되지 않은 식별자입니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(383,29): error C2923: 'std::pointer_traits': '_Ptrty'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(383): message : '_Ptrty' 선언을 참조하십시오.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(383,53): error C2955: 'std::pointer_traits': 클래스 템플릿을(를) 사용하려면 템플릿 인수 목록이 필요합니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xutility(248): message : 'std::pointer_traits' 선언을 참조하십시오.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(548,9): error C3646: 'allocate': 알 수 없는 재정의 지정자입니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(548,26): error C2065: '_Al': 선언되지 않은 식별자입니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(548,18): error C2275: '_Alloc': 형식 대신 식이 필요합니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(548,31): error C2226: 구문 오류: 예기치 않은 형식 'std::_Normal_allocator_traits<_Alloc>::size_type'입니다.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(548,1): error C2334: '{' 앞에 예기치 않은 토큰이 있습니다. 명백한 함수 본문을 건너뜁니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(553,9): error C3646: 'allocate': 알 수 없는 재정의 지정자입니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(553,26): error C2065: '_Al': 선언되지 않은 식별자입니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(553,18): error C2275: '_Alloc': 형식 대신 식이 필요합니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(553,31): error C2226: 구문 오류: 예기치 않은 형식 'std::_Normal_allocator_traits<_Alloc>::size_type'입니다.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(553,1): error C2334: '{' 앞에 예기치 않은 토큰이 있습니다. 명백한 함수 본문을 건너뜁니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(561,54): error C2061: 구문 오류: 식별자 'pointer'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(506,84): error C2039: 'value_type': 'std::pair<int,int>'의 멤버가 아닙니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\Agent.h(16): message : 'std::pair<int,int>' 선언을 참조하십시오.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(506,1): error C2146: 구문 오류: '>'이(가) 'value_type' 식별자 앞에 없습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(506): error C2062: 예기치 않은 'unknown-type' 형식입니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(507,1): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(511,52): error C2039: 'pointer': 'std::allocator_traits<_Alloc>'의 멤버가 아닙니다.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(729): message : 'std::allocator_traits<_Alloc>' 선언을 참조하십시오.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(511,1): error C2061: 구문 오류: 식별자 'pointer'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(741,54): error C2039: 'pointer': 'std::allocator_traits<_Alloc>'의 멤버가 아닙니다.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(729): message : 'std::allocator_traits<_Alloc>' 선언을 참조하십시오.
+          with
+          [
+              _Alloc=std::pair<int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(666): message : 컴파일되는 변수 템플릿 'const bool _Is_simple_alloc_v<std::pair<int,int> >'에 대한 참조를 확인하세요.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(741,1): error C2146: 구문 오류: '>'이(가) 'pointer' 식별자 앞에 없습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(741,80): error C2039: 'value_type': 'std::pair<int,int>'의 멤버가 아닙니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\Agent.h(16): message : 'std::pair<int,int>' 선언을 참조하십시오.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(741): error C2062: 예기치 않은 'unknown-type' 형식입니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(742,96): error C2039: 'value_type': 'std::pair<int,int>'의 멤버가 아닙니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\Agent.h(16): message : 'std::pair<int,int>' 선언을 참조하십시오.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(742,1): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(742,1): error C2146: 구문 오류: '>'이(가) 'value_type' 식별자 앞에 없습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(742,1): error C3376: 'std::_Is_simple_alloc_v': 정적 데이터 멤버 템플릿만 허용됩니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(667,58): error C2065: 'pointer': 선언되지 않은 식별자입니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(667,9): error C2923: 'std::_Vec_iter_types': 'pointer'은(는) '_Pointer' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(667): message : 'pointer' 선언을 참조하십시오.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(667,88): error C2993: 'unknown-type': 비형식 템플릿 매개 변수 '_Test'의 유효한 형식이 아닙니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(670,53): error C3203: '_Vector_val': 특수화되지 않은 클래스 템플릿은(는) 템플릿 매개 변수 '_Myvec'에 대한 템플릿 인수로 사용할 수 없습니다. 실제 형식이 필요합니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(671,59): error C3203: '_Vector_val': 특수화되지 않은 클래스 템플릿은(는) 템플릿 매개 변수 '_Myvec'에 대한 템플릿 인수로 사용할 수 없습니다. 실제 형식이 필요합니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(852,18): error C7525: 인라인 변수에는 '/std:c++17' 이상이 필요합니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(852,5): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(852,26): error C2061: 구문 오류: 식별자 '_Emplace_reallocate'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(852,1): error C2334: '{' 앞에 예기치 않은 토큰이 있습니다. 명백한 함수 본문을 건너뜁니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1708,37): error C3646: '_Unchecked_begin': 알 수 없는 재정의 지정자입니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1708,54): error C2059: 구문 오류: ')'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1708,1): error C2334: '{' 앞에 예기치 않은 토큰이 있습니다. 명백한 함수 본문을 건너뜁니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1716,37): error C3646: '_Unchecked_end': 알 수 없는 재정의 지정자입니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1716,52): error C2059: 구문 오류: ')'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1716,1): error C2334: '{' 앞에 예기치 않은 토큰이 있습니다. 명백한 함수 본문을 건너뜁니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1875,1): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1875,51): error C2146: 구문 오류: ')'이(가) '_Newvec' 식별자 앞에 없습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1875,51): error C3646: '_Newvec': 알 수 없는 재정의 지정자입니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1875,76): error C3646: '_Newsize': 알 수 없는 재정의 지정자입니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1875,66): error C2182: 'size_type': 이 'void' 사용은 유효하지 않습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1875,66): error C7524: 'inline' 지정자는 블록 범위 선언이나 비정적 데이터 멤버에 나타날 수 없습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1875,1): error C2377: 'std::vector<int,std::pair<int,int>>::size_type': 재정의. 다른 기호를 사용하여 형식 정의를 오버로드할 수 없습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(515): message : 'std::vector<int,std::pair<int,int>>::size_type' 선언을 참조하십시오.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1875,1): warning C4228: 비표준 확장이 사용됨: 선언자 목록에서 쉼표 뒤의 한정자가 무시됩니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1875,102): error C3646: '_Newcapacity': 알 수 없는 재정의 지정자입니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1875,1): error C2059: 구문 오류: ')'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1875,92): error C2182: 'size_type': 이 'void' 사용은 유효하지 않습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1875,92): error C7524: 'inline' 지정자는 블록 범위 선언이나 비정적 데이터 멤버에 나타날 수 없습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(1875,92): error C2086: 'int std::vector<int,std::pair<int,int>>::size_type': 재정의
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(2061,29): warning C4228: 비표준 확장이 사용됨: 선언자 목록에서 쉼표 뒤의 한정자가 무시됩니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\planner.cpp(109,87): error C2440: '초기화 중': 'std::vector<p,std::allocator<p>>'에서 'std::vector<int,std::pair<int,int>>'(으)로 변환할 수 없습니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\planner.cpp(109,52): message : 이 변환을 수행할 수 있는 사용 가능한 사용자 정의 변환 연산자가 없거나 연산자를 호출할 수 없습니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\planner.cpp(110,82): error C2440: '초기화 중': 'std::vector<p,std::allocator<p>>'에서 'std::vector<int,std::pair<int,int>>'(으)로 변환할 수 없습니다.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\planner.cpp(110,50): message : 이 변환을 수행할 수 있는 사용 가능한 사용자 정의 변환 연산자가 없거나 연산자를 호출할 수 없습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(32,40): error C2825: '_Myvec': '::'가 뒤에 나오면 클래스 또는 네임스페이스여야 합니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(246): message : 컴파일되는 클래스 템플릿 인스턴스화 'std::_Vector_const_iterator<int>'에 대한 참조를 확인하세요.
+C:\Users\jihoj\Desktop\MapfCPP (2)\MapfCPP (1)\planner.cpp(111): message : 컴파일되는 클래스 템플릿 인스턴스화 'std::_Vector_iterator<int>'에 대한 참조를 확인하세요.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(32,48): error C2510: '_Myvec': '::' 왼쪽은 클래스/구조체/공용 구조체이어야 합니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(32,1): error C2061: 구문 오류: 식별자 'value_type'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(33,40): error C2825: '_Myvec': '::'가 뒤에 나오면 클래스 또는 네임스페이스여야 합니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(33,48): error C2510: '_Myvec': '::' 왼쪽은 클래스/구조체/공용 구조체이어야 합니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(33,1): error C2061: 구문 오류: 식별자 'difference_type'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(34,40): error C2825: '_Myvec': '::'가 뒤에 나오면 클래스 또는 네임스페이스여야 합니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(34,48): error C2510: '_Myvec': '::' 왼쪽은 클래스/구조체/공용 구조체이어야 합니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(34,1): error C2061: 구문 오류: 식별자 'const_pointer'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(35,1): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(35,37): error C2146: 구문 오류: ';'이(가) 'value_type' 식별자 앞에 없습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(35,47): error C2143: 구문 오류: ';'이(가) '&' 앞에 없습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(35,1): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(37,28): error C2825: '_Myvec': '::'가 뒤에 나오면 클래스 또는 네임스페이스여야 합니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(37,36): error C2510: '_Myvec': '::' 왼쪽은 클래스/구조체/공용 구조체이어야 합니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(37,1): error C2061: 구문 오류: 식별자 'pointer'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(41,41): error C2061: 구문 오류: 식별자 '_Tptr'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(41,1): error C2535: 'std::_Vector_const_iterator<int>::_Vector_const_iterator(void) noexcept': 멤버 함수를 이미 정의했거나 선언했습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(39): message : 'std::_Vector_const_iterator<int>::_Vector_const_iterator' 선언을 참조하십시오.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(56,37): error C2143: 구문 오류: ';'이(가) '->' 앞에 없습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(56,29): error C7524: 'inline' 지정자는 블록 범위 선언이나 비정적 데이터 멤버에 나타날 수 없습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(56,1): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(56,1): warning C4869: 'nodiscard'는 클래스, 열거형 및 함수에만 적용할 수 있습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(101,1): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(101,60): error C2146: 구문 오류: ')'이(가) '_Off' 식별자 앞에 없습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(101,60): error C3646: '_Off': 알 수 없는 재정의 지정자입니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(101,1): error C2059: 구문 오류: ')'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(101,66): error C2143: 구문 오류: ';'이(가) 'const' 앞에 없습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(101,1): fatal  error C1003: 오류 수가 100개를 초과했습니다. 컴파일을 중지합니다.
   코드를 생성하고 있습니다...
-main.obj : error LNK2005: main이(가) Constraints.obj에 이미 정의되어 있습니다.
-C:\Users\pjh15\OneDrive\문서\카카오톡 받은 파일\MapfCPP (1)\x64\Debug\MapfCPP.exe : fatal error LNK1169: 여러 번 정의된 기호가 있습니다.

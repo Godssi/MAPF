@@ -1,5 +1,5 @@
 #include "CTNode.h"
-int CTNode::sic(map<Agent, std::map<int, std::pair<int, int>>> solution) // 에이전트 : (시간, 현재 위치)
+int CTNode::sic(map<Agent, std::vector<std::pair<int, int>>> solution)
 {
 	int result = 0;
 	for (int i = 0 ; i < solution.size(); i++)
