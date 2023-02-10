@@ -1,8 +1,1 @@
-﻿  planner.cpp
-C:\Users\jihoj\Desktop\MAPF-main\MAPF-main\MapfCPP\MapfCPP\planner.cpp(139,54): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jihoj\Desktop\MAPF-main\MAPF-main\MapfCPP\MapfCPP\planner.cpp(168,24): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jihoj\Desktop\MAPF-main\MAPF-main\MapfCPP\MapfCPP\planner.cpp(171,24): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jihoj\Desktop\MAPF-main\MAPF-main\MapfCPP\MapfCPP\planner.cpp(228,46): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jihoj\Desktop\MAPF-main\MAPF-main\MapfCPP\MapfCPP\planner.cpp(279,32): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jihoj\Desktop\MAPF-main\MAPF-main\MapfCPP\MapfCPP\planner.cpp(291,39): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jihoj\Desktop\MAPF-main\MAPF-main\MapfCPP\MapfCPP\planner.cpp(44): error C4716: 'Planner::plan': 값을 반환해야 합니다.
+﻿  MapfCPP.vcxproj -> C:\Users\jihoj\Desktop\MAPF-main\MAPF-main\MapfCPP\MapfCPP\x64\Debug\MapfCPP.exe

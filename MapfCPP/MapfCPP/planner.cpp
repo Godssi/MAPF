@@ -11,11 +11,10 @@
 #include <math.h>
 #include <algorithm>
 #include "aplanner.h"
+#include <algorithm>
 
 
-
-
-std::vector<std::vector<std::pair<int, int>>> Planner::plan(std::vector<std::pair<int, int>> starts, std::vector<std::pair<int, int>> goals, int max_iter, int low_level_max_iter, int max_process, bool debug)
+std::vector<std::vector<std::pair<int, int>>> Planner::plan(std::vector<std::pair<int, int>> starts, std::vector<std::pair<int, int>> goals, int max_iter, int low_level_max_iter, bool debug)
 // 경로들을 반환해주는 하뭇
 {
 	Planner::low_level_max_iter = low_level_max_iter;
@@ -45,9 +44,6 @@ std::vector<std::vector<std::pair<int, int>>> Planner::plan(std::vector<std::pai
 	while ((open.size() != 0) && iter_ < max_iter) {
 		iter_++;
 		std::pair<std::vector<std::pair<CTNode, CTNode>>, std::vector<vector<std::vector<std::pair<int, int>>>>> results;
-		int no_process;
-		if (open.size() > max_process) no_process = max_process;
-		else no_process = open.size();
 		for (auto iter = open.begin(); iter != open.end(); iter++) {
 			search_node(*iter, results);
 		}
@@ -57,7 +53,8 @@ std::vector<std::vector<std::pair<int, int>>> Planner::plan(std::vector<std::pai
 			open.push_back(iter->second);
 		}
 	}
-
+	std::pair<std::vector<std::pair<CTNode, CTNode>>, std::vector<vector<std::vector<std::pair<int, int>>>>> results;
+	return results.second[0];
 }
 
 
@@ -110,36 +107,19 @@ void Planner::search_node(CTNode& best, std::pair<std::vector<std::pair<CTNode, 
 
 
 
-std::vector<Agent> res;
-std::vector<std::vector<Agent>>result; // ex) {{a,b}, {a,c}...}
-std::vector<Agent> Planner::combination(std::vector<Agent> total_agent, int n, int d, int cur)
+
+std::vector<std::pair<Agent, Agent>> Planner::combination(std::vector<Agent> total_agent)
 {
-	if (d == n)
-	{
-		/*for (int i = 0; i < res.size(); i++) {
-		   cout << res[i] << " ";
+	std::vector<std::pair<Agent, Agent>> result; // ex) {{a,b}, {a,c}...}
+
+	for (int i = 0; i < total_agent.size() - 1; i++) {
+		for (int j = i + 1; j < total_agent.size(); j++) {
+			std::pair<Agent, Agent> res = { total_agent[i], total_agent[j] };
+			result.push_back(res);
 		}
-		cout << endl;*/
-		result.push_back(res);
-		return res;
 	}
-	else
-	{
-		for (int i = cur; i < total_agent.size(); i++)
-		{
-			res.push_back(total_agent[i]);
-			combination(total_agent, n, d + 1, i + 1);
-			res.pop_back();
-		}
-		return res;
-	}
-}
-int combination_num(int n, int r)
-{
-	if (n == r || r == 0)
-		return 1;
-	else
-		return combination_num(n - 1, r - 1) + combination_num(n - 1, r);
+
+	return result;
 }
 
 
@@ -148,17 +128,18 @@ int combination_num(int n, int r)
 
 //validate_paths////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-std::pair < std::vector<Agent*>, int> Planner::validate_paths(std::vector<Agent> agents, CTNode node) 
+std::pair < std::vector<Agent*>, int> Planner::validate_paths(std::vector<Agent> agents, CTNode node)
 // 충돌이 있는 agent의 정보(충돌이 존재하는 에이전트 포인터와 시간 정보) 집합 반환
 {
 	std::vector<Agent*> re1;
 	std::pair<std::vector<Agent*>, int> re2;
-	for (int i = 0; i < combination_num(agents.size(), 2); i++)
+	std::vector<std::pair<Agent, Agent>> combi = Planner::combination(agents);
+	for (int i = 0; i < combi.size(); i++)
 	{
-		int time_of_conflict = safe_distance(node.solution, result[i][0], result[i][1]);
+		int time_of_conflict = safe_distance(node.solution, combi[i].first, combi[i].second);
 		if (time_of_conflict == -1) // 아무 이상 없음
 			continue;
-		re1 = { &(result[i][0]),&(result[i][1]) };
+		re1 = { &(combi[i].first),&(combi[i].second) };
 		re2 = { re1,time_of_conflict };
 		return re2; // 충돌 발생시 for문 안들어가서 여기서 리턴 (에이전트 포인터와 시간 정보 반환)
 	}
@@ -169,8 +150,6 @@ std::pair < std::vector<Agent*>, int> Planner::validate_paths(std::vector<Agent>
 	// unorderd_set을 사용하면 집합의 agent 순서가 바뀔 수 있다.
 	// 내가 넣어준 순서대로 넣는다
 }
-
-
 
 
 int Planner::safe_distance(std::map<Agent, std::vector<std::pair<int,int>>> solution, Agent agent_i, Agent agent_j)

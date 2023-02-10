@@ -27,7 +27,7 @@ public:
 	/*STPlanner st_planner;*/
 	Planner(int grid_size, int robot_radius, std::vector<std::pair<int, int>> static__obstacle) : robot_radius(robot_radius) /*st_planner(static__obstacle)*/ {}
 public:
-	std::vector<std::vector<std::pair<int, int>>> plan(std::vector<std::pair<int, int>> starts, std::vector<std::pair<int, int>> goals, int max_iter = 200, int low_level_max_iter = 100, int max_process = 10, bool debug = false);
+	std::vector<std::vector<std::pair<int, int>>> plan(std::vector<std::pair<int, int>> starts, std::vector<std::pair<int, int>> goals, int max_iter = 200, int low_level_max_iter = 100, bool debug = false);
 	void search_node(CTNode& best, std::pair<std::vector<std::pair<CTNode, CTNode>>, std::vector<vector<std::vector<std::pair<int, int>>>>>& results);
 	std::pair < std::vector<Agent*>, int> validate_paths(std::vector<Agent> agents, CTNode node);
 	int safe_distance(std::map<Agent, std::vector<std::pair<int, int>>> solution, Agent agent_i, Agent agent_j);
@@ -38,7 +38,7 @@ public:
 	std::vector<std::vector<std::pair<int, int>>> reformat(std::vector<Agent> agents, std::map<Agent, std::vector<std::pair<int, int>>>& solution);
 	void pad(map<Agent, std::vector<std::pair<int, int>>>& solution);
 	std::vector<Agent> combination(std::vector<Agent> v, int n, int d, int cur);
-
+	std::vector<std::pair<Agent, Agent>> combination(std::vector<Agent> total_agent);
 };
 
 #endif
