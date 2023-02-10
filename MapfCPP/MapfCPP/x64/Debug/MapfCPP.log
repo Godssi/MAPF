@@ -3,24 +3,6 @@ C:\Users\jihoj\Desktop\MAPF-main\MAPF-main\MapfCPP\MapfCPP\planner.cpp(139,54): 
 C:\Users\jihoj\Desktop\MAPF-main\MAPF-main\MapfCPP\MapfCPP\planner.cpp(168,24): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\jihoj\Desktop\MAPF-main\MAPF-main\MapfCPP\MapfCPP\planner.cpp(171,24): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\jihoj\Desktop\MAPF-main\MAPF-main\MapfCPP\MapfCPP\planner.cpp(228,46): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(809,27): error C2440: 'static_cast': 'std::vector<_Newfirst,std::allocator<p>>'에서 'std::vector<_Newfirst,std::allocator<p>>'(으)로 변환할 수 없습니다.
-          with
-          [
-              _Newfirst=std::vector<p,std::allocator<p>>
-          ]
-          and
-          [
-              _Newfirst=std::_Container_proxy
-          ]
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(809,27): message : 소스 형식을 가져올 수 있는 생성자가 없거나 생성자 오버로드 확인이 모호합니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(806): message : 클래스 템플릿 멤버 함수 'std::vector<std::vector<p,std::allocator<p>>,std::vector<p,std::allocator<p>>>::~vector(void) noexcept'을(를) 컴파일하는 중입니다.
-C:\Users\jihoj\Desktop\MAPF-main\MAPF-main\MapfCPP\MapfCPP\planner.cpp(165): message : 컴파일되는 함수 템플릿 인스턴스화 'std::vector<std::vector<p,std::allocator<p>>,std::vector<p,std::allocator<p>>>::~vector(void) noexcept'에 대한 참조를 확인하세요.
-C:\Users\jihoj\Desktop\MAPF-main\MAPF-main\MapfCPP\MapfCPP\planner.cpp(165): message : 컴파일되는 클래스 템플릿 인스턴스화 'std::vector<std::vector<p,std::allocator<p>>,std::vector<p,std::allocator<p>>>'에 대한 참조를 확인하세요.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(809,25): error C2530: '_Alproxy': 참조를 초기화해야 합니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(810,1): error C3536: '_Alproxy': 초기화되기 전에 사용할 수 없습니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(810,1): error C2672: '_Delete_plain_internal': 일치하는 오버로드된 함수가 없습니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(989,19): message : 'void std::_Delete_plain_internal(_Alloc &,_Alloc::value_type *const ) noexcept'일 수 있습니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(810,9): message : 함수 템플릿 'void std::_Delete_plain_internal(_Alloc &,_Alloc::value_type *const ) noexcept'을(를) 특수화하지 못했습니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xmemory(989): message : 'std::_Delete_plain_internal' 선언을 참조하십시오.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(810,1): message : 다음 템플릿 인수 사용:
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(810,1): message : '_Alloc=int'
+C:\Users\jihoj\Desktop\MAPF-main\MAPF-main\MapfCPP\MapfCPP\planner.cpp(279,32): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jihoj\Desktop\MAPF-main\MAPF-main\MapfCPP\MapfCPP\planner.cpp(291,39): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jihoj\Desktop\MAPF-main\MAPF-main\MapfCPP\MapfCPP\planner.cpp(44): error C4716: 'Planner::plan': 값을 반환해야 합니다.

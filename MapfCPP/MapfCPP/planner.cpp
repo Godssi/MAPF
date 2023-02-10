@@ -41,6 +41,23 @@ std::vector<std::vector<std::pair<int, int>>> Planner::plan(std::vector<std::pai
 		CTNode node(constraints, solution);
 		open.push_back(node);
 	}
+	int iter_ = 0;
+	while ((open.size() != 0) && iter_ < max_iter) {
+		iter_++;
+		std::pair<std::vector<std::pair<CTNode, CTNode>>, std::vector<vector<std::vector<std::pair<int, int>>>>> results;
+		int no_process;
+		if (open.size() > max_process) no_process = max_process;
+		else no_process = open.size();
+		for (auto iter = open.begin(); iter != open.end(); iter++) {
+			search_node(*iter, results);
+		}
+		if (results.second.size() != 0) return results.second[0];
+		for (auto iter = results.first.begin(); iter != results.first.end(); iter++) {
+			open.push_back(iter->first);
+			open.push_back(iter->second);
+		}
+	}
+
 }
 
 
@@ -162,7 +179,7 @@ int Planner::safe_distance(std::map<Agent, std::vector<std::pair<int,int>>> solu
 	int size = 0;
 	std::vector<std::pair<int,int>> paths_i = solution[agent_i]; // agent_i에 대한 경로 ex) {{1,2},{5,4}} 
 	std::vector<std::pair<int,int>> paths_j = solution[agent_j]; // agent_j에 대한 경로 ex) {{4,6},{3,8}} 
-	std::vector< std::vector<std::pair<int,int>>, std::vector<std::pair<int,int>>> self = { paths_i, paths_j }; // paths_i랑 paths_j를 계속 바꿔줘야함 for문 써서 
+	std::vector< std::vector<std::pair<int,int>>> self{ paths_i, paths_j }; // paths_i랑 paths_j를 계속 바꿔줘야함 for문 써서 
 	if (self[0].size() > self[1].size())
 	{
 		size = self[1].size(); // size 작은 것으로 설정
@@ -260,9 +277,9 @@ std::vector<std::vector<std::pair<int, int>>> Planner::reformat(std::vector<Agen
 {
 	Planner::pad(solution);
 	std::vector<std::vector<std::pair<int, int>>> reformatted_solution;
-	//for (Agent agent : agents) {
-	//	reformatted_solution.push_back(solution[agent]);
-	//}
+	for (Agent agent : agents) {
+		reformatted_solution.push_back(solution[agent]);
+	}
 	return reformatted_solution; 
 }
 
