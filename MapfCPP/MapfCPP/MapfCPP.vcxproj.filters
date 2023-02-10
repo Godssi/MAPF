@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\astar">
+      <UniqueIdentifier>{75dcf745-46c7-41d3-b43e-17b3698e3c1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\astar">
+      <UniqueIdentifier>{7c7f051b-aae8-43d0-9fc4-e55bd3366d5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Agent.cpp">
@@ -36,6 +42,27 @@
     <ClCompile Include="planner.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="소스.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="aAgent.cpp">
+      <Filter>소스 파일\astar</Filter>
+    </ClCompile>
+    <ClCompile Include="aplanner.cpp">
+      <Filter>소스 파일\astar</Filter>
+    </ClCompile>
+    <ClCompile Include="Astar.cpp">
+      <Filter>소스 파일\astar</Filter>
+    </ClCompile>
+    <ClCompile Include="Heuristic_func.cpp">
+      <Filter>소스 파일\astar</Filter>
+    </ClCompile>
+    <ClCompile Include="Map_gen.cpp">
+      <Filter>소스 파일\astar</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>소스 파일\astar</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Agent.h">
@@ -55,6 +82,24 @@
     </ClInclude>
     <ClInclude Include="planner.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="aAgent.h">
+      <Filter>헤더 파일\astar</Filter>
+    </ClInclude>
+    <ClInclude Include="Astar.h">
+      <Filter>헤더 파일\astar</Filter>
+    </ClInclude>
+    <ClInclude Include="Heuristic_func.h">
+      <Filter>헤더 파일\astar</Filter>
+    </ClInclude>
+    <ClInclude Include="Map_gen.h">
+      <Filter>헤더 파일\astar</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>헤더 파일\astar</Filter>
+    </ClInclude>
+    <ClInclude Include="aplanner.h">
+      <Filter>헤더 파일\astar</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
