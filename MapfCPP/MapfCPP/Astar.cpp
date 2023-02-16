@@ -8,11 +8,6 @@ bool cmp(const Node* n1, const Node* n2)
 		return false;
 }
 
-//bool std::operator==(const p& l, const p& r)
-//{
-//	return (l.first == r.first && l.second == r.second);
-//}
-
 vector<Node*>::const_iterator findIdx(Node* child, const vector<Node*>& openList)
 {
 	vector<Node*>::const_iterator iter = openList.begin();
@@ -40,7 +35,37 @@ void deleteNode(Node* node)
 	delete node;
 }
 
-Path AStar(p start, p goal, Map origin_map, Map potential_map, set<p> conf_path, set<p> semi_dynamic_obstacles)
+bool valid_path(p xy, Node * cur, map<int, set<p>> conf_path)
+{
+	for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
+	{
+		for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
+		{
+			if ((xy.first == iter2->first) && (xy.second == iter2->second) && (cur->length + 1 == iter->first))
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool valid_path2(Node* cur, map<int, set<p>> conf_path)
+{
+	for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
+	{
+		for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
+		{
+			if ((cur->position.first == iter2->first) && (cur->position.second == iter2->second) && (cur->length == iter->first))
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+Path AStar(p start, p goal, Map origin_map, Map potential_map, map<int, set<p>> conf_path, map<int, set<p>> semi_dynamic_obstacles)
 {
 	Path pathIdx;
 	Node* startNode = new Node(start);
@@ -70,9 +95,11 @@ Path AStar(p start, p goal, Map origin_map, Map potential_map, set<p> conf_path,
 				pathIdx.push_back(pos);
 				cur = cur->parent;
 			}
+			pathIdx.push_back(startNode->position);
 			deleteVector<Node*>(openList);
 			deleteVector<Node*>(closedList);
 			delete goalNode;
+			reverse(pathIdx.begin(), pathIdx.end());
 			return pathIdx;
 		}
 
@@ -82,8 +109,8 @@ Path AStar(p start, p goal, Map origin_map, Map potential_map, set<p> conf_path,
 		{
 			p new_xy = { curNode->position.first + dxdy[i].first, curNode->position.second + dxdy[i].second };
 
-			if ((new_xy.first < 0 && new_xy.first > origin_map.size() - 1) &&
-				(new_xy.second < 0 && new_xy.second > origin_map.front().size() - 1))
+			if ((new_xy.first < 0 && new_xy.first >= origin_map.size()) &&
+				(new_xy.second < 0 && new_xy.second >= origin_map.front().size()))
 				continue;
 
 			if (origin_map[new_xy.first][new_xy.second] == 1 ||
@@ -91,16 +118,9 @@ Path AStar(p start, p goal, Map origin_map, Map potential_map, set<p> conf_path,
 				origin_map[new_xy.first][new_xy.second] == 3)
 				continue;
 
-			for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
-			{
-				if (new_xy == (*iter))
-					continue;
-			}
-			for (auto iter = semi_dynamic_obstacles.begin(); iter != semi_dynamic_obstacles.end(); iter++)
-			{
-				if (new_xy == (*iter))
-					continue;
-			}
+			if (valid_path(new_xy, curNode, conf_path)) continue;
+
+			if (valid_path(new_xy, curNode, semi_dynamic_obstacles)) continue;
 
 			Node* newNode = new Node(new_xy, curNode);
 			childrenList.push_back(newNode);
@@ -124,7 +144,7 @@ Path AStar(p start, p goal, Map origin_map, Map potential_map, set<p> conf_path,
 			if ((*child) ^ (openList))
 			{
 				auto it = findIdx(child, openList);
-				if (child->g < (*it)->g)
+				if ((child->g < (*it)->g) && valid_path2(child, conf_path) && valid_path2(child, semi_dynamic_obstacles))
 				{
 					delete (*it);
 					openList.erase(it);

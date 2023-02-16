@@ -5,15 +5,24 @@ Path AStarPlanner(p start, p goal, map<int, set<p>> conf_path, map<int, set<p>> 
     Map map = test_maze_gen();
     Map potential_map = potential_map_generator(map);
     AStarAgent A(start, start, goal, "A");
-    ll it = 0;
-    A.set_astar_path(map, potential_map, conf_path[it], semi_dynamic_obstacles[it], "init");
+
+    // cout << "\nconf path\n\n";
+    // print_obstacles(conf_path);
+    // cout << "\nsemi dynamic obstacles path\n\n";
+    // print_obstacles(semi_dynamic_obstacles);
+
+    /*
+    A.set_astar_path(map, potential_map, conf_path, semi_dynamic_obstacles, "init");
     bool flag = true;
     while (flag)
     {
-        A.set_astar_path(map, potential_map, conf_path[it], semi_dynamic_obstacles[it],"renew");
+        A.set_astar_path(map, potential_map, conf_path, semi_dynamic_obstacles,"renew");
         flag = A.move_path();
         A.set_position();
         A.aTimePlus();
     }
+    print_position(A.position);
     return A.position;
+    */
+    return AStarAgent::get_astar_path(start, goal, map, potential_map, conf_path, semi_dynamic_obstacles);
 }

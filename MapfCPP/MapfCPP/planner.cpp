@@ -69,6 +69,21 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
 }
 
 
+
+void print_Node(CTNode node)
+{
+    for (auto iter = node.solution.begin(); iter != node.solution.end(); iter++)
+    {
+        std::cout << "Agent:" << iter->first << "  %%%%%%%%%%%%\n";
+        for (int i = 0; i < iter->second.size(); i++)
+        {
+            std::cout << "( " << iter->second[i].first << ", " << iter->second[i].second << " )\n";
+        }
+    }
+}
+
+
+
 // result의 의미 파악 필요, 충돌이 발생한 경우 첫번째 요소에 두 에이전트의 정보 저장과 마지막 탐색 즉, 충돌이 없는 경우 두 번째 요소에 전체의 경로를 저장. 
 void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt>>& results)
 {

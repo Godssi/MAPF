@@ -10,7 +10,7 @@ void AStarAgent::set_path(Path path)
 	this->path = path;
 }
 
-void AStarAgent::set_astar_path(Map origin_map, Map potential_map, set<p> conf_path, set<p> semi_dynamic_obstacles, string type)
+void AStarAgent::set_astar_path(Map origin_map, Map potential_map, map<int, set<p>> conf_path, map<int, set<p>> semi_dynamic_obstacles, string type)
 {
 	if (type == "renew")
 		path = AStar(cur, goal, origin_map, potential_map, conf_path, semi_dynamic_obstacles);
@@ -37,4 +37,10 @@ void AStarAgent::print_position()
 void AStarAgent::set_position()
 {
 	this->position.push_back(this->cur);
+}
+
+Path AStarAgent::get_astar_path(p start, p goal, Map origin_map, Map potential_map, map<int, set<p>> conf_path, map<int, set<p>> semi_dynamic_obstacles)
+{
+	Path path = AStar(start, goal, origin_map, potential_map, conf_path, semi_dynamic_obstacles);
+	return path;
 }
