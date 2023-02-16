@@ -1,14 +1,14 @@
 #include "Assigner.h"
 
-vector<Agent> min_cost(vector<p> starts, vector<p> goals)
+vecAgent min_cost(vecPInt starts, vecPInt goals)
 {
-    vector<Agent> agents;
+    vecAgent agents;
     if (starts.size() != goals.size()) {
         cout << "Not Matched size";
         return agents;
     }
 
-    auto sqdist = [](p x, p y) -> int {
+    auto sqdist = [](pairInt x, pairInt y) -> int {
         return (x.first - y.first) * (x.first - y.first) + (x.second - y.second) * (x.second - y.second);
     };
 
@@ -30,24 +30,25 @@ vector<Agent> min_cost(vector<p> starts, vector<p> goals)
     return agents;
 }
 
-vector<Agent> greedy_assign(vector<p> starts, vector<p> goals) {
-    vector<Agent> agents;
+
+vecAgent greedy_assign(vecPInt starts, vecPInt goals) {
+    vecAgent agents;
     if (starts.size() != goals.size()) {
         cout << "Not Matched size";
         return agents;
     }
-    set<p> goal_set;
+    set<pairInt> goal_set;
     for (auto iter = goals.begin(); iter != goals.end(); iter++) {
         goal_set.insert(*iter);
     }
-    auto sqdist = [](p x, p y) -> int {
+    auto sqdist = [](pairInt x, pairInt y) -> int {
         return (x.first - y.first) * (x.first - y.first) + (x.second - y.second) * (x.second - y.second);
     };
 
-    for (p start : starts) {
+    for (pairInt start : starts) {
         ll closest = std::numeric_limits<int>::max();
-        p closest_goal;
-        for (p goal : goal_set) {
+        pairInt closest_goal;
+        for (pairInt goal : goal_set) {
             ll d = sqdist(start, goal);
             if (d < closest) {
                 closest = d;

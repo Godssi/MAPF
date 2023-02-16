@@ -1,7 +1,7 @@
 #ifndef PLANNER_H
 #define PLANNER_H
 
-#include<unordered_set>
+#include <unordered_set>
 #include <vector>
 #include <tuple>
 #include <unordered_map>
@@ -12,10 +12,25 @@
 #include <utility>
 #include <mutex>
 #include <map>
+
 #include "Agent.h"
 #include "CTNode.h"
 #include "Constraints.h"
 #include "Assigner.h"
+
+using namespace std;
+
+typedef long long ll;
+typedef pair<int, int> pairInt;
+typedef pair<CTNode, CTNode> pairCTNode;
+typedef pair<Agent, Agent> pairAgent;
+typedef vector<Agent> vecAgent;
+typedef vector<CTNode> vecCTNode;
+typedef vector<pairInt> vecPInt;
+typedef vector<pairAgent> vecPAgent;
+typedef vector<vecPInt> vec2PInt;
+typedef set<pairInt> setPInt;
+
 
 class Planner
 {
@@ -23,22 +38,22 @@ public:
 	int robot_radius;
 	int low_level_max_iter;
 	bool debug;
-	std::vector<Agent> agents;
-	std::vector<std::pair<Agent, Agent>> combi;
+	vecAgent agents;
+	vector<pair<Agent, Agent>> combi;
 	/*STPlanner st_planner;*/
-	Planner(int grid_size, int robot_radius, std::vector<std::pair<int, int>> static__obstacle) : robot_radius(robot_radius) /*st_planner(static__obstacle)*/ {}
+	Planner(int grid_size, int robot_radius, vecPInt static__obstacle, int low_level_max_iter = 100,bool debug = false) : robot_radius(robot_radius), debug(debug), low_level_max_iter(low_level_max_iter) /*st_planner(static__obstacle)*/ {}
 public:
-	std::vector<std::vector<std::pair<int, int>>> plan(std::vector<std::pair<int, int>> starts, std::vector<std::pair<int, int>> goals, int max_iter = 200, int low_level_max_iter = 100, bool debug = false);
-	void search_node(CTNode& best, std::pair<std::vector<std::pair<CTNode, CTNode>>, std::vector<vector<std::vector<std::pair<int, int>>>>>& results);
-	std::pair < std::vector<Agent>, int> validate_paths(std::vector<Agent> agents, CTNode node);
-	int safe_distance(std::map<Agent, std::vector<std::pair<int, int>>> solution, Agent agent_i, Agent agent_j);
-	static double dist(std::pair<int, int>point1, std::pair<int, int> point2);
+	vec2PInt plan(vecPInt starts, vecPInt goals, int max_iter = 200, int low_level_max_iter = 100, bool debug = false);
+	void search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt>>& results);
+	vecPAgent combination(vecAgent total_agent);
+	pair<vecAgent, int> validate_paths(vecAgent agents, CTNode node);
+	int safe_distance(map<Agent, vecPInt> solution, Agent agent_i, Agent agent_j);
+	double dist(pairInt point1, pairInt point2);
 	Constraints calculate_constraints(CTNode& node, Agent& constrainted_agent, Agent& unchanged_agent, int& time_of_conflict);
-	std::map<int, std::set<std::pair<int, int>>> calculate_goal_times(CTNode& node, Agent& agent, std::vector<Agent>& agents);
-	std::vector<std::pair<int, int>> calculate_path(Agent agent, Constraints constraints, std::map<int, std::set<std::pair<int, int>>> goal_times);
-	std::vector<std::vector<std::pair<int, int>>> reformat(std::vector<Agent> agents, std::map<Agent, std::vector<std::pair<int, int>>>& solution);
-	void pad(map<Agent, std::vector<std::pair<int, int>>>& solution);
-	std::vector<std::pair<Agent,Agent>> combination(std::vector<Agent> total_agent);
+	map<int, setPInt> calculate_goal_times(CTNode& node, Agent& agent, vecAgent& agents);
+	vecPInt calculate_path(Agent agent, Constraints constraints, map<int, setPInt> goal_times);
+	vec2PInt reformat(vecAgent agents, map<Agent, vecPInt>& solution);
+	void pad(map<Agent, vecPInt>& solution);
 };
 
 #endif

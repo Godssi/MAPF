@@ -1,14 +1,15 @@
+#include <iostream>
+
+#include "AstarAgent.h"
+#include "AStar.h"
+#include "AStarMapGen.h"
+
 #include "Agent.h"
 #include "CTNode.h"
 #include "Constraints.h"
 #include "Assigner.h"
 #include "Hungarian.h"
 #include "planner.h"
-
-#include <iostream>
-#include "aAgent.h"
-#include "Astar.h"
-#include "Map_gen.h"
 
 
 int main()

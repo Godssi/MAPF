@@ -42,25 +42,22 @@
     <ClCompile Include="planner.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="소스.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="aAgent.cpp">
+    <ClCompile Include="AStarAgent.cpp">
       <Filter>소스 파일\astar</Filter>
     </ClCompile>
-    <ClCompile Include="aplanner.cpp">
+    <ClCompile Include="AStarPlanner.cpp">
       <Filter>소스 파일\astar</Filter>
     </ClCompile>
-    <ClCompile Include="Astar.cpp">
+    <ClCompile Include="AStar.cpp">
       <Filter>소스 파일\astar</Filter>
     </ClCompile>
     <ClCompile Include="Heuristic_func.cpp">
       <Filter>소스 파일\astar</Filter>
     </ClCompile>
-    <ClCompile Include="Map_gen.cpp">
+    <ClCompile Include="AStarMapGen.cpp">
       <Filter>소스 파일\astar</Filter>
     </ClCompile>
-    <ClCompile Include="Node.cpp">
+    <ClCompile Include="AStarNode.cpp">
       <Filter>소스 파일\astar</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,22 +80,22 @@
     <ClInclude Include="planner.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="aAgent.h">
+    <ClInclude Include="AStarAgent.h">
       <Filter>헤더 파일\astar</Filter>
     </ClInclude>
-    <ClInclude Include="Astar.h">
+    <ClInclude Include="AStar.h">
       <Filter>헤더 파일\astar</Filter>
     </ClInclude>
     <ClInclude Include="Heuristic_func.h">
       <Filter>헤더 파일\astar</Filter>
     </ClInclude>
-    <ClInclude Include="Map_gen.h">
+    <ClInclude Include="AStarMapGen.h">
       <Filter>헤더 파일\astar</Filter>
     </ClInclude>
-    <ClInclude Include="Node.h">
+    <ClInclude Include="AStarNode.h">
       <Filter>헤더 파일\astar</Filter>
     </ClInclude>
-    <ClInclude Include="aplanner.h">
+    <ClInclude Include="AStarPlanner.h">
       <Filter>헤더 파일\astar</Filter>
     </ClInclude>
   </ItemGroup>

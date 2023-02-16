@@ -19,33 +19,32 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="aAgent.cpp" />
+    <ClCompile Include="AStarAgent.cpp" />
     <ClCompile Include="Agent.cpp" />
-    <ClCompile Include="aplanner.cpp" />
+    <ClCompile Include="AStarPlanner.cpp" />
     <ClCompile Include="Assigner.cpp" />
-    <ClCompile Include="Astar.cpp" />
+    <ClCompile Include="AStar.cpp" />
     <ClCompile Include="Constraints.cpp" />
     <ClCompile Include="CTNode.cpp" />
     <ClCompile Include="Heuristic_func.cpp" />
     <ClCompile Include="Hungarian.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Map_gen.cpp" />
-    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="AStarMapGen.cpp" />
+    <ClCompile Include="AStarNode.cpp" />
     <ClCompile Include="planner.cpp" />
-    <ClCompile Include="소스.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="aAgent.h" />
+    <ClInclude Include="AStarAgent.h" />
     <ClInclude Include="Agent.h" />
-    <ClInclude Include="aplanner.h" />
+    <ClInclude Include="AStarPlanner.h" />
     <ClInclude Include="Assigner.h" />
-    <ClInclude Include="Astar.h" />
+    <ClInclude Include="AStar.h" />
     <ClInclude Include="Constraints.h" />
     <ClInclude Include="CTNode.h" />
     <ClInclude Include="Heuristic_func.h" />
     <ClInclude Include="Hungarian.h" />
-    <ClInclude Include="Map_gen.h" />
-    <ClInclude Include="Node.h" />
+    <ClInclude Include="AStarMapGen.h" />
+    <ClInclude Include="AStarNode.h" />
     <ClInclude Include="planner.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

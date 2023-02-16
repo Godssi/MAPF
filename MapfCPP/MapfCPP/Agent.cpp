@@ -1,6 +1,5 @@
 #include "Agent.h"
 
-
 int Agent::hash() const
 {
 	return start.first * 1000 + start.second;

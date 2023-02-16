@@ -5,20 +5,31 @@
 #include <map>
 #include <set>
 #include <unordered_map>
+
 #include "Assigner.h"
 
 using namespace std;
-typedef pair<int, int> p;
+
+typedef long long ll;
+typedef pair<int, int> pairInt;
+typedef pair<Agent, Agent> pairAgent;
+typedef vector<Agent> vecAgent;
+typedef vector<pairInt> vecPInt;
+typedef vector<pairAgent> vecPAgent;
+typedef vector<vecPInt> vec2PInt;
+typedef set<pairInt> setPInt;
+
 
 class Constraints
 {
 public:
     Constraints() {}
-    map<Agent, map<int, set<p>>> agent_constraints;
-    Constraints fork(Agent agent, p obstacle, int start, int end);
-    map<int, set<p>> setdefault(Agent agent, map<int, set<p>> constraint);
-    map<int, set<p>> getitem(Agent);
-    std::vector<Agent> iter();
+    map<Agent, map<int, setPInt>> agent_constraints;
+    Constraints fork(Agent agent, pairInt obstacle, int start, int end);
+    map<int, setPInt> setdefault(Agent agent, map<int, setPInt> constraint);
+    map<int, setPInt> getitem(Agent);
+    vecAgent iter();
+
     friend std::ostream& operator<< (std::ostream& os, const Constraints& Constraints);
 }; 
 

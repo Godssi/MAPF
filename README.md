@@ -30,3 +30,10 @@ Multi Agent Path Finding (MAPF)
 > 3. map의 x, y값이 다른경우에도 제대로 plot이 되도록 함수 수정  
 > 4. agent class 추가  
 > 5. 휴리스틱 함수의 여러 계수 보정  
+
+> ## 2/16 수정사항
+> 1. AStar 함수 이름 수정
+> 2. AStar 함수에서 발생하는 메모리 누수 수정 
+> &rarr; child node 생성후 일치하지 않으면 메모리 할당 해제를 진행하지 않았음
+> 3. pair, vector, set등 을 활용한 변수들을 쉽게 파악하기 위해 typedef로 변경
+> 4. class의 생성자들을 약간 수정

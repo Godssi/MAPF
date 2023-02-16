@@ -11,10 +11,18 @@
 #include "Hungarian.h"
 
 using namespace std;
-typedef long long ll;
-typedef pair<int, int> p;
 
-vector<Agent> min_cost(vector<p> starts, vector<p> goals);
-vector<Agent> greedy_assign(vector<p> starts, vector<p> goals);
+typedef long long ll;
+typedef pair<int, int> pairInt;
+typedef pair<Agent, Agent> pairAgent;
+typedef vector<Agent> vecAgent;
+typedef vector<pairInt> vecPInt;
+typedef vector<pairAgent> vecPAgent;
+typedef vector<vecPInt> vec2PInt;
+typedef set<pairInt> setPInt;
+
+
+vecAgent min_cost(vecPInt starts, vecPInt goals);
+vecAgent greedy_assign(vecPInt starts, vecPInt goals);
 
 #endif

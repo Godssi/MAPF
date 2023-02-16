@@ -7,6 +7,9 @@
 #include <utility>
 #include <algorithm>
 
+#include "AStarNode.h"
+#include "Heuristic_func.h"
+
 using namespace std;
 typedef long long ll;
 typedef pair<int, int> p;
