@@ -23,6 +23,15 @@ vector<Node*>::const_iterator findIdx(Node* child, const vector<Node*>& openList
 	return iter;
 }
 
+template<class T>
+void deleteVector(vector<T> pVector)
+{
+	for (auto iter = pVector.begin(); iter != pVector.end(); iter++)
+	{
+		delete (*iter);
+	}
+}
+
 void deleteNode(Node* node)
 {
 	delete node;
