@@ -8,6 +8,11 @@ bool cmp(const Node* n1, const Node* n2)
 		return false;
 }
 
+//bool std::operator==(const p& l, const p& r)
+//{
+//	return (l.first == r.first && l.second == r.second);
+//}
+
 vector<Node*>::const_iterator findIdx(Node* child, const vector<Node*>& openList)
 {
 	vector<Node*>::const_iterator iter = openList.begin();
@@ -35,7 +40,7 @@ void deleteNode(Node* node)
 	delete node;
 }
 
-Path AStar(p start, p goal, Map map, Map potential_map)
+Path AStar(p start, p goal, Map origin_map, Map potential_map, set<p> conf_path)
 {
 	Path pathIdx;
 	Node* startNode = new Node(start);
@@ -77,14 +82,20 @@ Path AStar(p start, p goal, Map map, Map potential_map)
 		{
 			p new_xy = { curNode->position.first + dxdy[i].first, curNode->position.second + dxdy[i].second };
 
-			if ((new_xy.first < 0 && new_xy.first > map.size() - 1) &&
-				(new_xy.second < 0 && new_xy.second > map.front().size() - 1))
+			if ((new_xy.first < 0 && new_xy.first > origin_map.size() - 1) &&
+				(new_xy.second < 0 && new_xy.second > origin_map.front().size() - 1))
 				continue;
 
-			if (map[new_xy.first][new_xy.second] == 1 ||
-				map[new_xy.first][new_xy.second] == 2 ||
-				map[new_xy.first][new_xy.second] == 3)
+			if (origin_map[new_xy.first][new_xy.second] == 1 ||
+				origin_map[new_xy.first][new_xy.second] == 2 ||
+				origin_map[new_xy.first][new_xy.second] == 3)
 				continue;
+
+			for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
+			{
+				if (new_xy == (*iter))
+					continue;
+			}
 
 			Node* newNode = new Node(new_xy, curNode);
 			childrenList.push_back(newNode);
@@ -102,7 +113,7 @@ Path AStar(p start, p goal, Map map, Map potential_map)
 			}
 
 			child->g = curNode->g + 1;
-			child->h = heuristic(child->position, goalNode->position, map, potential_map);
+			child->h = heuristic(child->position, goalNode->position, origin_map, potential_map);
 			child->f = child->g + child->h;
 
 			if ((*child) ^ (openList))

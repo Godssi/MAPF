@@ -1,12 +1,14 @@
-﻿  Assigner.cpp
-  CTNode.cpp
-  Constraints.cpp
+﻿  AStar.cpp
+  AStarAgent.cpp
+  AStarPlanner.cpp
+C:\Users\choi\Desktop\MapfCPP\AStarPlanner.cpp(9,52): warning C4244: '인수': 'll'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\choi\Desktop\MapfCPP\AStarPlanner.cpp(13,56): warning C4244: '인수': 'll'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   main.cpp
   planner.cpp
-C:\Users\choi\Desktop\MapfCPP\planner.cpp(218,30): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\choi\Desktop\MapfCPP\planner.cpp(220,30): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\choi\Desktop\MapfCPP\planner.cpp(274,52): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\choi\Desktop\MapfCPP\planner.cpp(322,38): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\choi\Desktop\MapfCPP\planner.cpp(334,45): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\choi\Desktop\MapfCPP\planner.cpp(225,30): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\choi\Desktop\MapfCPP\planner.cpp(227,30): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\choi\Desktop\MapfCPP\planner.cpp(281,52): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\choi\Desktop\MapfCPP\planner.cpp(329,38): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\choi\Desktop\MapfCPP\planner.cpp(341,45): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   코드를 생성하고 있습니다...
   MapfCPP.vcxproj -> C:\Users\choi\Desktop\MapfCPP\x64\Debug\MapfCPP.exe

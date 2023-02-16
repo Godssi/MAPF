@@ -19,4 +19,5 @@ int main()
 	vector<p> static_obstacle = { {10, 9} };
 	Planner planner(1, 1, static_obstacle);
 	planner.plan(start, goal, 200, 100, false);
+	return 0;
 }

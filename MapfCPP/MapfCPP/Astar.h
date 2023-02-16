@@ -6,6 +6,8 @@
 #include <string>
 #include <utility>
 #include <algorithm>
+#include <map>
+#include <set>
 
 #include "AStarNode.h"
 #include "Heuristic_func.h"
@@ -16,6 +18,6 @@ typedef pair<int, int> p;
 typedef vector<p> Path;
 typedef vector<vector<ll>> Map;
 
-Path AStar(p start, p end, Map map, Map potential_map);
+Path AStar(p start, p end, Map origin_map, Map potential_map, set<p> conf_path);
 
 #endif

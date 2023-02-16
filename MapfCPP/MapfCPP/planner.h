@@ -32,6 +32,18 @@ typedef vector<vecPInt> vec2PInt;
 typedef set<pairInt> setPInt;
 
 
+class STPlanner
+{
+public:
+	int grid_size;
+	int robot_radius;
+	vecPInt static_obstacle;
+
+
+
+};
+
+
 class Planner
 {
 public:
@@ -40,8 +52,8 @@ public:
 	bool debug;
 	vecAgent agents;
 	vector<pair<Agent, Agent>> combi;
-	/*STPlanner st_planner;*/
-	Planner(int grid_size, int robot_radius, vecPInt static__obstacle, int low_level_max_iter = 100,bool debug = false) : robot_radius(robot_radius), debug(debug), low_level_max_iter(low_level_max_iter) /*st_planner(static__obstacle)*/ {}
+	STPlanner st_planner;
+	Planner(int grid_size, int robot_radius, vecPInt static_obstacle, int low_level_max_iter = 100,bool debug = false) : robot_radius(robot_radius), debug(debug), low_level_max_iter(low_level_max_iter) /*st_planner(static__obstacle)*/ {}
 public:
 	vec2PInt plan(vecPInt starts, vecPInt goals, int max_iter = 200, int low_level_max_iter = 100, bool debug = false);
 	void search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt>>& results);

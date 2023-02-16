@@ -10,12 +10,12 @@ void AStarAgent::set_path(Path path)
 	this->path = path;
 }
 
-void AStarAgent::set_astar_path(Map map, Map potential_map, string type)
+void AStarAgent::set_astar_path(Map origin_map, Map potential_map, set<p> conf_path, string type)
 {
 	if (type == "renew")
-		path = AStar(cur, goal, map, potential_map);
+		path = AStar(cur, goal, origin_map, potential_map, conf_path);
 	else if (type == "init")
-		path = AStar(start, goal, map, potential_map);
+		path = AStar(start, goal, origin_map, potential_map, conf_path);
 }
 
 bool AStarAgent::move_path()

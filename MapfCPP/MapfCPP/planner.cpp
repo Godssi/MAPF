@@ -26,7 +26,7 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
     map<Agent, vecPInt> solution;
 
     for (Agent agent : agents) {
-        solution[agent] = Planner::calculate_path(agent, constraints, {});
+        solution[agent] = calculate_path(agent, constraints, {});
     }
 
     vecCTNode open;
@@ -45,7 +45,7 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
     }
 
     int iter_ = 0;
-    while ((open.size() != 0) && iter_ < max_iter) {
+    while (!open.empty() && iter_ < max_iter) {
         iter_++;
         pair<vector<pairCTNode>, vector<vec2PInt>> results;
         for (auto iter = open.begin(); iter != open.end(); iter++) {
@@ -53,8 +53,14 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
         }
         if (results.second.size() != 0) return results.second[0];
         for (auto iter = results.first.begin(); iter != results.first.end(); iter++) {
-            if (iter->first.tr = true) open.push_back(iter->first);   ////////////////////////////////////////////////////
-            if (iter->second.tr = true) open.push_back(iter->second); //////////////////////////////////////////////////////
+            if (iter->first.tr == true)
+            {
+                open.push_back(iter->first);
+            }
+            if (iter->second.tr == true)
+            {
+                open.push_back(iter->second);
+            }
         }
     }
 

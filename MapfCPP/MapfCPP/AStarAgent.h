@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 #include <utility>
+#include <map>
+#include <set>
 
 #include "AStar.h"
 
@@ -29,7 +31,7 @@ public:
         : start(start), cur(cur), goal(goal), name(name) {}
     void renew_position(p cur);
     void set_path(Path path);
-    void set_astar_path(Map map, Map potential_map, string type);
+    void set_astar_path(Map origin_map, Map potential_map, set<p> conf_path,  string type);
     bool move_path();
     void print_position();
     void set_position();
