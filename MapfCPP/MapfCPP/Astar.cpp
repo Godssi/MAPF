@@ -40,7 +40,7 @@ void deleteNode(Node* node)
 	delete node;
 }
 
-Path AStar(p start, p goal, Map origin_map, Map potential_map, set<p> conf_path)
+Path AStar(p start, p goal, Map origin_map, Map potential_map, set<p> conf_path, set<p> semi_dynamic_obstacles)
 {
 	Path pathIdx;
 	Node* startNode = new Node(start);
@@ -92,6 +92,11 @@ Path AStar(p start, p goal, Map origin_map, Map potential_map, set<p> conf_path)
 				continue;
 
 			for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
+			{
+				if (new_xy == (*iter))
+					continue;
+			}
+			for (auto iter = semi_dynamic_obstacles.begin(); iter != semi_dynamic_obstacles.end(); iter++)
 			{
 				if (new_xy == (*iter))
 					continue;

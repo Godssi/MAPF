@@ -6,11 +6,11 @@ Path AStarPlanner(p start, p goal, map<int, set<p>> conf_path, map<int, set<p>> 
     Map potential_map = potential_map_generator(map);
     AStarAgent A(start, start, goal, "A");
     ll it = 0;
-    A.set_astar_path(map, potential_map, conf_path[it], "init");
+    A.set_astar_path(map, potential_map, conf_path[it], semi_dynamic_obstacles[it], "init");
     bool flag = true;
     while (flag)
     {
-        A.set_astar_path(map, potential_map, conf_path[it],"renew");
+        A.set_astar_path(map, potential_map, conf_path[it], semi_dynamic_obstacles[it],"renew");
         flag = A.move_path();
         A.set_position();
         A.aTimePlus();

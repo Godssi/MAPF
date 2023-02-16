@@ -18,6 +18,6 @@ typedef pair<int, int> p;
 typedef vector<p> Path;
 typedef vector<vector<ll>> Map;
 
-Path AStar(p start, p end, Map origin_map, Map potential_map, set<p> conf_path);
+Path AStar(p start, p end, Map origin_map, Map potential_map, set<p> conf_path, set<p> semi_dynamic_obstacles);
 
 #endif
