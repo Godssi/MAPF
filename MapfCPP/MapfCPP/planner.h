@@ -1,17 +1,20 @@
 #ifndef PLANNER_H
 #define PLANNER_H
 
-#include <unordered_set>
+#include <iostream>
 #include <vector>
+#include <queue>
 #include <tuple>
 #include <unordered_map>
+#include <map>
 #include <functional>
 #include <thread>
-#include <queue>
-#include <iostream>
 #include <utility>
 #include <mutex>
-#include <map>
+#include <cmath>
+#include <algorithm>
+
+#include "AStarPlanner.h"
 
 #include "Agent.h"
 #include "CTNode.h"

@@ -1,18 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <tuple>
-#include <unordered_map>
-#include <functional>
-#include <thread>
-#include <queue>
-#include <utility>
-#include <mutex>
-#include <cmath>
-#include <algorithm>
-
 #include "planner.h"
-#include "AStarPlanner.h"
-
 
 vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_level_max_iter, bool debug)
 // 경로들을 반환해주는 함수
@@ -81,7 +67,6 @@ void print_Node(CTNode node)
         }
     }
 }
-
 
 
 // result의 의미 파악 필요, 충돌이 발생한 경우 첫번째 요소에 두 에이전트의 정보 저장과 마지막 탐색 즉, 충돌이 없는 경우 두 번째 요소에 전체의 경로를 저장. 
