@@ -39,6 +39,7 @@ Path AStar(p start, p goal, Map map, Map potential_map)
 
 	openList.push_back(startNode);
 	Node* curNode;
+	vector<p> dxdy = { {-1, 0}, {0, -1}, {1, 0}, {0, 1} };
 
 	while (!openList.empty())
 	{
@@ -46,31 +47,30 @@ Path AStar(p start, p goal, Map map, Map potential_map)
 
 		curNode = openList.back();
 		openList.pop_back();
-
 		closedList.push_back(curNode);
 
 		if (*curNode == goalNode)
 		{
 			Node* cur = curNode;
-			while ((*cur).parent != nullptr)
+			while (cur->parent != nullptr)
 			{
 				p pos = cur->position;
 				pathIdx.push_back(pos);
 				cur = cur->parent;
 			}
-			for_each(openList.begin(), openList.end(), deleteNode);
-			for_each(closedList.begin(), closedList.end(), deleteNode);
+			deleteVector<Node*>(openList);
+			deleteVector<Node*>(closedList);
+			delete goalNode;
 			return pathIdx;
 		}
 
 		vector<Node*> childrenList;
 
-		vector<p> dxdy = { {-1, 0}, {0, -1}, {1, 0}, {0, 1} };
 		for (int i = 0; i < 4; i++)
 		{
 			p new_xy = { curNode->position.first + dxdy[i].first, curNode->position.second + dxdy[i].second };
 
-			if ((new_xy.first < 0 && new_xy.first > map.size() - 1) && 
+			if ((new_xy.first < 0 && new_xy.first > map.size() - 1) &&
 				(new_xy.second < 0 && new_xy.second > map.front().size() - 1))
 				continue;
 
@@ -88,8 +88,9 @@ Path AStar(p start, p goal, Map map, Map potential_map)
 			Node* child = childrenList.back();
 			childrenList.pop_back();
 
-			if (*child^closedList)
+			if ((*child) ^ closedList)
 			{
+				delete child;
 				continue;
 			}
 
@@ -97,7 +98,7 @@ Path AStar(p start, p goal, Map map, Map potential_map)
 			child->h = heuristic(child->position, goalNode->position, map, potential_map);
 			child->f = child->g + child->h;
 
-			if (child->operator^(openList))
+			if ((*child) ^ (openList))
 			{
 				auto it = findIdx(child, openList);
 				if (child->g < (*it)->g)
@@ -106,9 +107,11 @@ Path AStar(p start, p goal, Map map, Map potential_map)
 					openList.erase(it);
 				}
 				else
+				{
+					delete child;
 					continue;
+				}
 			}
-
 			openList.push_back(child);
 		}
 	}
