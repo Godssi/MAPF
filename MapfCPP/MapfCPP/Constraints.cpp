@@ -1,15 +1,16 @@
 #include "Constraints.h"
 
 // 단순하게 충돌이 일어나는 시간과 constriant의 위치를 deep copy 하는 코드
-Constraints Constraints::fork(Agent agent, p obstacle, int start, int end)
+Constraints Constraints::fork(Agent agent, p obstacle, int start, int end) // calculate_constraints에 의해 호출됨 (agent1, (8,6), 10 ,12)
 {
-    map<Agent, map<int, set<p>>> agent_constraints_copy = agent_constraints;
+    map<Agent, map<int, set<p>>> agent_constraints_copy = agent_constraints; 
+    // agent_constraints에 아무것도 안들어가있음. 
     for (int time = start; time < end; time++) {
-        agent_constraints_copy[agent][time].insert(obstacle);
+        agent_constraints_copy[agent][time].insert(obstacle); // 10, 11 인덱스에 (8,6) 넣어줌
     }
     Constraints new_constraints;
     new_constraints.agent_constraints = agent_constraints_copy;
-    return new_constraints;
+    return new_constraints; // 10, 11초에 (8,6)에서 충돌이 일어남을 리턴함
 }
 
 // Agent 별롤 충돌이 일어나는 시간과 충돌이 일어나는 위치를 넣어주는 것
