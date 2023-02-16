@@ -7,10 +7,8 @@ using namespace std;
 
 typedef long long ll;
 typedef pair<int, int> pairInt;
-typedef pair<CTNode, CTNode> pairCTNode;
 typedef pair<Agent, Agent> pairAgent;
 typedef vector<Agent> vecAgent;
-typedef vector<CTNode> vecCTNode;
 typedef vector<pairInt> vecPInt;
 typedef vector<pairAgent> vecPAgent;
 typedef vector<vecPInt> vec2PInt;
@@ -25,6 +23,7 @@ public:
 	bool tr = false;
 public:
 	CTNode(Constraints constraint, map<Agent, vecPInt> solution) : constraint(constraint), solution(solution) {};
+	CTNode() : tr(false) {};
 	int sic(map<Agent, vecPInt> solution);
 	bool __it__(CTNode other);
 	friend std::ostream& operator<<(std::ostream& os, const CTNode& cTnode);
