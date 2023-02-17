@@ -68,6 +68,7 @@ void print_Node(CTNode node)
     }
 }
 
+#include <thread>
 
 // result의 의미 파악 필요, 충돌이 발생한 경우 첫번째 요소에 두 에이전트의 정보 저장과 마지막 탐색 즉, 충돌이 없는 경우 두 번째 요소에 전체의 경로를 저장. 
 void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt>>& results)
@@ -85,8 +86,25 @@ void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt
     Constraints agent_i_constraint = calculate_constraints(best, agent_i, agent_j, time_of_conflict);
     // (8,6)에서 10초 11초 충돌상황이 발생한다는 것 calculate_constraints 통해 받아옴
     Constraints agent_j_constraint = calculate_constraints(best, agent_j, agent_i, time_of_conflict);
-    vecPInt agent_i_path = calculate_path(agent_i, agent_i_constraint, calculate_goal_times(best, agent_i, agents));
-    vecPInt agent_j_path = calculate_path(agent_j, agent_j_constraint, calculate_goal_times(best, agent_j, agents));
+
+    auto multi_calculate_path = [](Agent agent, Constraints constraints, map<int, setPInt> goal_times, int low_level_max_iter, bool debug, vecPInt& agent_i_path)
+    {
+        map<int, setPInt> a;
+        agent_i_path = AStarPlanner(agent.start, agent.goal, constraints.setdefault(agent, a), goal_times, low_level_max_iter, debug);
+        return;
+    };
+
+    vecPInt agent_i_path;
+    vecPInt agent_j_path;
+
+    thread t1 = thread(multi_calculate_path, agent_i, agent_i_constraint, calculate_goal_times(best, agent_i, agents), low_level_max_iter, debug, ref(agent_i_path));
+    thread t2 = thread(multi_calculate_path, agent_j, agent_j_constraint, calculate_goal_times(best, agent_j, agents), low_level_max_iter, debug, ref(agent_j_path));
+
+    t1.join();
+    t2.join();
+
+    // vecPInt agent_i_path = calculate_path(agent_i, agent_i_constraint, calculate_goal_times(best, agent_i, agents));
+    // vecPInt agent_j_path = calculate_path(agent_j, agent_j_constraint, calculate_goal_times(best, agent_j, agents));
 
     map<Agent, vecPInt> solution_i = best.solution;
     map<Agent, vecPInt> solution_j = best.solution;
