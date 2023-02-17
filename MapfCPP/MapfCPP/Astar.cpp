@@ -65,6 +65,39 @@ bool valid_path2(Node* cur, map<int, set<p>> conf_path)
 	return true;
 }
 
+bool valid_path_semi(p xy, Node* cur, map<int, set<p>> conf_path)
+{
+	for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
+	{
+		for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
+		{
+			if ((xy.first == iter2->first) && (xy.second == iter2->second) && (cur->length + 1 >= iter->first))
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool valid_path_semi2(Node* cur, map<int, set<p>> conf_path)
+{
+	for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
+	{
+		for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
+		{
+			if ((cur->position.first == iter2->first) && (cur->position.second == iter2->second) && (cur->length >= iter->first))
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+
+
+
 Path AStar(p start, p goal, Map origin_map, Map potential_map, map<int, set<p>> conf_path, map<int, set<p>> semi_dynamic_obstacles)
 {
 	Path pathIdx;
@@ -120,7 +153,7 @@ Path AStar(p start, p goal, Map origin_map, Map potential_map, map<int, set<p>> 
 
 			if (valid_path(new_xy, curNode, conf_path)) continue;
 
-			if (valid_path(new_xy, curNode, semi_dynamic_obstacles)) continue;
+			if (valid_path_semi(new_xy, curNode, semi_dynamic_obstacles)) continue;
 
 			Node* newNode = new Node(new_xy, curNode);
 			childrenList.push_back(newNode);
@@ -144,7 +177,7 @@ Path AStar(p start, p goal, Map origin_map, Map potential_map, map<int, set<p>> 
 			if ((*child) ^ (openList))
 			{
 				auto it = findIdx(child, openList);
-				if ((child->g < (*it)->g) && valid_path2(child, conf_path) && valid_path2(child, semi_dynamic_obstacles))
+				if ((child->g < (*it)->g) && valid_path2(child, conf_path) && valid_path_semi2(child, semi_dynamic_obstacles))
 				{
 					delete (*it);
 					openList.erase(it);

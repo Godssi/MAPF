@@ -44,12 +44,12 @@ void print_vec2PInt(vec2PInt pVec2PInt)
 
 int main()
 {
-	vector<p> start = { {1, 2}, {2, 1} };
+	/*vector<p> start = {{1, 2}, {2, 1}};
 	vector<p> goal = { {18, 17}, {19, 18}};
-	vector<p> static_obstacle = { {10, 9} };
-	/*vector<p> start = { {1, 2}, {2, 1}, {3, 5} };
+	vector<p> static_obstacle = { {10, 9} };*/
+	vector<p> start = { {1, 2}, {2, 1}, {3, 5} };
 	vector<p> goal = { {18, 17}, {19, 18}, {16, 18} };
-	vector<p> static_obstacle = { {10, 9}, {5, 15} };*/
+	vector<p> static_obstacle = { {10, 9}, {5, 15} };
 	Planner planner(1, 1, static_obstacle);
 
 	clock_t startClock, endClock;

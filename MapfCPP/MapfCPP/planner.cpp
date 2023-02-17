@@ -34,8 +34,9 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
     while (!open.empty() && iter_ < max_iter) {
         iter_++;
         pair<vector<pairCTNode>, vector<vec2PInt>> results;
-        for (auto iter = open.begin(); iter != open.end(); iter++) {
+        for (auto iter = open.begin(); iter != open.end();) {
             search_node(*iter, results);
+            iter=open.erase(iter);
         }
         if (results.second.size() != 0) return results.second[0];
         for (auto iter = results.first.begin(); iter != results.first.end(); iter++) {
@@ -103,8 +104,8 @@ void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt
     t1.join();
     t2.join();
 
-    // vecPInt agent_i_path = calculate_path(agent_i, agent_i_constraint, calculate_goal_times(best, agent_i, agents));
-    // vecPInt agent_j_path = calculate_path(agent_j, agent_j_constraint, calculate_goal_times(best, agent_j, agents));
+    //vecPInt agent_i_path = calculate_path(agent_i, agent_i_constraint, calculate_goal_times(best, agent_i, agents));
+    //vecPInt agent_j_path = calculate_path(agent_j, agent_j_constraint, calculate_goal_times(best, agent_j, agents));
 
     map<Agent, vecPInt> solution_i = best.solution;
     map<Agent, vecPInt> solution_j = best.solution;
@@ -112,7 +113,6 @@ void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt
     solution_j[agent_j] = agent_j_path;
 
 
-    /////////////////////////////////////////////////////////////////////////////////
     CTNode node_i;
     CTNode node_j;
     bool tf = true;
