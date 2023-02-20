@@ -2,7 +2,7 @@
 
 AStarPlanner::AStarPlanner()
 {
-	origin_map = MAP_GEN::test_maze_gen();
+	origin_map = MAP_GEN::test_maze_gen1();
 	potential_map = MAP_GEN::potential_map_generator(origin_map);
 }
 

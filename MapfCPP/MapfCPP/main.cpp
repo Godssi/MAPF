@@ -67,9 +67,9 @@ int main()
 	//for (int i = 0; i < 30; i++)
 	//{
 	//	startClock = clock();
-	//	vector<p> start = { {1, 2}, {2, 1}, {3, 5}, {4, 1} };
-	//	vector<p> goal = { {18, 17}, {19, 18}, {16, 18}, {15, 19} };
-	//	vector<p> static_obstacle = { {10, 9}, {5, 15} };
+	//  vector<p> start = { {2, 2}, {38, 1} };
+	//  vector<p> goal = { {14, 39}, {45, 31} };
+	//  vector<p> static_obstacle = { {39, 2} };
 	//	Planner planner(1, 1, static_obstacle);
 
 	//	planner.set_max_core();
@@ -86,9 +86,11 @@ int main()
 
 	startClock = clock();
 
-	vector<p> start = { {1, 2}, {2, 1}, {3, 5}, {4, 1} };
-	vector<p> goal = { {18, 17}, {19, 18}, {16, 18}, {15, 19} };
-	vector<p> static_obstacle = { {10, 9}, {5, 15} };
+	//vector<p> start = { {2, 2}, {38, 1} };
+	//vector<p> goal = { {14, 39}, {45, 31} };
+	vector<p> start = { {2, 2} };
+	vector<p> goal = { {14, 39} };
+	vector<p> static_obstacle = { {39, 2} };
 	Planner planner(1, 1, static_obstacle);
 
 	planner.set_max_core();

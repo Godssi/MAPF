@@ -15,6 +15,13 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
         solution[agent] = calculate_path(agent, constraints, {});
     }
 
+    if (solution.size() == 1)
+    {
+        vec2PInt vP2Int;
+        vP2Int.push_back(solution[*(agents.begin())]);
+        return vP2Int;
+    }
+
     vecCTNode open;
     for (Agent agent : agents)
     {
@@ -88,8 +95,8 @@ void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt
     Constraints agent_i_constraint = calculate_constraints(best, agent_i, agent_j, time_of_conflict);
     Constraints agent_j_constraint = calculate_constraints(best, agent_j, agent_i, time_of_conflict);
 
-     vecPInt agent_i_path = calculate_path(agent_i, agent_i_constraint, calculate_goal_times(best, agent_i, agents));
-     vecPInt agent_j_path = calculate_path(agent_i, agent_i_constraint, calculate_goal_times(best, agent_i, agents));
+    vecPInt agent_i_path = calculate_path(agent_i, agent_i_constraint, calculate_goal_times(best, agent_i, agents));
+    vecPInt agent_j_path = calculate_path(agent_i, agent_i_constraint, calculate_goal_times(best, agent_i, agents));
 
     map<Agent, vecPInt> solution_i = best.solution;
     map<Agent, vecPInt> solution_j = best.solution;
