@@ -38,3 +38,10 @@ Multi Agent Path Finding (MAPF)
 > 3. pair, vector, set등 을 활용한 변수들을 쉽게 파악하기 위해 typedef를 사용해 가독성 향상
 > 4. class의 생성자들을 약간 수정
 > 5. AStar함수에 conf_path, semi_dynamic_obstacles의 영향을 반영
+
+
+> ## 2/20 수정사항
+> 1. AStar 함수에서 발생하는 메모리 누수 수정 
+> &rarr; pathIdx를 찾지 못하고 반환하는 경우 메모리 할당 해제를 진행하지 않았음 
+> 3. search_node함수를 multi-thread를 이용하여 탐색
+> 4. planner 함수를 클래스 생성후 이용하는 방식으로 변경

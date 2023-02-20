@@ -13,7 +13,6 @@
 
 #include <ctime>
 
-
 using namespace std;
 
 typedef long long ll;
@@ -45,23 +44,19 @@ void print_vec2PInt(vec2PInt pVec2PInt)
 
 int main()
 {
-	/*vector<p> start = {{1, 2}, {2, 1}};
-	vector<p> goal = { {18, 17}, {19, 18}};
-	vector<p> static_obstacle = { {10, 9} };*/
-	vector<p> start = { {1, 2}, {2, 1}, {3, 5}, {4, 1} };
-	vector<p> goal = { {18, 17}, {19, 18}, {16, 18}, {15, 19} };
-	vector<p> static_obstacle = { {10, 9}, {5, 15} };
-	Planner planner(1, 1, static_obstacle);
-
 	clock_t startClock, endClock;
 	clock_t entire_startClock, entire_endClock;
-
-	planner.set_max_core();
 
 	entire_startClock = clock();
 	for (int i = 0; i < 30; i++)
 	{
 		startClock = clock();
+		vector<p> start = { {1, 2}, {2, 1}, {3, 5}, {4, 1} };
+		vector<p> goal = { {18, 17}, {19, 18}, {16, 18}, {15, 19} };
+		vector<p> static_obstacle = { {10, 9}, {5, 15} };
+		Planner planner(1, 1, static_obstacle);
+
+		planner.set_max_core();
 		vec2PInt result = planner.plan(start, goal, 200, 100, false);
 		endClock = clock();
 

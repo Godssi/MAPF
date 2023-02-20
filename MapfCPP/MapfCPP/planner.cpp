@@ -30,12 +30,6 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
         open.push_back(node);
     }
 
-    auto multi_search_node = [&](CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt>>& results)
-    {
-        search_node(best, results);
-        return;
-    };
-
     int iter_ = 0;
     vector<thread> th;
     th.resize(max_core);
@@ -46,9 +40,9 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
         th.clear();
         th.resize(max_core);
         core = 0;
-
+        
         for (auto iter = open.begin(); iter != open.end();) {
-            th[core] = thread(multi_search_node, ref(*iter), ref(results));
+            th[core] = thread(&Planner::search_node, this, ref(*iter), ref(results));
             th[core].join();
             iter = open.erase(iter);
             if (core < max_core - 1)
@@ -56,6 +50,7 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
             else
                 core = 0;
         }
+
         if (results.second.size() != 0) return results.second[0];
         for (auto iter = results.first.begin(); iter != results.first.end(); iter++) {
             if (iter->first.tr == true)
@@ -135,7 +130,6 @@ void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt
 
     mtx.lock();
     results.first.push_back(pairCTNode{node_i, node_j});
-    cout << "finish thread" << "\n";
     mtx.unlock();
     return;
 }
@@ -225,7 +219,8 @@ Constraints Planner::calculate_constraints(CTNode& node, Agent& constrained_agen
     pairInt pivot = unchanged_path[time_of_conflict]; // 충돌이 발생한 시간에서 좌표//o초부터 위치 저장된다고 생각했을 때 만약1초부터면 time_of_conflict-1로 넣기
     int conflict_end_time = time_of_conflict;
 
-    while (true) { //aaaaa
+    while (true)
+    {
         if (conflict_end_time >= constrained_path.size())   break;
         if (dist(constrained_path[conflict_end_time], pivot) >= 2 * robot_radius) break;  // 충돌 상황
         conflict_end_time++;
@@ -301,7 +296,8 @@ void Planner::pad(map<Agent, vecPInt>& solution) // 경로들을 동일한 크기로 만든�
     }
 
     // path의 마지막 위치를 최대 길이 만큼 반복문을 이용해서 추가해주는 코드
-    for (auto& elem : solution) {
+    for (auto& elem : solution)
+    {
         if (elem.second.size() == _max)
             continue;
 

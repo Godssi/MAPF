@@ -14,6 +14,8 @@ typedef pair<int, int> p;
 typedef vector<p> Path;
 typedef vector<vector<ll>> Map;
 
+extern int cnt;
+
 class Node
 {
 public:  

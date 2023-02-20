@@ -22,17 +22,12 @@ vector<Node*>::const_iterator findIdx(Node* child, const vector<Node*>& openList
 }
 
 template<class T>
-void deleteVector(vector<T> pVector)
+void deleteVector(vector<T*> pVector)
 {
 	while (!pVector.empty()) {
 		delete pVector.back();
 		pVector.pop_back();
 	}
-}
-
-void deleteNode(Node* node)
-{
-	delete node;
 }
 
 bool valid_path(p xy, Node * cur, map<int, set<p>> conf_path, bool goal_time = false)
@@ -109,6 +104,8 @@ Path AStar(p start, p goal, Map origin_map, Map potential_map, map<int, set<p>> 
 	vector<Node*> openList;
 	vector<Node*> closedList;
 
+	vector<Node*> tmp;
+
 	openList.push_back(startNode);
 	Node* curNode;
 	vector<p> dxdy = { {-1, 0}, {0, -1}, {1, 0}, {0, 1} };
@@ -131,9 +128,11 @@ Path AStar(p start, p goal, Map origin_map, Map potential_map, map<int, set<p>> 
 				cur = cur->parent;
 			}
 			pathIdx.push_back(startNode->position);
-			deleteVector<Node*>(openList);
-			deleteVector<Node*>(closedList);
+
+			deleteVector<Node>(openList);
+			deleteVector<Node>(closedList);
 			delete goalNode;
+
 			reverse(pathIdx.begin(), pathIdx.end());
 			return pathIdx;
 		}
@@ -159,6 +158,7 @@ Path AStar(p start, p goal, Map origin_map, Map potential_map, map<int, set<p>> 
 
 			Node* newNode = new Node(new_xy, curNode);
 			childrenList.push_back(newNode);
+			tmp.push_back(newNode);
 		}
 
 		while (!childrenList.empty())
@@ -179,7 +179,7 @@ Path AStar(p start, p goal, Map origin_map, Map potential_map, map<int, set<p>> 
 			if ((*child) ^ (openList))
 			{
 				auto it = findIdx(child, openList);
-				if ((child->g < (*it)->g) && valid_path2(child, conf_path) && valid_path2(child, semi_dynamic_obstacles, true))
+				if (it != openList.end() && (child->g < (*it)->g) && valid_path2(child, conf_path) && valid_path2(child, semi_dynamic_obstacles, true))
 				{
 					delete (*it);
 					openList.erase(it);
@@ -193,5 +193,10 @@ Path AStar(p start, p goal, Map origin_map, Map potential_map, map<int, set<p>> 
 			openList.push_back(child);
 		}
 	}
+
+	deleteVector<Node>(openList);
+	deleteVector<Node>(closedList);
+	delete goalNode;
+
 	return pathIdx;
 }
