@@ -5,7 +5,7 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
 {
     this->low_level_max_iter = low_level_max_iter;
     this->debug = debug;
-    this->agents = min_cost(starts, goals);
+    this->agents = _assign(starts, goals);
 
     Constraints constraints;
     bool tf = true;
@@ -57,6 +57,11 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
             else
                 core = 0;
         }
+
+        //for (auto iter = open.begin(); iter != open.end();) {
+        //    search_node(*iter, results);
+        //    iter = open.erase(iter);
+        //}
 
         if (results.second.size() != 0) return results.second[0];
         for (auto iter = results.first.begin(); iter != results.first.end(); iter++) {
@@ -318,8 +323,8 @@ void Planner::pad(map<Agent, vecPInt>& solution) // 경로들을 동일한 크기로 만든�
 void Planner::set_max_core()
 {
     max_core = thread::hardware_concurrency();
-    if (max_core > 3)
-        max_core -= 2;
+    if (max_core > 5)
+        max_core -= 4;
 }
 
 void Planner::moving_obstacle_to_origin_map(const vecPInt& movePoint)

@@ -46,7 +46,7 @@ void print_path(vec2PInt pPath)
 void print_map(Planner planner)
 {
 	Map map = planner.get_aStarPlanner().get_origin_map();
-	cout << "\n\t\t\tMAP\n";
+	cout << "\n\t\t\t\tMap\n";
 	for (auto iter1 = map.begin(); iter1 != map.end(); iter1++)
 	{
 		cout << "\n\t";
@@ -60,41 +60,20 @@ void print_map(Planner planner)
 
 int main()
 {
-	//clock_t startClock, endClock;
-	//clock_t entire_startClock, entire_endClock;
-
-	//entire_startClock = clock();
-	//for (int i = 0; i < 30; i++)
-	//{
-	//	startClock = clock();
-	//  vector<p> start = { {2, 2}, {38, 1} };
-	//  vector<p> goal = { {14, 39}, {45, 31} };
-	//  vector<p> static_obstacle = { {39, 2} };
-	//	Planner planner(1, 1, static_obstacle);
-
-	//	planner.set_max_core();
-	//	vec2PInt result = planner.plan(start, goal, 200, 100, false);
-	//	endClock = clock();
-
-	//	cout << "\ntime: " << endClock - startClock << "  (ms)\n";
-	//}
-	//entire_endClock = clock();
-
-	//cout << "\ntotal time: " << entire_endClock - entire_startClock << "  (ms)\n";
-
 	clock_t startClock, endClock;
 
 	startClock = clock();
 
-	//vector<p> start = { {2, 2}, {38, 1} };
-	//vector<p> goal = { {14, 39}, {45, 31} };
-	vector<p> start = { {2, 2} };
-	vector<p> goal = { {14, 39} };
-	vector<p> static_obstacle = { {39, 2} };
+	vector<p> start = { {2, 2}, {38, 1}, {2, 32}, {48, 39} };
+	vector<p> goal = { {14, 39}, {45, 31}, {49, 3}, {22, 5} };
+	/*vector<p> start = { {2, 2}, {38, 1}, {2, 32} };
+	vector<p> goal = { {14, 39}, {45, 31}, {49, 3} };*/
+	vector<p> static_obstacle = { {1, 1} };
 	Planner planner(1, 1, static_obstacle);
 
 	planner.set_max_core();
 	print_map(planner);
+	cout << "\n\tcore num : " << planner.get_max_core() << "\n";
 	vec2PInt result = planner.plan(start, goal, 200, 100, false);
 	print_path(result);
 

@@ -70,6 +70,7 @@ public:
 	// Planner setting
 	void set_max_core();
 	void moving_obstacle_to_origin_map(const vecPInt& movePoint);
+	int get_max_core() { return max_core; };
 	AStarPlanner get_aStarPlanner() { return aStarPlanner; };
 };
 

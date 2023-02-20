@@ -59,3 +59,20 @@ vecAgent greedy_assign(vecPInt starts, vecPInt goals) {
     }
     return agents;
 }
+
+vecAgent _assign(vecPInt starts, vecPInt goals)
+{
+    vecAgent agents;
+    if (starts.size() != goals.size()) {
+        cout << "Not Matched size";
+        return agents;
+    }
+
+    for (int i = 0; i < starts.size(); i++)
+    {
+        agents.push_back(Agent(starts[i], goals[i]));
+    }
+
+    return agents;
+
+}

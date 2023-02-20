@@ -1,12 +1,2 @@
-﻿  AStarMapGen.cpp
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(26,31): warning C4244: 'initializing': conversion from 'll' to 'int', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(33,37): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(52,31): warning C4244: 'initializing': conversion from 'll' to 'int', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(59,37): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(78,31): warning C4244: 'initializing': conversion from 'll' to 'int', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(85,37): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(104,31): warning C4244: 'initializing': conversion from 'll' to 'int', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(111,37): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(143,31): warning C4244: 'initializing': conversion from 'll' to 'int', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(150,37): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+﻿  main.cpp
   MapfCPP.vcxproj -> C:\Users\choi\Desktop\MapfCPP\x64\Debug\MapfCPP.exe

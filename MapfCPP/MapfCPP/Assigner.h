@@ -25,6 +25,7 @@ typedef set<pairInt> setPInt;
 
 vecAgent min_cost(vecPInt starts, vecPInt goals);
 vecAgent greedy_assign(vecPInt starts, vecPInt goals);
+vecAgent _assign(vecPInt starts, vecPInt goals);
 
 
 #endif
