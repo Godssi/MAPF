@@ -309,4 +309,6 @@ void Planner::pad(map<Agent, vecPInt>& solution) // 경로들을 동일한 크기로 만든�
 void Planner::set_max_core()
 {
     max_core = thread::hardware_concurrency();
+    if (max_core > 3)
+        max_core -= 2;
 }
