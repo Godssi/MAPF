@@ -15,8 +15,12 @@ typedef pair<int, int> p;
 typedef vector<p> Path;
 typedef vector<vector<ll>> Map;
 
-Map potential_map_generator(Map map);
-Map test_maze_gen();
-Map random_maze_gen();
+namespace MAP_GEN
+{
+	Map potential_map_generator(Map map);
+	Map modify_potential_map(Map map, Map potential_map);
+	Map test_maze_gen();
+	Map random_maze_gen();
+}
 
 # endif

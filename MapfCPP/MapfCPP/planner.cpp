@@ -37,18 +37,24 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
     };
 
     int iter_ = 0;
+    vector<thread> th;
+    th.resize(max_core);
+
     while (!open.empty() && iter_ < max_iter) {
         iter_++;
         pair<vector<pairCTNode>, vector<vec2PInt>> results;
-        vector<thread> th;
+        th.clear();
         th.resize(max_core);
+        core = 0;
+
         for (auto iter = open.begin(); iter != open.end();) {
-            if (core >= max_core)
-                core = 0;
             th[core] = thread(multi_search_node, ref(*iter), ref(results));
             th[core].join();
             iter = open.erase(iter);
-            core++;
+            if (core < max_core - 1)
+                core++;
+            else
+                core = 0;
         }
         if (results.second.size() != 0) return results.second[0];
         for (auto iter = results.first.begin(); iter != results.first.end(); iter++) {
@@ -79,7 +85,7 @@ void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt
     if (time_of_conflict == -1) // 충돌이 없을 때
     {
         mtx.lock();
-        results.second.push_back(Planner::reformat(this->agents, best.solution));
+        results.second.push_back(reformat(this->agents, best.solution));
         mtx.unlock();
         return;
     }
@@ -99,6 +105,7 @@ void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt
     /////////////////////////////////////////////////////////////////////////////////
     CTNode node_i;
     CTNode node_j;
+
     bool tf = true;
     for (auto iter = solution_i.begin(); iter != solution_i.end(); iter++) {
         if (iter->second.size() == 0) {
@@ -111,6 +118,8 @@ void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt
         node_i.solution = solution_i;
         node_i.tr = true;
     }
+
+
     tf = true;
     for (auto iter = solution_j.begin(); iter != solution_j.end(); iter++) {
         if (iter->second.size() == 0) {
@@ -126,6 +135,7 @@ void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt
 
     mtx.lock();
     results.first.push_back(pairCTNode{node_i, node_j});
+    cout << "finish thread" << "\n";
     mtx.unlock();
     return;
 }
@@ -258,7 +268,7 @@ map<int, setPInt> Planner::calculate_goal_times(CTNode& node, Agent& agent, vecA
 vecPInt Planner::calculate_path(Agent agent, Constraints constraints, map<int, setPInt> goal_times) // 공간이랑 시간에 대해 모든 에이전트들의 충돌이 없는 경로를 반환
 {
     map<int, setPInt> a;
-    return AStarPlanner(agent.start, agent.goal, constraints.setdefault(agent, a), goal_times, low_level_max_iter, debug); // 충돌없는 경로 반환
+    return aStarPlanner.aStarPlan(agent.start, agent.goal, constraints.setdefault(agent, a), goal_times, low_level_max_iter, debug); // 충돌없는 경로 반환
 }
 
 

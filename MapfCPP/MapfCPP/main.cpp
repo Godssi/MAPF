@@ -54,16 +54,23 @@ int main()
 	Planner planner(1, 1, static_obstacle);
 
 	clock_t startClock, endClock;
-	
+	clock_t entire_startClock, entire_endClock;
+
 	planner.set_max_core();
 
-	startClock = clock();
-	vec2PInt result = planner.plan(start, goal, 200, 100, false);
-	endClock = clock();
+	entire_startClock = clock();
+	for (int i = 0; i < 30; i++)
+	{
+		startClock = clock();
+		vec2PInt result = planner.plan(start, goal, 200, 100, false);
+		endClock = clock();
 
-	print_vec2PInt(result);
+		cout << "\ntime: " << endClock - startClock << "  (ms)\n";
+	}
+	entire_endClock = clock();
 
-	cout << "\ntime: " << endClock - startClock << "  (ms)\n\n";
+	cout << "\ntotal time: " << entire_endClock - entire_startClock << "  (ms)\n";
+	// print_vec2PInt(result);
 
 	return 0;
 }

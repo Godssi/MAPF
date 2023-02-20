@@ -1,6 +1,6 @@
 #include "AStarMapGen.h"
 
-Map potential_map_generator(Map map)
+Map MAP_GEN::potential_map_generator(Map map)
 {
     pair<ll, ll> map_size = { map.size() , map[0].size()};
     Map potential_map (map_size.first, vector<ll>(map_size.second, 0));
@@ -96,7 +96,46 @@ Map potential_map_generator(Map map)
     return potential_map;
 }
 
-Map test_maze_gen()
+Map MAP_GEN::modify_potential_map(Map map, Map potential_map)
+{
+    pair<ll, ll> map_size = { map.size() , map[0].size() };
+
+    for (ll i = 0; i < map_size.first; i++)
+    {
+        for (ll j = 0; j < map_size.second; j++)
+        {
+            if (map[i][j] == 2)
+            {
+                int outer_r = 7;
+                int inner_r = 2;
+                int alpha = 28;
+
+                for (ll k = i - outer_r; k < i + outer_r + 1; k++)
+                {
+                    for (ll m = j - outer_r; m < j + outer_r + 1; m++)
+                    {
+                        int r = (k - i) * (k - i) + (m - j) * (m - j);
+                        if (r <= inner_r * inner_r && (0 <= k && k < map_size.first) && (0 <= m && m < map_size.second))
+                        {
+                            potential_map[k][m] += alpha;
+                        }
+                        else if (r <= outer_r * outer_r && (0 <= k && k < map_size.first) && (0 <= m && m < map_size.second))
+                        {
+                            r = sqrt(r);
+                            if (r < 1e-3)
+                                r = 1;
+                            potential_map[k][m] += (1 / (outer_r - inner_r)) *
+                                ((inner_r * outer_r * (alpha - 1)) / r + outer_r - inner_r * alpha);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return potential_map;
+}
+
+Map MAP_GEN::test_maze_gen()
 {
     Map map = { {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
                 {3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
@@ -123,7 +162,7 @@ Map test_maze_gen()
     return map;
 }
 
-Map random_maze_gen()
+Map MAP_GEN::random_maze_gen()
 {
     srand((unsigned int)time(NULL));
     pair<ll, ll> map_size = { rand() % 20 + 30, rand() % 20 + 30 };

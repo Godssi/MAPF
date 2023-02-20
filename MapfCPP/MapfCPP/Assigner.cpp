@@ -30,7 +30,6 @@ vecAgent min_cost(vecPInt starts, vecPInt goals)
     return agents;
 }
 
-
 vecAgent greedy_assign(vecPInt starts, vecPInt goals) {
     vecAgent agents;
     if (starts.size() != goals.size()) {

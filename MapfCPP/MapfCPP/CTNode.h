@@ -28,4 +28,6 @@ public:
 	bool __it__(CTNode other);
 	friend std::ostream& operator<<(std::ostream& os, const CTNode& cTnode);
 };
+
+
 #endif

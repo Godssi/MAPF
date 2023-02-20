@@ -46,6 +46,7 @@ public:
 	int core = 0;
 	int max_core = 2;
 
+	AStarPlanner aStarPlanner;
 	vecAgent agents;
 	vector<pair<Agent, Agent>> combi;
 	Planner(int grid_size, int robot_radius, vecPInt static_obstacle, int low_level_max_iter = 100,bool debug = false) : robot_radius(robot_radius), debug(debug), low_level_max_iter(low_level_max_iter) /*st_planner(static__obstacle)*/ {}
@@ -64,6 +65,7 @@ public:
 
 	void set_max_core();
 };
+
 
 #endif
 

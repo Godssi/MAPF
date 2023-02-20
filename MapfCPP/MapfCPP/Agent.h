@@ -31,4 +31,6 @@ public:
 	bool operator< (const Agent& other) const;
 	friend std::ostream& operator<< (std::ostream& os, const Agent& a);
 };
+
+
 #endif

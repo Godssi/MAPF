@@ -10,12 +10,10 @@ int CTNode::sic(map<Agent, vecPInt> solution)
 	return result;
 }
 
-
 bool CTNode::__it__(CTNode other)
 {
 	return sic(solution) < sic(other.solution);
 }
-
 
 std::ostream& operator<<(std::ostream& os, const CTNode& cTnode) // unordered_map<Agent, map<int, set<pair<int, int>>>> agent_constraints_copy = agent_constraints; // {a:{2:{(3,3)}}}
 {

@@ -13,7 +13,6 @@ Constraints Constraints::fork(Agent agent, pairInt obstacle, int start, int end)
     return new_constraints; // 10, 11초에 (8,6)에서 충돌이 일어남을 리턴함
 }
 
-
 // Agent 별롤 충돌이 일어나는 시간과 충돌이 일어나는 위치를 넣어주는 것
 map<int, setPInt> Constraints::setdefault(Agent agent, map<int, setPInt> constraint)
 {
@@ -28,13 +27,11 @@ map<int, setPInt> Constraints::setdefault(Agent agent, map<int, setPInt> constra
     }
 }
 
-
 // agent별로의 시간에 따른 constraint를 반환
 map<int, setPInt> Constraints::getitem(Agent agent)
 {
     return this->agent_constraints[agent];
 }
-
 
 // 전체 constriant에 저장되어있는 Agent들을 반환
 vecAgent Constraints::iter()
@@ -45,7 +42,6 @@ vecAgent Constraints::iter()
     return agent_list;
 }
 
-
 // 단순하게 agent_constraint를 string형으로 반환하는 코드
 std::ostream& operator<< (std::ostream& os, const Constraints& Constraints) // unordered_map<Agent, map<int, set<pair<int, int>>>> agent_constraints_copy = agent_constraints; // {a:{2:{(3,3)}}}
 {
@@ -55,4 +51,3 @@ std::ostream& operator<< (std::ostream& os, const Constraints& Constraints) // u
                 os << iter->first << ": {" << iter2->first << ":{(" << iter3->first << "," << iter3->second << ")}\n";
     return os;
 }
-
