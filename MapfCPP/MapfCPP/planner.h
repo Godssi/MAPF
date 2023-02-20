@@ -13,6 +13,7 @@
 #include <mutex>
 #include <cmath>
 #include <algorithm>
+#include <thread>
 
 #include "AStarPlanner.h"
 
@@ -41,6 +42,10 @@ public:
 	int robot_radius;
 	int low_level_max_iter;
 	bool debug;
+
+	int core = 0;
+	int max_core = 2;
+
 	vecAgent agents;
 	vector<pair<Agent, Agent>> combi;
 	Planner(int grid_size, int robot_radius, vecPInt static_obstacle, int low_level_max_iter = 100,bool debug = false) : robot_radius(robot_radius), debug(debug), low_level_max_iter(low_level_max_iter) /*st_planner(static__obstacle)*/ {}
@@ -56,6 +61,8 @@ public:
 	vecPInt calculate_path(Agent agent, Constraints constraints, map<int, setPInt> goal_times);
 	vec2PInt reformat(vecAgent agents, map<Agent, vecPInt>& solution);
 	void pad(map<Agent, vecPInt>& solution);
+
+	void set_max_core();
 };
 
 #endif

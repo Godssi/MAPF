@@ -32,10 +32,11 @@ void print_vec2PInt(vec2PInt pVec2PInt)
 	char ch = 'A';
 	for (auto iter1 = pVec2PInt.begin(); iter1 != pVec2PInt.end(); iter1++)
 	{
+		int i = 0;
 		cout << "    robot " << ch << "\n\n";
-		for (auto iter2 = iter1->begin(); iter2 != iter1->end(); iter2++)
+		for (auto iter2 = iter1->begin(); iter2 != iter1->end(); iter2++, i++)
 		{
-			cout << "path: " << iter2->first << ", " << iter2->second << "\n";
+			cout << "path: " << iter2->first << ", " << iter2->second <<  "\t\t: " << i << "\n";
 		}
 		cout << "\n";
 		ch++;
@@ -47,18 +48,22 @@ int main()
 	/*vector<p> start = {{1, 2}, {2, 1}};
 	vector<p> goal = { {18, 17}, {19, 18}};
 	vector<p> static_obstacle = { {10, 9} };*/
-	vector<p> start = { {1, 2}, {2, 1}, {3, 5} };
-	vector<p> goal = { {18, 17}, {19, 18}, {16, 18} };
+	vector<p> start = { {1, 2}, {2, 1}, {3, 5}, {4, 1} };
+	vector<p> goal = { {18, 17}, {19, 18}, {16, 18}, {15, 19} };
 	vector<p> static_obstacle = { {10, 9}, {5, 15} };
 	Planner planner(1, 1, static_obstacle);
 
 	clock_t startClock, endClock;
+	
+	planner.set_max_core();
 
 	startClock = clock();
 	vec2PInt result = planner.plan(start, goal, 200, 100, false);
 	endClock = clock();
-	cout << "time: " << endClock - startClock << "  (ms)\n\n";
 
 	print_vec2PInt(result);
+
+	cout << "\ntime: " << endClock - startClock << "  (ms)\n\n";
+
 	return 0;
 }

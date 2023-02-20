@@ -30,13 +30,25 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
         open.push_back(node);
     }
 
+    auto multi_search_node = [&](CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt>>& results)
+    {
+        search_node(best, results);
+        return;
+    };
+
     int iter_ = 0;
     while (!open.empty() && iter_ < max_iter) {
         iter_++;
         pair<vector<pairCTNode>, vector<vec2PInt>> results;
+        vector<thread> th;
+        th.resize(max_core);
         for (auto iter = open.begin(); iter != open.end();) {
-            search_node(*iter, results);
-            iter=open.erase(iter);
+            if (core >= max_core)
+                core = 0;
+            th[core] = thread(multi_search_node, ref(*iter), ref(results));
+            th[core].join();
+            iter = open.erase(iter);
+            core++;
         }
         if (results.second.size() != 0) return results.second[0];
         for (auto iter = results.first.begin(); iter != results.first.end(); iter++) {
@@ -55,57 +67,29 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
     return results.second[0];
 }
 
-
-
-void print_Node(CTNode node)
-{
-    for (auto iter = node.solution.begin(); iter != node.solution.end(); iter++)
-    {
-        std::cout << "Agent:" << iter->first << "  %%%%%%%%%%%%\n";
-        for (int i = 0; i < iter->second.size(); i++)
-        {
-            std::cout << "( " << iter->second[i].first << ", " << iter->second[i].second << " )\n";
-        }
-    }
-}
-
-#include <thread>
-
 // result의 의미 파악 필요, 충돌이 발생한 경우 첫번째 요소에 두 에이전트의 정보 저장과 마지막 탐색 즉, 충돌이 없는 경우 두 번째 요소에 전체의 경로를 저장. 
 void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt>>& results)
 {
+    mutex mtx;
+
     pair<vecAgent, int> val = validate_paths(this->agents, best); // 충돌 에이전트와 충돌 인덱스 정상 반환 
     Agent agent_i = ((val.first)[0]);
     Agent agent_j = ((val.first)[1]);
     int time_of_conflict = val.second;
     if (time_of_conflict == -1) // 충돌이 없을 때
     {
+        mtx.lock();
         results.second.push_back(Planner::reformat(Planner::agents, best.solution));
+        mtx.unlock();
         return;
     }
 
     Constraints agent_i_constraint = calculate_constraints(best, agent_i, agent_j, time_of_conflict);
-    // (8,6)에서 10초 11초 충돌상황이 발생한다는 것 calculate_constraints 통해 받아옴
     Constraints agent_j_constraint = calculate_constraints(best, agent_j, agent_i, time_of_conflict);
 
-    auto multi_calculate_path = [](Agent agent, Constraints constraints, map<int, setPInt> goal_times, int low_level_max_iter, bool debug, vecPInt& agent_i_path)
-    {
-        map<int, setPInt> a;
-        agent_i_path = AStarPlanner(agent.start, agent.goal, constraints.setdefault(agent, a), goal_times, low_level_max_iter, debug);
-        return;
-    };
 
-    vecPInt agent_i_path;
-    vecPInt agent_j_path;
-
-    thread t1 = thread(multi_calculate_path, agent_i, agent_i_constraint, calculate_goal_times(best, agent_i, agents), low_level_max_iter, debug, ref(agent_i_path));
-    thread t2 = thread(multi_calculate_path, agent_j, agent_j_constraint, calculate_goal_times(best, agent_j, agents), low_level_max_iter, debug, ref(agent_j_path));
-
-    t1.join();
-    t2.join();
-
-    //vecPInt agent_i_path = calculate_path(agent_i, agent_i_constraint, calculate_goal_times(best, agent_i, agents));
-    //vecPInt agent_j_path = calculate_path(agent_j, agent_j_constraint, calculate_goal_times(best, agent_j, agents));
+     vecPInt agent_i_path = calculate_path(agent_i, agent_i_constraint, calculate_goal_times(best, agent_i, agents));
+     vecPInt agent_j_path = calculate_path(agent_i, agent_i_constraint, calculate_goal_times(best, agent_i, agents));
 
     map<Agent, vecPInt> solution_i = best.solution;
     map<Agent, vecPInt> solution_j = best.solution;
@@ -113,6 +97,7 @@ void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt
     solution_j[agent_j] = agent_j_path;
 
 
+    /////////////////////////////////////////////////////////////////////////////////
     CTNode node_i;
     CTNode node_j;
     bool tf = true;
@@ -140,53 +125,11 @@ void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt
         node_j.tr = true;
     }
 
+    mtx.lock();
     results.first.push_back(pairCTNode{node_i, node_j});
+    mtx.unlock();
     return;
 }
-
-
-/*
-void Planner::search_node(CTNode& best, std::pair<std::vector<std::pair<CTNode, CTNode>>, std::vector<vector<std::vector<std::pair<int, int>>>>>& results)
-// result의 의미 파악 필요, 충돌이 발생한 경우 첫번째 요소에 두 에이전트의 정보 저장과 마지막 탐색 즉, 충돌이 없는 경우 두 번째 요소에 전체의 경로를 저장.
-{
-   std::pair < std::vector<Agent>, int> val = Planner::validate_paths(Planner::agents, best);
-   Agent agent_i = ((val.first)[0]);
-   Agent agent_j = ((val.first)[1]);
-   int time_of_conflict = val.second;
-   if (time_of_conflict ==-1) {
-      results.second.push_back(Planner::reformat(Planner::agents, best.solution));
-      return;
-   }
-   Constraints agent_i_constraint = Planner::calculate_constraints(best, agent_i, agent_j, time_of_conflict);
-   Constraints agent_j_constraint = Planner::calculate_constraints(best, agent_j, agent_i, time_of_conflict);
-   std::vector<std::pair<int, int>> agent_i_path = Planner::calculate_path(agent_i, agent_i_constraint, Planner::calculate_goal_times(best, agent_i, Planner::agents));
-   std::vector<std::pair<int, int>> agent_j_path = Planner::calculate_path(agent_j, agent_j_constraint, Planner::calculate_goal_times(best, agent_j, Planner::agents));
-
-   std::map<Agent, std::vector<std::pair<int, int>>> solution_i = best.solution;
-   std::map<Agent, std::vector<std::pair<int, int>>> solution_j = best.solution;
-   solution_i[agent_i] = agent_i_path;
-   solution_j[agent_j] = agent_j_path;
-   CTNode* node_i = nullptr;
-   CTNode* node_j = nullptr;
-   bool tf = true;
-   for (auto iter = solution_i.begin(); iter != solution_i.end(); iter++) {
-      if (iter->second.size() == 0) {
-         tf = false;
-         break;
-      }
-   }
-   if (tf == true) *node_i = CTNode(agent_i_constraint, solution_i);
-   tf = true;
-   for (auto iter = solution_j.begin(); iter != solution_j.end(); iter++) {
-      if (iter->second.size() == 0) {
-         tf = false;
-         break;
-      }
-   }
-   if (tf == true) *node_j = CTNode(agent_j_constraint, solution_j);
-   results.first.push_back(std::pair<CTNode, CTNode>{*node_i, * node_j});
-   return;
-}*/
 
 
 vecPAgent Planner::combination(vecAgent total_agent)
@@ -239,9 +182,9 @@ int Planner::safe_distance(map<Agent, vecPInt> solution, Agent agent_i, Agent ag
     vecPInt paths_j = solution[agent_j];    // agent_j에 대한 경로 ex) {{4,6},{3,8}} 
     vec2PInt self{ paths_i, paths_j };      // paths_i랑 paths_j를 계속 바꿔줘야함 for문 써서 
     if (self[0].size() > self[1].size())
-        size = self[1].size();              // size 작은 것으로 설정
+        size = static_cast<int>(self[1].size());              // size 작은 것으로 설정
     else
-        size = self[0].size();              // size 작은 것으로 설정
+        size = static_cast<int>(self[0].size());              // size 작은 것으로 설정
 
     for (int i = 0; i < size; i++)
     {
@@ -295,7 +238,7 @@ map<int, setPInt> Planner::calculate_goal_times(CTNode& node, Agent& agent, vecA
     for (Agent& other_agent : agents) {
         if (other_agent == agent) continue;
 
-        int time = solution[other_agent].size() - 1;
+        int time = static_cast<int>(solution[other_agent].size()) - 1;
         if (goal_times.find(time) == goal_times.end())
         {
             setPInt val{ solution[other_agent][time] };
@@ -343,7 +286,7 @@ void Planner::pad(map<Agent, vecPInt>& solution) // 경로들을 동일한 크기로 만든�
     for (auto& elem : solution)
     {
         vecPInt path = elem.second;
-        int path_length = path.size();
+        int path_length = static_cast<int>(path.size());
         max_ = std::max(max_, path_length);
     }
 
@@ -355,10 +298,15 @@ void Planner::pad(map<Agent, vecPInt>& solution) // 경로들을 동일한 크기로 만든�
             continue;
 
         vecPInt padded = path;
-        int added_len = max_ - padded.size();
+        int added_len = max_ - static_cast<int>(padded.size());
         pairInt end_value = padded.back();
         for (int i = 0; i < added_len; i++);
         padded.push_back(end_value);
         solution[agent] = padded;
     }
+}
+
+void Planner::set_max_core()
+{
+    max_core = thread::hardware_concurrency();
 }
