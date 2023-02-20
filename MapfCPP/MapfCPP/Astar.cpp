@@ -24,9 +24,9 @@ vector<Node*>::const_iterator findIdx(Node* child, const vector<Node*>& openList
 template<class T>
 void deleteVector(vector<T> pVector)
 {
-	for (auto iter = pVector.begin(); iter != pVector.end(); iter++)
-	{
-		delete (*iter);
+	while (!pVector.empty()) {
+		delete pVector.back();
+		pVector.pop_back();
 	}
 }
 
@@ -35,67 +35,69 @@ void deleteNode(Node* node)
 	delete node;
 }
 
-bool valid_path(p xy, Node * cur, map<int, set<p>> conf_path)
+bool valid_path(p xy, Node * cur, map<int, set<p>> conf_path, bool goal_time = false)
 {
-	for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
+	if (goal_time)
 	{
-		for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
+		for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
 		{
-			if ((xy.first == iter2->first) && (xy.second == iter2->second) && (cur->length + 1 == iter->first))
+			for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
 			{
-				return true;
+				if ((xy.first == iter2->first) && (xy.second == iter2->second) && (cur->length + 1 >= iter->first))
+				{
+					return true;
+				}
 			}
 		}
+		return false;
 	}
-	return false;
-}
-
-bool valid_path2(Node* cur, map<int, set<p>> conf_path)
-{
-	for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
+	else
 	{
-		for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
+		for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
 		{
-			if ((cur->position.first == iter2->first) && (cur->position.second == iter2->second) && (cur->length == iter->first))
+			for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
 			{
-				return false;
+				if ((xy.first == iter2->first) && (xy.second == iter2->second) && (cur->length + 1 == iter->first))
+				{
+					return true;
+				}
 			}
 		}
+		return false;
 	}
-	return true;
 }
 
-bool valid_path_semi(p xy, Node* cur, map<int, set<p>> conf_path)
+bool valid_path2(Node* cur, map<int, set<p>> conf_path, bool goal_time = false)
 {
-	for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
+	if (goal_time)
 	{
-		for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
+		for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
 		{
-			if ((xy.first == iter2->first) && (xy.second == iter2->second) && (cur->length + 1 >= iter->first))
+			for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
 			{
-				return true;
+				if ((cur->position.first == iter2->first) && (cur->position.second == iter2->second) && (cur->length >= iter->first))
+				{
+					return false;
+				}
 			}
 		}
+		return true;
 	}
-	return false;
-}
-
-bool valid_path_semi2(Node* cur, map<int, set<p>> conf_path)
-{
-	for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
+	else
 	{
-		for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
+		for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
 		{
-			if ((cur->position.first == iter2->first) && (cur->position.second == iter2->second) && (cur->length >= iter->first))
+			for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
 			{
-				return false;
+				if ((cur->position.first == iter2->first) && (cur->position.second == iter2->second) && (cur->length == iter->first))
+				{
+					return false;
+				}
 			}
 		}
+		return true;
 	}
-	return true;
 }
-
-
 
 
 Path AStar(p start, p goal, Map origin_map, Map potential_map, map<int, set<p>> conf_path, map<int, set<p>> semi_dynamic_obstacles)
@@ -153,7 +155,7 @@ Path AStar(p start, p goal, Map origin_map, Map potential_map, map<int, set<p>> 
 
 			if (valid_path(new_xy, curNode, conf_path)) continue;
 
-			if (valid_path_semi(new_xy, curNode, semi_dynamic_obstacles)) continue;
+			if (valid_path(new_xy, curNode, semi_dynamic_obstacles, true)) continue;
 
 			Node* newNode = new Node(new_xy, curNode);
 			childrenList.push_back(newNode);
@@ -177,7 +179,7 @@ Path AStar(p start, p goal, Map origin_map, Map potential_map, map<int, set<p>> 
 			if ((*child) ^ (openList))
 			{
 				auto it = findIdx(child, openList);
-				if ((child->g < (*it)->g) && valid_path2(child, conf_path) && valid_path_semi2(child, semi_dynamic_obstacles))
+				if ((child->g < (*it)->g) && valid_path2(child, conf_path) && valid_path2(child, semi_dynamic_obstacles, true))
 				{
 					delete (*it);
 					openList.erase(it);

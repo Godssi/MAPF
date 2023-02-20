@@ -79,14 +79,13 @@ void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt
     if (time_of_conflict == -1) // 충돌이 없을 때
     {
         mtx.lock();
-        results.second.push_back(Planner::reformat(Planner::agents, best.solution));
+        results.second.push_back(Planner::reformat(this->agents, best.solution));
         mtx.unlock();
         return;
     }
 
     Constraints agent_i_constraint = calculate_constraints(best, agent_i, agent_j, time_of_conflict);
     Constraints agent_j_constraint = calculate_constraints(best, agent_j, agent_i, time_of_conflict);
-
 
      vecPInt agent_i_path = calculate_path(agent_i, agent_i_constraint, calculate_goal_times(best, agent_i, agents));
      vecPInt agent_j_path = calculate_path(agent_i, agent_i_constraint, calculate_goal_times(best, agent_i, agents));
@@ -271,9 +270,11 @@ vec2PInt Planner::reformat(vecAgent agents, map<Agent, vecPInt>& solution) // pa
 {
     pad(solution);
     vec2PInt reformatted_solution;
+
     for (Agent agent : agents) {
         reformatted_solution.push_back(solution[agent]);
     }
+
     return reformatted_solution;
 }
 
@@ -282,27 +283,22 @@ void Planner::pad(map<Agent, vecPInt>& solution) // 경로들을 동일한 크기로 만든�
 // 여기서 solution에서 agent와 함께 있는 path들의 집합이 vector인데 path들은 위치인데 이걸 굳이 vector<int>로 해야되나?? 이러면 오류가 생길 수도 있지 않나?
 {
     // path의 최대 길이 파악
-    int max_ = 0;
+    int _max = 0;
     for (auto& elem : solution)
     {
-        vecPInt path = elem.second;
-        int path_length = static_cast<int>(path.size());
-        max_ = std::max(max_, path_length);
+        int path_length = static_cast<int>(elem.second.size());
+        _max = std::max(_max, path_length);
     }
 
     // path의 마지막 위치를 최대 길이 만큼 반복문을 이용해서 추가해주는 코드
     for (auto& elem : solution) {
-        Agent agent = elem.first;
-        vecPInt path = elem.second;
-        if (path.size() == max_)
+        if (elem.second.size() == _max)
             continue;
 
-        vecPInt padded = path;
-        int added_len = max_ - static_cast<int>(padded.size());
-        pairInt end_value = padded.back();
-        for (int i = 0; i < added_len; i++);
-        padded.push_back(end_value);
-        solution[agent] = padded;
+        int added_len = _max - static_cast<int>(elem.second.size());
+        pairInt end_value = elem.second.back();
+        for (int i = 0; i < added_len; i++)
+            solution[elem.first].push_back(end_value);
     }
 }
 
