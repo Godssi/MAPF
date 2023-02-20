@@ -6,6 +6,7 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
     this->low_level_max_iter = low_level_max_iter;
     this->debug = debug;
     this->agents = _assign(starts, goals);
+    // this->agents = min_cost(starts, goals);
 
     Constraints constraints;
     bool tf = true;
