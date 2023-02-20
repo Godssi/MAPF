@@ -94,7 +94,7 @@ int main()
 	planner.set_max_core();
 	print_map(planner);
 	vec2PInt result = planner.plan(start, goal, 200, 100, false);
-	print_vec2PInt(result);
+	print_path(result);
 
 	endClock = clock();
 	cout << "\n\n\ttime: " << endClock - startClock << "  (ms)\n";
