@@ -38,7 +38,7 @@ typedef set<pairInt> setPInt;
 
 class Planner
 {
-public:
+private:
 	int robot_radius;
 	int low_level_max_iter;
 	bool debug;
@@ -49,8 +49,12 @@ public:
 	AStarPlanner aStarPlanner;
 	vecAgent agents;
 	vector<pair<Agent, Agent>> combi;
-	Planner(int grid_size, int robot_radius, vecPInt static_obstacle, int low_level_max_iter = 100,bool debug = false) : robot_radius(robot_radius), debug(debug), low_level_max_iter(low_level_max_iter) /*st_planner(static__obstacle)*/ {}
 public:
+	Planner(int grid_size, int robot_radius, vecPInt static_obstacle, int low_level_max_iter = 100, bool debug = false) :
+		robot_radius(robot_radius), debug(debug), low_level_max_iter(low_level_max_iter)
+	{
+		aStarPlanner.set_static_obstacle(static_obstacle);
+	}
 	vec2PInt plan(vecPInt starts, vecPInt goals, int max_iter = 200, int low_level_max_iter = 100, bool debug = false);
 	void search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt>>& results);
 	vecPAgent combination(vecAgent total_agent);
@@ -63,7 +67,10 @@ public:
 	vec2PInt reformat(vecAgent agents, map<Agent, vecPInt>& solution);
 	void pad(map<Agent, vecPInt>& solution);
 
+	// Planner setting
 	void set_max_core();
+	void moving_obstacle_to_origin_map(const vecPInt& movePoint);
+	AStarPlanner get_aStarPlanner() { return aStarPlanner; };
 };
 
 

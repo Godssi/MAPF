@@ -6,12 +6,21 @@ AStarPlanner::AStarPlanner()
 	potential_map = MAP_GEN::potential_map_generator(origin_map);
 }
 
-Path AStarPlanner::aStarPlan(p start, p goal, map<int, set<p>> conf_path, map<int, set<p>> semi_dynamic_obstacles, int max_iter, bool debug)
-{   
-    return AStarAgent::get_astar_path(start, goal, origin_map, potential_map, conf_path, semi_dynamic_obstacles);
-}
-
 void AStarPlanner::modify_potential_map()
 {
-	potential_map = MAP_GEN::modify_potential_map(origin_map, potential_map);
+	MAP_GEN::modify_potential_map(origin_map, potential_map);
+}
+
+void AStarPlanner::set_static_obstacle(vecPInt static_obstacle)
+{
+	for (auto& it : static_obstacle)
+	{
+		if (origin_map[it.first][it.second] == 0)
+			origin_map[it.first][it.second] = 4;
+	}
+}
+
+Path AStarPlanner::aStarPlan(pairInt start, pairInt goal, map<int, set<pairInt>> conf_path, map<int, set<pairInt>> semi_dynamic_obstacles, int max_iter, bool debug)
+{
+	return AStarAgent::get_astar_path(start, goal, origin_map, potential_map, conf_path, semi_dynamic_obstacles);
 }

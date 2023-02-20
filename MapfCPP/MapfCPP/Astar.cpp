@@ -30,7 +30,7 @@ void deleteVector(vector<T*> pVector)
 	}
 }
 
-bool valid_path(p xy, Node * cur, map<int, set<p>> conf_path, bool goal_time = false)
+bool valid_path(pairInt xy, Node * cur, map<int, set<pairInt>> conf_path, bool goal_time = false)
 {
 	if (goal_time)
 	{
@@ -62,7 +62,7 @@ bool valid_path(p xy, Node * cur, map<int, set<p>> conf_path, bool goal_time = f
 	}
 }
 
-bool valid_path2(Node* cur, map<int, set<p>> conf_path, bool goal_time = false)
+bool valid_path2(Node* cur, map<int, set<pairInt>> conf_path, bool goal_time = false)
 {
 	if (goal_time)
 	{
@@ -95,7 +95,7 @@ bool valid_path2(Node* cur, map<int, set<p>> conf_path, bool goal_time = false)
 }
 
 
-Path AStar(p start, p goal, Map origin_map, Map potential_map, map<int, set<p>> conf_path, map<int, set<p>> semi_dynamic_obstacles)
+Path AStar(pairInt start, pairInt goal, Map origin_map, Map potential_map, map<int, set<pairInt>> conf_path, map<int, set<pairInt>> semi_dynamic_obstacles)
 {
 	Path pathIdx;
 	Node* startNode = new Node(start);
@@ -108,7 +108,7 @@ Path AStar(p start, p goal, Map origin_map, Map potential_map, map<int, set<p>> 
 
 	openList.push_back(startNode);
 	Node* curNode;
-	vector<p> dxdy = { {-1, 0}, {0, -1}, {1, 0}, {0, 1} };
+	vector<pairInt> dxdy = { {-1, 0}, {0, -1}, {1, 0}, {0, 1} };
 
 	while (!openList.empty())
 	{
@@ -123,7 +123,7 @@ Path AStar(p start, p goal, Map origin_map, Map potential_map, map<int, set<p>> 
 			Node* cur = curNode;
 			while (cur->parent != nullptr)
 			{
-				p pos = cur->position;
+				pairInt pos = cur->position;
 				pathIdx.push_back(pos);
 				cur = cur->parent;
 			}
@@ -141,7 +141,7 @@ Path AStar(p start, p goal, Map origin_map, Map potential_map, map<int, set<p>> 
 
 		for (int i = 0; i < 4; i++)
 		{
-			p new_xy = { curNode->position.first + dxdy[i].first, curNode->position.second + dxdy[i].second };
+			pairInt new_xy = { curNode->position.first + dxdy[i].first, curNode->position.second + dxdy[i].second };
 
 			if ((new_xy.first < 0 && new_xy.first >= origin_map.size()) &&
 				(new_xy.second < 0 && new_xy.second >= origin_map.front().size()))
@@ -149,7 +149,8 @@ Path AStar(p start, p goal, Map origin_map, Map potential_map, map<int, set<p>> 
 
 			if (origin_map[new_xy.first][new_xy.second] == 1 ||
 				origin_map[new_xy.first][new_xy.second] == 2 ||
-				origin_map[new_xy.first][new_xy.second] == 3)
+				origin_map[new_xy.first][new_xy.second] == 3 ||
+				origin_map[new_xy.first][new_xy.second] == 4)
 				continue;
 
 			if (valid_path(new_xy, curNode, conf_path)) continue;

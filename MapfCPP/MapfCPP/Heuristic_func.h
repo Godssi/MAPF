@@ -8,19 +8,22 @@
 
 using namespace std;
 typedef long long ll;
-typedef pair<int, int> p;
-typedef vector<p> Path;
+typedef pair<int, int> pairInt;
+typedef vector<pairInt> vecPInt;
+typedef vector<vecPInt> vec2PInt;
+
+typedef vector<pairInt> Path;
 typedef vector<vector<ll>> Map;
-typedef pair<p, double> MapIdx;
+typedef pair<pairInt, double> MapIdx;
 
-double heuristic_m(p node, p goal, double d);
-double heuristic_d(p node, p goal, double d1, double d2);
-double heuristic_e(p node, p goal);
+double heuristic_m(pairInt node, pairInt goal, double d);
+double heuristic_d(pairInt node, pairInt goal, double d1, double d2);
+double heuristic_e(pairInt node, pairInt goal);
 
-vector<p> get_around_index(p node, double r, Map map);
-vector<MapIdx> get_index_to_goal_sq(p node, p goal);
-pair<vector<MapIdx>, vector<MapIdx>> get_index_to_goal_rect(p node, p goal);
-double heuristic_around_obstacle(p node, p goal, Map map, Map potential_map);
-double heuristic(p node, p goal, Map map, Map potential_map);
+vector<pairInt> get_around_index(pairInt node, double r, Map map);
+vector<MapIdx> get_index_to_goal_sq(pairInt node, pairInt goal);
+pair<vector<MapIdx>, vector<MapIdx>> get_index_to_goal_rect(pairInt node, pairInt goal);
+double heuristic_around_obstacle(pairInt node, pairInt goal, Map map, Map potential_map);
+double heuristic(pairInt node, pairInt goal, Map map, Map potential_map);
 
 #endif

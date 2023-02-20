@@ -14,8 +14,11 @@
 
 using namespace std;
 typedef long long ll;
-typedef pair<int, int> p;
-typedef vector<p> Path;
+typedef pair<int, int> pairInt;
+typedef vector<pairInt> vecPInt;
+typedef vector<vecPInt> vec2PInt;
+
+typedef vector<pairInt> Path;
 typedef vector<vector<ll>> Map;
 
 class AStarPlanner
@@ -26,8 +29,14 @@ private:
 
 public:
 	AStarPlanner();
+
+	void set_static_obstacle(vecPInt static_obstacle);
 	void modify_potential_map();
-	Path aStarPlan(p start, p goal, map<int, set<p>> conf_path, map<int, set<p>> semi_dynamic_obstacles, int max_iter, bool debug);
+	Path aStarPlan(pairInt start, pairInt goal, map<int, set<pairInt>> conf_path, map<int, set<pairInt>> semi_dynamic_obstacles, int max_iter, bool debug);
+
+	Map get_origin_map() { return origin_map; }
+	Map get_potential_map() { return potential_map; }
+	void set_origin_map(Map& map) { origin_map = map; }
 };
 
 #endif

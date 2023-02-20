@@ -314,3 +314,9 @@ void Planner::set_max_core()
     if (max_core > 3)
         max_core -= 2;
 }
+
+void Planner::moving_obstacle_to_origin_map(const vecPInt& movePoint)
+{
+    Map map = MAP_GEN::moving_obstacle_to_origin_map(aStarPlanner.get_origin_map(), movePoint);
+    aStarPlanner.set_origin_map(map);
+}

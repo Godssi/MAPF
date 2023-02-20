@@ -11,14 +11,17 @@
 
 using namespace std;
 typedef long long ll;
-typedef pair<int, int> p;
-typedef vector<p> Path;
-typedef vector<vector<ll>> Map;
+typedef pair<int, int> pairInt;
+typedef vector<pairInt> vecPInt;
+typedef vector<vecPInt> vec2PInt;
 
+typedef vector<pairInt> Path;
+typedef vector<vector<ll>> Map;
 namespace MAP_GEN
 {
 	Map potential_map_generator(Map map);
-	Map modify_potential_map(Map map, Map potential_map);
+	void modify_potential_map(Map map, Map& potential_map);
+	Map moving_obstacle_to_origin_map(Map map, const vecPInt& movePoint);
 	Map test_maze_gen();
 	Map random_maze_gen();
 }

@@ -14,10 +14,14 @@
 
 using namespace std;
 typedef long long ll;
-typedef pair<int, int> p;
-typedef vector<p> Path;
+typedef pair<int, int> pairInt;
+typedef vector<pairInt> vecPInt;
+typedef vector<vecPInt> vec2PInt;
+
+typedef vector<pairInt> Path;
 typedef vector<vector<ll>> Map;
 
-Path AStar(p start, p end, Map origin_map, Map potential_map, map<int, set<p>> conf_path, map<int, set<p>> semi_dynamic_obstacles);
+
+Path AStar(pairInt start, pairInt end, Map origin_map, Map potential_map, map<int, set<pairInt>> conf_path, map<int, set<pairInt>> semi_dynamic_obstacles);
 
 #endif

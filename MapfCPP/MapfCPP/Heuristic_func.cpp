@@ -2,31 +2,31 @@
 #include <tuple>
 #include <cmath>
 
-double heuristic_m(p node, p goal, double d = 1)
+double heuristic_m(pairInt node, pairInt goal, double d = 1)
 {
 	int dx = abs(node.first - goal.first);
 	int dy = abs(node.second - goal.second);
 	return d * (dx + dy);
 }
 
-double heuristic_d(p node, p goal, double d1 = 1, double d2 = sqrt(2))
+double heuristic_d(pairInt node, pairInt goal, double d1 = 1, double d2 = sqrt(2))
 {
 	int dx = abs(node.first - goal.first);
 	int dy = abs(node.second - goal.second);
 	return d1 * (dx + dy) + (d2 - 2 * d1) * min(dx, dy);
 }
 
-double heuristic_e(p node, p goal)
+double heuristic_e(pairInt node, pairInt goal)
 {
 	int dx = abs(node.first - goal.first);
 	int dy = abs(node.second - goal.second);
 	return sqrt(dx * dx + dy * dy);
 }
 
-vector<p> get_around_index(p node, double r, Map map)
+vector<pairInt> get_around_index(pairInt node, double r, Map map)
 {
 	pair<ll, ll> map_size = { map.size() , map[0].size() };
-	vector<p> idx;
+	vector<pairInt> idx;
 	for (ll i = map_size.first - r; i < map_size.first + 1; i++)
 	{
 		for (ll j = map_size.second - r; j < map_size.second + 1; j++)
@@ -41,7 +41,7 @@ vector<p> get_around_index(p node, double r, Map map)
 	return idx;
 }
 
-vector<MapIdx> get_index_to_goal_sq(p node, p goal)
+vector<MapIdx> get_index_to_goal_sq(pairInt node, pairInt goal)
 {
 	vector<MapIdx> idx;
 	for (int i = 0; i < goal.first - node.first; i++)
@@ -49,10 +49,10 @@ vector<MapIdx> get_index_to_goal_sq(p node, p goal)
 	return idx;
 }
 
-pair<vector<MapIdx>, vector<MapIdx>> get_index_to_goal_rect(p node, p goal)
+pair<vector<MapIdx>, vector<MapIdx>> get_index_to_goal_rect(pairInt node, pairInt goal)
 {
-	vector<pair<p, double>> upperIdx;
-	vector<pair<p, double>> lowerIdx;
+	vector<pair<pairInt, double>> upperIdx;
+	vector<pair<pairInt, double>> lowerIdx;
 	if (node.first <= goal.first and node.second <= goal.second)
 	{
 		for (int i = node.first; i < goal.first + 1; i++)
@@ -133,12 +133,12 @@ pair<vector<MapIdx>, vector<MapIdx>> get_index_to_goal_rect(p node, p goal)
 	return idx;
 }
 
-double heuristic_around_obstacle(p node, p goal, Map map, Map potential_map)
+double heuristic_around_obstacle(pairInt node, pairInt goal, Map map, Map potential_map)
 {
 	pair<ll, ll> map_size = { map.size() , map[0].size() };
 	double r = 3;
 	double R = heuristic_e(node, goal);
-	vector<p> idx = get_around_index(node, r, map);
+	vector<pairInt> idx = get_around_index(node, r, map);
 	double h = 0;
 	for (int i = 0; i < idx.size(); i++)
 	{
@@ -163,7 +163,7 @@ double heuristic_around_obstacle(p node, p goal, Map map, Map potential_map)
 	return h;
 }
 
-double heuristic(p node, p goal, Map map, Map potential_map)
+double heuristic(pairInt node, pairInt goal, Map map, Map potential_map)
 {
 	double h = heuristic_e(node, goal);
 	double R = heuristic_e(node, goal);

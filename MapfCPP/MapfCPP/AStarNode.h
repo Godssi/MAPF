@@ -10,8 +10,11 @@
 
 using namespace std;
 typedef long long ll;
-typedef pair<int, int> p;
-typedef vector<p> Path;
+typedef pair<int, int> pairInt;
+typedef vector<pairInt> vecPInt;
+typedef vector<vecPInt> vec2PInt;
+
+typedef vector<pairInt> Path;
 typedef vector<vector<ll>> Map;
 
 extern int cnt;
@@ -19,16 +22,16 @@ extern int cnt;
 class Node
 {
 public:  
-    Node(p position)
+    Node(pairInt position)
         : position(position), length(0) {}
-    Node(p position, Node* parent)
+    Node(pairInt position, Node* parent)
         : position(position), parent(parent)
     {
         length = parent->length + 1;
     }
 
     Node* parent = nullptr;
-    p position;
+    pairInt position;
     double f = 0;
     double g = 0;
     double h = 0;
