@@ -1,12 +1,34 @@
 #include "planner.h"
 
+void print_path(vecCTNode op)
+{
+    int set_num = 0;
+    for (auto iter1 = op.begin(); iter1 != op.end(); iter1++)
+    {
+        cout << "\nopen set : \t" << set_num;
+        char ch = 'A';
+        cout << "\n\n";
+        for (auto iter2 = iter1->solution.begin(); iter2 != iter1->solution.end(); iter2++)
+        {
+            cout << "\trobot " << ch << "\n\n";
+            int i = 0;
+            for (auto iter3 = iter2->second.begin(); iter3 != iter2->second.end(); iter3++, i++)
+                cout << " path: " << iter3->first << ", " << iter3->second << "\t\t: " << i << "\n";
+            cout << "\n";
+            ch++;
+        }
+        cout << "\n\n\n\n";
+        set_num++;
+    }
+}
+
 vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_level_max_iter, bool debug)
 // 경로들을 반환해주는 함수
 {
     this->low_level_max_iter = low_level_max_iter;
     this->debug = debug;
-    this->agents = _assign(starts, goals);
-    // this->agents = min_cost(starts, goals);
+    // this->agents = _assign(starts, goals);
+    this->agents = min_cost(starts, goals);
 
     Constraints constraints;
     bool tf = true;
@@ -43,6 +65,7 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
     th.resize(max_core);
 
     while (!open.empty() && iter_ < max_iter) {
+        print_path(open);
         iter_++;
         pair<vector<pairCTNode>, vector<vec2PInt>> results;
         th.clear();
