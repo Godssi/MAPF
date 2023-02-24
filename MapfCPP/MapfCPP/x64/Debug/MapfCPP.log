@@ -1,1 +1,12 @@
-﻿  MapfCPP.vcxproj -> D:\Github\MAPF\MapfCPP\MapfCPP\x64\Debug\MapfCPP.exe
+﻿  AStar.cpp
+  AStarAgent.cpp
+  AStarPlanner.cpp
+  Heuristic_func.cpp
+D:\Github\MAPF\MapfCPP\MapfCPP\Heuristic_func.cpp(38,65): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+D:\Github\MAPF\MapfCPP\MapfCPP\Heuristic_func.cpp(38,68): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+D:\Github\MAPF\MapfCPP\MapfCPP\Heuristic_func.cpp(142,12): warning C4244: 'initializing': conversion from 'double' to 'll', possible loss of data
+D:\Github\MAPF\MapfCPP\MapfCPP\Heuristic_func.cpp(144,13): warning C4244: 'initializing': conversion from 'double' to 'll', possible loss of data
+  main.cpp
+  planner.cpp
+  Generating Code...
+  MapfCPP.vcxproj -> D:\Github\MAPF\MapfCPP\MapfCPP\x64\Debug\MapfCPP.exe
