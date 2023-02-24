@@ -23,24 +23,6 @@ double heuristic_e(pairInt node, pairInt goal)
 	return sqrt(dx * dx + dy * dy);
 }
 
-vector<pairInt> get_around_index(pairInt node, double r, Map map)
-{
-	pair<ll, ll> map_size = { map.size() , map[0].size() };
-	vector<pairInt> idx;
-	for (ll i = map_size.first - r; i < map_size.first + 1; i++)
-	{
-		for (ll j = map_size.second - r; j < map_size.second + 1; j++)
-		{
-			double dist = sqrt(pow(i - map_size.first, 2) + pow(j - map_size.second, 2));
-			if ((0 <= i && i < map_size.first) && (0 <= j && j < map_size.second) && (r >= dist))
-			{
-				idx.push_back({ i, j });
-			}
-		}
-	}
-	return idx;
-}
-
 double get_heuristic_to_goal_sq(pairInt node, pairInt goal, double R, Map& potential_map)
 {
 	int len = abs(goal.first - node.first);
@@ -194,32 +176,44 @@ double get_heuristic_to_goal_rect(pairInt node, pairInt goal, double R, Map& pot
 	return h;
 }
 
-double heuristic_around_obstacle(pairInt node, pairInt goal, Map map, Map potential_map)
+double heuristic_around_obstacle(pairInt node, pairInt goal, double r, double R, Map& map, Map& potential_map)
 {
-	pair<ll, ll> map_size = { map.size() , map.front().size()};
-	double r = 3;
-	double R = heuristic_e(node, goal);
-	vector<pairInt> idx = get_around_index(node, r, map);
+	pair<ll, ll> map_size = { map.size() , map.front().size() };
 	double h = 0;
-	for (int i = 0; i < idx.size(); i++)
+	ll aroundCnt = 0;
+
+	for (ll i = map_size.first - r; i < map_size.first + 1; i++)
 	{
-		switch (map[idx[i].first][idx[i].second])
+		for (ll j = map_size.second - r; j < map_size.second + 1; j++)
 		{
-		case 1:
-			h += 1.5 * potential_map[idx[i].first][idx[i].second];
-			break;
-		case 2:
-			h += 4 * potential_map[idx[i].first][idx[i].second];
-			break;
-		case 3:
-			h += 1 * potential_map[idx[i].first][idx[i].second];
-			break;
-		default:
-			break;
+			if ((0 <= i && i < map_size.first) && (0 <= j && j < map_size.second) && (r >= sqrt(pow(i - map_size.first, 2) + pow(j - map_size.second, 2))))
+			{
+				switch (map[i][j])
+				{
+				case 1:
+					h += 1.5 * potential_map[i][j];
+					aroundCnt++;
+					break;
+				case 2:
+					h += 4 * potential_map[i][j];
+					aroundCnt++;
+					break;
+				case 3:
+					h += 1 * potential_map[i][j];
+					aroundCnt++;
+					break;
+				case 4:
+					h += 1.5 * potential_map[i][j];
+					aroundCnt++;
+				default:
+					break;
+				}
+			}
 		}
 	}
-	if (idx.size() != 0) {
-		h = (h / idx.size()) * sqrt(R);	
+
+	if (aroundCnt != 0) {
+		h = (h / aroundCnt) * sqrt(R);
 	}
 	return h;
 }
@@ -235,6 +229,7 @@ double heuristic(pairInt node, pairInt goal, Map map, Map potential_map)
 	else
 		h = get_heuristic_to_goal_rect(node, goal, R, potential_map);
 
-	h += heuristic_around_obstacle(node, goal, map, potential_map);
+	double r = 3; // around
+	h += heuristic_around_obstacle(node, goal, r, R, map, potential_map);
 	return h;
 }
