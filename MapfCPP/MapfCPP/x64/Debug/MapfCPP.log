@@ -4,8 +4,30 @@
   Heuristic_func.cpp
 D:\Github\MAPF\MapfCPP\MapfCPP\Heuristic_func.cpp(38,65): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
 D:\Github\MAPF\MapfCPP\MapfCPP\Heuristic_func.cpp(38,68): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-D:\Github\MAPF\MapfCPP\MapfCPP\Heuristic_func.cpp(142,12): warning C4244: 'initializing': conversion from 'double' to 'll', possible loss of data
-D:\Github\MAPF\MapfCPP\MapfCPP\Heuristic_func.cpp(144,13): warning C4244: 'initializing': conversion from 'double' to 'll', possible loss of data
+D:\Github\MAPF\MapfCPP\MapfCPP\Heuristic_func.cpp(140,12): warning C4244: 'initializing': conversion from 'double' to 'll', possible loss of data
+D:\Github\MAPF\MapfCPP\MapfCPP\Heuristic_func.cpp(142,13): warning C4244: 'initializing': conversion from 'double' to 'll', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\utility(172,16): warning C4244: 'initializing': conversion from 'll' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+D:\Github\MAPF\MapfCPP\MapfCPP\Heuristic_func.cpp(147,27): message : see reference to function template instantiation 'std::pair<int,int>::pair<ll&,ll&,0>(_Other1,_Other2) noexcept' being compiled
+          with
+          [
+              _Other1=ll &,
+              _Other2=ll &
+          ]
+D:\Github\MAPF\MapfCPP\MapfCPP\Heuristic_func.cpp(147,18): message : see reference to function template instantiation 'std::pair<int,int>::pair<ll&,ll&,0>(_Other1,_Other2) noexcept' being compiled
+          with
+          [
+              _Other1=ll &,
+              _Other2=ll &
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\utility(172,54): warning C4244: 'initializing': conversion from 'll' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
   main.cpp
   planner.cpp
   Generating Code...
