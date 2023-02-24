@@ -135,7 +135,7 @@ pair<vector<MapIdx>, vector<MapIdx>> get_index_to_goal_rect(pairInt node, pairIn
 
 double heuristic_around_obstacle(pairInt node, pairInt goal, Map map, Map potential_map)
 {
-	pair<ll, ll> map_size = { map.size() , map.front().size() };
+	pair<ll, ll> map_size = { map.size() , map.front().size()};
 	double r = 3;
 	double R = heuristic_e(node, goal);
 	vector<pairInt> idx = get_around_index(node, r, map);
@@ -158,7 +158,7 @@ double heuristic_around_obstacle(pairInt node, pairInt goal, Map map, Map potent
 		}
 	}
 	if (idx.size() != 0) {
-		h = (h / idx.size()) * sqrt(R);
+		h = (h / idx.size()) * sqrt(R);	
 	}
 	return h;
 }
