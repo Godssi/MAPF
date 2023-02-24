@@ -21,8 +21,8 @@ double heuristic_d(pairInt node, pairInt goal, double d1, double d2);
 double heuristic_e(pairInt node, pairInt goal);
 
 vector<pairInt> get_around_index(pairInt node, double r, Map map);
-vector<MapIdx> get_index_to_goal_sq(pairInt node, pairInt goal);
-pair<vector<MapIdx>, vector<MapIdx>> get_index_to_goal_rect(pairInt node, pairInt goal);
+double get_heuristic_to_goal_sq(pairInt node, pairInt goal, double R, Map& potential_map);
+double get_heuristic_to_goal_rect(pairInt node, pairInt goal, double R, Map& potential_map);
 double heuristic_around_obstacle(pairInt node, pairInt goal, Map map, Map potential_map);
 double heuristic(pairInt node, pairInt goal, Map map, Map potential_map);
 

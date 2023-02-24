@@ -147,10 +147,7 @@ Path AStar(pairInt start, pairInt goal, Map origin_map, Map potential_map, map<i
 				(new_xy.second < 0 && new_xy.second >= origin_map.front().size()))
 				continue;
 
-			if (origin_map[new_xy.first][new_xy.second] == 1 ||
-				origin_map[new_xy.first][new_xy.second] == 2 ||
-				origin_map[new_xy.first][new_xy.second] == 3 ||
-				origin_map[new_xy.first][new_xy.second] == 4)
+			if (origin_map[new_xy.first][new_xy.second] != 0)
 				continue;
 
 			if (valid_path(new_xy, curNode, conf_path)) continue;

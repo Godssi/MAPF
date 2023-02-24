@@ -1,2 +1,26 @@
-﻿  planner.cpp
+﻿  Heuristic_func.cpp
+C:\Users\choi\Desktop\MapfCPP\Heuristic_func.cpp(30,12): warning C4244: 'initializing': conversion from 'double' to 'll', possible loss of data
+C:\Users\choi\Desktop\MapfCPP\Heuristic_func.cpp(32,13): warning C4244: 'initializing': conversion from 'double' to 'll', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\utility(172,16): warning C4244: 'initializing': conversion from 'll' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+C:\Users\choi\Desktop\MapfCPP\Heuristic_func.cpp(37,27): message : see reference to function template instantiation 'std::pair<int,int>::pair<ll&,ll&,0>(_Other1,_Other2) noexcept' being compiled
+          with
+          [
+              _Other1=ll &,
+              _Other2=ll &
+          ]
+C:\Users\choi\Desktop\MapfCPP\Heuristic_func.cpp(37,18): message : see reference to function template instantiation 'std::pair<int,int>::pair<ll&,ll&,0>(_Other1,_Other2) noexcept' being compiled
+          with
+          [
+              _Other1=ll &,
+              _Other2=ll &
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\utility(172,54): warning C4244: 'initializing': conversion from 'll' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
   MapfCPP.vcxproj -> C:\Users\choi\Desktop\MapfCPP\x64\Debug\MapfCPP.exe

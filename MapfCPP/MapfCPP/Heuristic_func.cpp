@@ -41,18 +41,69 @@ vector<pairInt> get_around_index(pairInt node, double r, Map map)
 	return idx;
 }
 
-vector<MapIdx> get_index_to_goal_sq(pairInt node, pairInt goal)
+double get_heuristic_to_goal_sq(pairInt node, pairInt goal, double R, Map& potential_map)
 {
-	vector<MapIdx> idx;
-	for (int i = 0; i < goal.first - node.first; i++)
-		idx.push_back({ { i + node.first, i + node.second }, sqrt(2) * (i + node.first) });
-	return idx;
+	int len = abs(goal.first - node.first);
+	if (!len)
+		return R;
+
+	double h_add = R;
+	// Quadrant 1
+	int x, y;
+	if (goal.first - node.first > 0 && goal.second - node.second > 0)
+	{
+		for (int i = 0; i < abs(goal.first - node.first) - 1; i++)
+		{
+			x = node.first + i;
+			y = node.second + i;
+			double r = sqrt(2) * i + node.first;
+			h_add += (1 - pow(min(r, R) / (R + 0.01), 3)) * potential_map[x][y];
+		}
+	}
+	// Quadrant 2
+	else if (goal.first - node.first < 0 && goal.second - node.second > 0)
+	{
+		for (int i = 0; i < abs(goal.first - node.first) - 1; i++)
+		{
+			x = node.first - i;
+			y = node.second + i;
+			double r = sqrt(2) * i + node.first;
+			h_add += (1 - pow(min(r, R) / (R + 0.01), 3)) * potential_map[x][y];
+		}
+	}
+	// Quadrant 3
+	else if (goal.first - node.first < 0 && goal.second - node.second < 0)
+	{
+		for (int i = 0; i < abs(goal.first - node.first) - 1; i++)
+		{
+			x = node.first - i;
+			y = node.second - i;
+			double r = sqrt(2) * i + node.first;
+			h_add += (1 - pow(min(r, R) / (R + 0.01), 3)) * potential_map[x][y];
+		}
+	}
+	// Quadrant 4
+	else
+	{
+		for (int i = 0; i < abs(goal.first - node.first) - 1; i++)
+		{
+			x = node.first + i;
+			y = node.second - i;
+			double r = sqrt(2) * i + node.first;
+			h_add += (1 - pow(min(r, R) / (R + 0.01), 3)) * potential_map[x][y];
+		}
+	}
+
+	double h = R;
+	h *= (h_add / len) * sqrt(R);
+	return h;
 }
 
-pair<vector<MapIdx>, vector<MapIdx>> get_index_to_goal_rect(pairInt node, pairInt goal)
+double get_heuristic_to_goal_rect(pairInt node, pairInt goal, double R, Map& potential_map)
 {
-	vector<pair<pairInt, double>> upperIdx;
-	vector<pair<pairInt, double>> lowerIdx;
+	double h_add1 = 0, h_add2 = 0;
+	ll upperCnt = 0, lowerCnt = 0;
+	// Quadrant 1
 	if (node.first <= goal.first and node.second <= goal.second)
 	{
 		for (int i = node.first; i < goal.first + 1; i++)
@@ -61,17 +112,18 @@ pair<vector<MapIdx>, vector<MapIdx>> get_index_to_goal_rect(pairInt node, pairIn
 			{
 				if ((goal.second - node.second + 1) * (i - goal.first) >= (goal.first - node.first + 1) * (j - goal.second))
 				{
-					double r = sqrt(pow(i - node.first, 2) + pow(j - node.second, 2));
-					upperIdx.push_back({ {i, j}, r });
+					h_add1 += (1 - pow(sqrt(pow(i - node.first, 2) + pow(j - node.second, 2)) / (R + 0.01), 3)) * potential_map[i][j];
+					upperCnt++;
 				}
 				if ((goal.second - node.second + 1) * (i - goal.first) <= (goal.first - node.first + 1) * (j - goal.second))
 				{
-					double r = sqrt(pow(i - node.first, 2) + pow(j - node.second, 2));
-					lowerIdx.push_back({ {i, j}, r });
+					h_add2 += (1 - pow(sqrt(pow(i - node.first, 2) + pow(j - node.second, 2)) / (R + 0.01), 3)) * potential_map[i][j];
+					lowerCnt++;
 				}
 			}
 		}
 	}
+	// Quadrant 2
 	else if (node.first >= goal.first and node.second <= goal.second)
 	{
 		for (int i = node.first; i > goal.first - 1; i--)
@@ -80,17 +132,18 @@ pair<vector<MapIdx>, vector<MapIdx>> get_index_to_goal_rect(pairInt node, pairIn
 			{
 				if ((goal.second - node.second + 1) * (i - goal.first) >= (goal.first - node.first - 1) * (j - goal.second))
 				{
-					double r = sqrt(pow(i - node.first, 2) + pow(j - node.second, 2));
-					upperIdx.push_back({ {i, j}, r });
+					h_add1 += (1 - pow(sqrt(pow(i - node.first, 2) + pow(j - node.second, 2)) / (R + 0.01), 3)) * potential_map[i][j];
+					upperCnt++;
 				}
 				if ((goal.second - node.second + 1) * (i - goal.first) <= (goal.first - node.first - 1) * (j - goal.second))
 				{
-					double r = sqrt(pow(i - node.first, 2) + pow(j - node.second, 2));
-					lowerIdx.push_back({ {i, j}, r });
+					h_add2 += (1 - pow(sqrt(pow(i - node.first, 2) + pow(j - node.second, 2)) / (R + 0.01), 3)) * potential_map[i][j];
+					lowerCnt++;
 				}
 			}
 		}
 	}
+	// Quadrant 3
 	else if (node.first >= goal.first and node.second >= goal.second)
 	{
 		for (int i = node.first; i > goal.first - 1; i--)
@@ -99,17 +152,18 @@ pair<vector<MapIdx>, vector<MapIdx>> get_index_to_goal_rect(pairInt node, pairIn
 			{
 				if ((goal.second - node.second - 1) * (i - goal.first) >= (goal.first - node.first - 1) * (j - goal.second))
 				{
-					double r = sqrt(pow(i - node.first, 2) + pow(j - node.second, 2));
-					upperIdx.push_back({ {i, j}, r });
+					h_add1 += (1 - pow(sqrt(pow(i - node.first, 2) + pow(j - node.second, 2)) / (R + 0.01), 3)) * potential_map[i][j];
+					upperCnt++;
 				}
 				if ((goal.second - node.second - 1) * (i - goal.first) <= (goal.first - node.first - 1) * (j - goal.second))
 				{
-					double r = sqrt(pow(i - node.first, 2) + pow(j - node.second, 2));
-					lowerIdx.push_back({ {i, j}, r });
+					h_add2 += (1 - pow(sqrt(pow(i - node.first, 2) + pow(j - node.second, 2)) / (R + 0.01), 3)) * potential_map[i][j];
+					lowerCnt++;
 				}
 			}
 		}
 	}
+	// Quadrant 4
 	else if (node.first <= goal.first and node.second >= goal.second)
 	{
 		for (int i = node.first; i < goal.first + 1; i++)
@@ -118,19 +172,26 @@ pair<vector<MapIdx>, vector<MapIdx>> get_index_to_goal_rect(pairInt node, pairIn
 			{
 				if ((goal.second - node.second - 1) * (i - goal.first) >= (goal.first - node.first + 1) * (j - goal.second))
 				{
-					double r = sqrt(pow(i - node.first, 2) + pow(j - node.second, 2));
-					upperIdx.push_back({ {i, j}, r });
+					h_add1 += (1 - pow(sqrt(pow(i - node.first, 2) + pow(j - node.second, 2)) / (R + 0.01), 3)) * potential_map[i][j];
+					upperCnt++;
 				}
 				if ((goal.second - node.second - 1) * (i - goal.first) <= (goal.first - node.first + 1) * (j - goal.second))
 				{
-					double r = sqrt(pow(i - node.first, 2) + pow(j - node.second, 2));
-					lowerIdx.push_back({ {i, j}, r });
+					h_add2 += (1 - pow(sqrt(pow(i - node.first, 2) + pow(j - node.second, 2)) / (R + 0.01), 3)) * potential_map[i][j];
+					lowerCnt++;
 				}
 			}
 		}
 	}
-	pair<vector<MapIdx>, vector<MapIdx>> idx = { upperIdx, lowerIdx };
-	return idx;
+
+	if (!upperCnt || !lowerCnt)
+		return R;
+
+	h_add1 = (h_add1 / upperCnt) * sqrt(R);
+	h_add2 = (h_add2 / lowerCnt) * sqrt(R);
+	double h = min(h_add1, h_add2);
+
+	return h;
 }
 
 double heuristic_around_obstacle(pairInt node, pairInt goal, Map map, Map potential_map)
@@ -170,34 +231,9 @@ double heuristic(pairInt node, pairInt goal, Map map, Map potential_map)
 	double beta = 40;
 
 	if (goal.first - node.first == goal.second - node.second)
-	{
-		vector<MapIdx> idx = get_index_to_goal_sq(node, goal);
-		if (idx.size() == 0)
-			return 1;
-		double h_add = 0;
-		for (int i = 0; i < idx.size(); i++)
-		{
-			h_add += (1 - pow(min(idx[i].second, R) / (R + 0.01), 3)) * potential_map[idx[i].first.first][idx[i].first.second];
-		}
-		h *= (h_add / idx.size()) * sqrt(R);
-	}
+		h = get_heuristic_to_goal_sq(node, goal, R, potential_map);
 	else
-	{
-		pair<vector<MapIdx>, vector<MapIdx>> idx = get_index_to_goal_rect(node, goal);
-		if (idx.first.size() == 0 || idx.second.size() == 0)
-			return 1;
-		double h_add1 = 0, h_add2 = 0;
-		for (int i = 0; i < idx.first.size(); i++)
-		{
-			h_add1 += (1 - pow(min(idx.first[i].second, R) / (R + 0.01), 3)) * potential_map[idx.first[i].first.first][idx.first[i].first.second];
-		}
-		for (int i = 0; i < idx.second.size(); i++)
-		{
-			h_add2 += (1 - pow(min(idx.second[i].second, R) / (R + 0.01), 3)) * potential_map[idx.second[i].first.first][idx.second[i].first.second];
-		}
-		h_add1 = (h_add1 / idx.first.size()) * sqrt(R);
-		h_add2 = (h_add2 / idx.second.size()) * sqrt(R);
-	}
+		h = get_heuristic_to_goal_rect(node, goal, R, potential_map);
 
 	h += heuristic_around_obstacle(node, goal, map, potential_map);
 	return h;
