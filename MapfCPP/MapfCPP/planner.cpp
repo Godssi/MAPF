@@ -65,7 +65,6 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
     th.resize(max_core);
 
     while (!open.empty() && iter_ < max_iter) {
-        print_path(open);
         iter_++;
         pair<vector<pairCTNode>, vector<vec2PInt>> results;
         th.clear();
