@@ -23,6 +23,6 @@ double heuristic_e(pairInt node, pairInt goal);
 double get_heuristic_to_goal_sq(pairInt node, pairInt goal, double R, Map& potential_map);
 double get_heuristic_to_goal_rect(pairInt node, pairInt goal, double R, Map& potential_map);
 double heuristic_around_obstacle(pairInt node, pairInt goal, double r, double R, Map& map, Map& potential_map);
-double heuristic(pairInt node, pairInt goal, Map map, Map potential_map);
+double heuristic(pairInt node, pairInt goal, Map& map, Map& potential_map);
 
 #endif

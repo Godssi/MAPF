@@ -182,9 +182,9 @@ double heuristic_around_obstacle(pairInt node, pairInt goal, double r, double R,
 	double h = 0;
 	ll aroundCnt = 0;
 
-	for (ll i = map_size.first - r; i < map_size.first + 1; i++)
+	for (ll i = node.first - r; i < node.first + r + 1; i++)
 	{
-		for (ll j = map_size.second - r; j < map_size.second + 1; j++)
+		for (ll j = node.second - r; j < node.second + r + 1; j++)
 		{
 			if ((0 <= i && i < map_size.first) && (0 <= j && j < map_size.second) && (r >= sqrt(pow(i - map_size.first, 2) + pow(j - map_size.second, 2))))
 			{
@@ -218,7 +218,7 @@ double heuristic_around_obstacle(pairInt node, pairInt goal, double r, double R,
 	return h;
 }
 
-double heuristic(pairInt node, pairInt goal, Map map, Map potential_map)
+double heuristic(pairInt node, pairInt goal, Map& map, Map& potential_map)
 {
 	double h = heuristic_e(node, goal);
 	double R = heuristic_e(node, goal);
@@ -229,7 +229,7 @@ double heuristic(pairInt node, pairInt goal, Map map, Map potential_map)
 	else
 		h = get_heuristic_to_goal_rect(node, goal, R, potential_map);
 
-	double r = 3; // around
+	double r = 3; // around radius
 	h += heuristic_around_obstacle(node, goal, r, R, map, potential_map);
 	return h;
 }

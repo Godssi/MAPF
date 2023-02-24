@@ -17,6 +17,7 @@ typedef vector<vecPInt> vec2PInt;
 
 typedef vector<pairInt> Path;
 typedef vector<vector<ll>> Map;
+
 namespace MAP_GEN
 {
 	Map potential_map_generator(Map map);
