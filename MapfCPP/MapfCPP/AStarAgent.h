@@ -40,7 +40,7 @@ public:
     void set_position();
     void aTimePlus() { aTime++; }
 
-    static Path get_astar_path(pairInt start, pairInt goal, Map origin_map, Map potential_map, map<int, set<pairInt>> conf_path, map<int, set<pairInt>> semi_dynamic_obstacles);
+    static Path get_astar_path(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, map<int, set<pairInt>> conf_path, map<int, set<pairInt>> semi_dynamic_obstacles);
 };
 
 # endif

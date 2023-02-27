@@ -1,21 +1,6 @@
 ﻿  AStar.cpp
   AStarAgent.cpp
-  AStarMapGen.cpp
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(26,31): warning C4244: 'initializing': conversion from 'll' to 'int', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(33,37): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(52,31): warning C4244: 'initializing': conversion from 'll' to 'int', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(59,37): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(78,31): warning C4244: 'initializing': conversion from 'll' to 'int', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(85,37): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(104,31): warning C4244: 'initializing': conversion from 'll' to 'int', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(111,37): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(143,31): warning C4244: 'initializing': conversion from 'll' to 'int', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(150,37): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  AStarNode.cpp
   AStarPlanner.cpp
-  Heuristic_func.cpp
-C:\Users\choi\Desktop\MapfCPP\Heuristic_func.cpp(185,12): warning C4244: 'initializing': conversion from 'double' to 'll', possible loss of data
-C:\Users\choi\Desktop\MapfCPP\Heuristic_func.cpp(187,13): warning C4244: 'initializing': conversion from 'double' to 'll', possible loss of data
   main.cpp
   planner.cpp
   Generating Code...

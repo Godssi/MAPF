@@ -95,7 +95,7 @@ bool valid_path2(Node* cur, map<int, set<pairInt>> conf_path, bool goal_time = f
 }
 
 
-Path AStar(pairInt start, pairInt goal, Map origin_map, Map potential_map, map<int, set<pairInt>> conf_path, map<int, set<pairInt>> semi_dynamic_obstacles)
+Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, map<int, set<pairInt>> conf_path, map<int, set<pairInt>> semi_dynamic_obstacles)
 {
 	Path pathIdx;
 	Node* startNode = new Node(start);

@@ -63,10 +63,10 @@ int main()
 	clock_t startClock, endClock;
 
 	startClock = clock();
-	vector<p> start = { {2, 1} , {2, 2} };
-	vector<p> goal = { {14, 40}, {14, 39} };
-	//vector<p> start = { {2, 2}, {38, 1}, {2, 32}, {48, 39}, {2, 16} };
-	//vector<p> goal = { {14, 39}, {45, 31}, {49, 3}, {22, 5}, {24, 2} };
+	// vector<p> start = { {2, 1} , {2, 2} };
+	// vector<p> goal = { {14, 40}, {14, 39} };
+	vector<p> start = { {2, 2}, {38, 1}, {2, 32}, {48, 39}, {2, 16} };
+	vector<p> goal = { {14, 39}, {45, 31}, {49, 3}, {22, 5}, {24, 2} };
 	vector<p> static_obstacle = { {24, 12}, {47, 30} };
 	Planner planner(1, 1, static_obstacle);
 
