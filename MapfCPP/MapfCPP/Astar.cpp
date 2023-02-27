@@ -108,7 +108,7 @@ Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, map
 
 	openList.push_back(startNode);
 	Node* curNode;
-	vector<pairInt> dxdy = { {-1, 0}, {0, -1}, {1, 0}, {0, 1} };
+	vector<pairInt> dxdy = { {-1, 0}, {0, -1}, {1, 0}, {0, 1}, {0, 0} };
 
 	while (!openList.empty())
 	{
@@ -139,7 +139,7 @@ Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, map
 
 		vector<Node*> childrenList;
 
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			pairInt new_xy = { curNode->position.first + dxdy[i].first, curNode->position.second + dxdy[i].second };
 
@@ -150,9 +150,11 @@ Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, map
 			if (origin_map[new_xy.first][new_xy.second] != 0)
 				continue;
 
-			if (valid_path(new_xy, curNode, conf_path)) continue;
+			if (valid_path(new_xy, curNode, conf_path))
+				continue;
 
-			if (valid_path(new_xy, curNode, semi_dynamic_obstacles, true)) continue;
+			if (valid_path(new_xy, curNode, semi_dynamic_obstacles, true))
+				continue;
 
 			Node* newNode = new Node(new_xy, curNode);
 			childrenList.push_back(newNode);
@@ -177,7 +179,8 @@ Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, map
 			if ((*child) ^ (openList))
 			{
 				auto it = findIdx(child, openList);
-				if (it != openList.end() && (child->g < (*it)->g) && valid_path2(child, conf_path) && valid_path2(child, semi_dynamic_obstacles, true))
+				if (it != openList.end() && (child->g < (*it)->g) 
+					&& valid_path2(child, conf_path) && valid_path2(child, semi_dynamic_obstacles, true))
 				{
 					delete (*it);
 					openList.erase(it);

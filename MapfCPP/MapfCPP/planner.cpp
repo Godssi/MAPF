@@ -62,30 +62,26 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
 
     int iter_ = 0;
     vector<thread> th;
-    th.resize(max_core);
 
     while (!open.empty() && iter_ < max_iter) {
         iter_++;
         pair<vector<pairCTNode>, vector<vec2PInt>> results;
-        th.clear();
-        th.resize(max_core);
-        core = 0;
         
         for (auto iter = open.begin(); iter != open.end();) {
-            th[core] = thread(&Planner::search_node, this, ref(*iter), ref(results));
-            th[core].join();
-            iter = open.erase(iter);
-            if (core < max_core - 1)
-                core++;
-            else
-                core = 0;
+            th.clear();
+            for (int i = 0; i < max_core; i++)
+            {
+                th.push_back(thread(&Planner::search_node, this, ref(*iter), ref(results)));
+                iter++;
+                if (iter == open.end())
+                    break;
+            }
+            for (auto& t : th)
+            {
+                t.join();
+            }
         }
-
-        //for (auto iter = open.begin(); iter != open.end();) {
-        //    search_node(*iter, results);
-        //    iter = open.erase(iter);
-        //    print_path(open);
-        //}
+        open.clear();
 
         if (results.second.size() != 0) return results.second[0];
         for (auto iter = results.first.begin(); iter != results.first.end(); iter++) {
