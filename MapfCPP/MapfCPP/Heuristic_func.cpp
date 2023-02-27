@@ -176,7 +176,7 @@ double get_heuristic_to_goal_rect(pairInt node, pairInt goal, double R, Map& pot
 	return h;
 }
 
-double heuristic_around_obstacle(pairInt node, pairInt goal, double r, double R, Map& map, Map& potential_map)
+double heuristic_around_obstacle(pairInt node, pairInt goal, ll r, double R, Map& map, Map& potential_map)
 {
 	pair<ll, ll> map_size = { map.size() , map.front().size() };
 	double h = 0;
