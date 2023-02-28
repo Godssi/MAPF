@@ -61,6 +61,7 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
 
     int iter_ = 0;
     vector<thread> th;
+    mutex mtx;
 
     while (!open.empty() && iter_ < max_iter) {
         iter_++;
@@ -71,7 +72,7 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
             th.clear();
             for (int core = 0; core < max_core && iter != open.end(); core++, iter++)
             {
-                th.push_back(thread(&Planner::search_node, this, ref(*iter), ref(results)));
+                th.push_back(thread(&Planner::search_node, this, ref(*iter), ref(results), ref(mtx)));
             }
             for (auto& t : th)
             {
@@ -79,7 +80,6 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
             }
         }
         open.clear();
-
 
         if (results.second.size() != 0) return results.second[0];
         for (auto iter = results.first.begin(); iter != results.first.end(); iter++) {
@@ -98,10 +98,8 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
     return results.second[0];
 }
 
-void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt>>& results)
+void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt>>& results, mutex& mtx)
 {
-    mutex mtx;
-
     mtx.lock();
     CTNode copyNode = best;
     mtx.unlock();
@@ -214,7 +212,7 @@ int Planner::safe_distance(map<Agent, vecPInt> solution, Agent agent_i, Agent ag
     for (int i = 0; i < size; i++)
     {
         idx++;
-        if (dist(paths_i[i], paths_j[i]) > robot_radius)
+        if (dist(paths_i[i], paths_j[i]) >= robot_radius)
             continue;
         return idx;
     }
@@ -309,8 +307,7 @@ void Planner::pad(map<Agent, vecPInt>& solution)
 void Planner::set_max_core()
 {
     max_core = thread::hardware_concurrency();
-    if (max_core > 5)
-        max_core -= 4;
+    max_core = max_core > 5 ? max_core - 4 : max_core;
 }
 
 void Planner::moving_obstacle_to_origin_map(const vecPInt& movePoint)

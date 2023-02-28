@@ -56,7 +56,7 @@ public:
 		aStarPlanner.set_static_obstacle(static_obstacle);
 	}
 	vec2PInt plan(vecPInt starts, vecPInt goals, int max_iter = 200, int low_level_max_iter = 100, bool debug = false);
-	void search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt>>& results);
+	void search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt>>& results, mutex& mtx);
 	vecPAgent combination(vecAgent total_agent);
 	pair<vecAgent, int> validate_paths(vecAgent agents, CTNode node);
 	int safe_distance(map<Agent, vecPInt> solution, Agent agent_i, Agent agent_j);
