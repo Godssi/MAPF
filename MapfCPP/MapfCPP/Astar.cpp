@@ -30,68 +30,56 @@ void deleteVector(vector<T*> pVector)
 	}
 }
 
-bool valid_path(pairInt xy, Node * cur, map<int, set<pairInt>> conf_path, bool goal_time = false)
+bool valid_path(pairInt xy, Node * cur, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles)
 {
-	if (goal_time)
+	for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
 	{
-		for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
+		for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
 		{
-			for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
+			if ((xy.first == iter2->first) && (xy.second == iter2->second) && (cur->length + 1 >= iter->first))
 			{
-				if ((xy.first == iter2->first) && (xy.second == iter2->second) && (cur->length + 1 >= iter->first))
-				{
-					return true;
-				}
+				return true;
 			}
 		}
-		return false;
 	}
-	else
+
+	for (auto iter = semi_dynamic_obstacles.begin(); iter != semi_dynamic_obstacles.end(); iter++)
 	{
-		for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
+		for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
 		{
-			for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
+			if ((xy.first == iter2->first) && (xy.second == iter2->second) && (cur->length + 1 == iter->first))
 			{
-				if ((xy.first == iter2->first) && (xy.second == iter2->second) && (cur->length + 1 == iter->first))
-				{
-					return true;
-				}
+				return true;
 			}
 		}
-		return false;
 	}
+	return false;
 }
 
-bool valid_path2(Node* cur, map<int, set<pairInt>> conf_path, bool goal_time = false)
+bool valid_path2(Node* cur, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles)
 {
-	if (goal_time)
+	for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
 	{
-		for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
+		for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
 		{
-			for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
+			if ((cur->position.first == iter2->first) && (cur->position.second == iter2->second) && (cur->length >= iter->first))
 			{
-				if ((cur->position.first == iter2->first) && (cur->position.second == iter2->second) && (cur->length >= iter->first))
-				{
-					return false;
-				}
+				return false;
 			}
 		}
-		return true;
 	}
-	else
+
+	for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
 	{
-		for (auto iter = conf_path.begin(); iter != conf_path.end(); iter++)
+		for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
 		{
-			for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); iter2++)
+			if ((cur->position.first == iter2->first) && (cur->position.second == iter2->second) && (cur->length == iter->first))
 			{
-				if ((cur->position.first == iter2->first) && (cur->position.second == iter2->second) && (cur->length == iter->first))
-				{
-					return false;
-				}
+				return false;
 			}
 		}
-		return true;
 	}
+	return true;
 }
 
 Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, map<int, set<pairInt>> conf_path, map<int, set<pairInt>> semi_dynamic_obstacles)
@@ -149,10 +137,7 @@ Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, map
 			if (origin_map[new_xy.first][new_xy.second] != 0)
 				continue;
 
-			if (valid_path(new_xy, curNode, conf_path))
-				continue;
-
-			if (valid_path(new_xy, curNode, semi_dynamic_obstacles, true))
+			if (valid_path(new_xy, curNode, conf_path, semi_dynamic_obstacles))
 				continue;
 
 			Node* newNode = new Node(new_xy, curNode);
@@ -179,7 +164,7 @@ Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, map
 			{
 				auto it = findIdx(child, openList);
 				if (it != openList.end() && (child->g < (*it)->g) 
-					&& valid_path2(child, conf_path) && valid_path2(child, semi_dynamic_obstacles, true))
+					&& valid_path2(child, conf_path, semi_dynamic_obstacles))
 				{
 					delete (*it);
 					openList.erase(it);
@@ -189,8 +174,6 @@ Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, map
 					delete child;
 					continue;
 				}
-				//delete child;
-				//continue;
 			}
 			openList.push_back(child);
 		}

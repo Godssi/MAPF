@@ -47,6 +47,8 @@ private:
 	int max_core = 2;
 
 	AStarPlanner aStarPlanner;
+	vecPInt starts;
+	vecPInt goals;
 	vecAgent agents;
 	vector<pair<Agent, Agent>> combi;
 public:
@@ -55,6 +57,14 @@ public:
 	{
 		aStarPlanner.set_static_obstacle(static_obstacle);
 	}
+	Planner(vecPInt starts, vecPInt goals, int grid_size, int robot_radius, vecPInt static_obstacle, int low_level_max_iter = 100, bool debug = false) :
+		starts(starts), goals(goals), robot_radius(robot_radius), debug(debug), low_level_max_iter(low_level_max_iter)
+	{
+		aStarPlanner.set_static_obstacle(static_obstacle);
+	}
+
+	// MAPF setting
+	vec2PInt plan(int max_iter = 200, int low_level_max_iter = 100, bool debug = false);
 	vec2PInt plan(vecPInt starts, vecPInt goals, int max_iter = 200, int low_level_max_iter = 100, bool debug = false);
 	void search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt>>& results, mutex& mtx);
 	vecPAgent combination(vecAgent total_agent);
@@ -69,6 +79,8 @@ public:
 
 	// Planner setting
 	void set_max_core();
+	void set_max_core(int n_core);
+	bool validate_agent_position();
 	void moving_obstacle_to_origin_map(const vecPInt& movePoint);
 	int get_max_core() { return max_core; };
 	AStarPlanner get_aStarPlanner() { return aStarPlanner; };

@@ -24,10 +24,17 @@ void print_path(vecCTNode op)
 
 vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_level_max_iter, bool debug)
 {
+    this->starts = starts;
+    this->goals = goals;
+    return plan(max_iter, low_level_max_iter, debug);
+}
+
+vec2PInt Planner::plan(int max_iter, int low_level_max_iter, bool debug)
+{
     this->low_level_max_iter = low_level_max_iter;
     this->debug = debug;
-    // this->agents = _assign(starts, goals);
-    this->agents = min_cost(starts, goals);
+    this->agents = _assign(starts, goals);
+    // this->agents = min_cost(starts, goals);
 
     Constraints constraints;
     bool tf = true;
@@ -308,6 +315,28 @@ void Planner::set_max_core()
 {
     max_core = thread::hardware_concurrency();
     max_core = max_core > 5 ? max_core - 4 : max_core;
+}
+
+void Planner::set_max_core(int n_core)
+{
+    max_core = n_core;
+}
+
+bool Planner::validate_agent_position()
+{
+    Map map = aStarPlanner.get_origin_map();
+
+    for (auto& p : starts)
+    {
+        if (map[p.first][p.second] != 0)
+            return true;
+    }
+    for (auto& p : goals)
+    {
+        if (map[p.first][p.second] != 0)
+            return true;
+    }
+    return false;
 }
 
 void Planner::moving_obstacle_to_origin_map(const vecPInt& movePoint)
