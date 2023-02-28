@@ -21,6 +21,11 @@ typedef vector<vecPInt> vec2PInt;
 typedef vector<pairInt> Path;
 typedef vector<vector<ll>> Map;
 
-Path AStar(pairInt start, pairInt end, Map& origin_map, Map& potential_map, map<int, set<pairInt>> conf_path, map<int, set<pairInt>> semi_dynamic_obstacles);
+
+template<class T>
+void deleteVector(vector<T*> pVector);
+bool valid_path(pairInt xy, Node* cur, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles);
+bool valid_path2(Node* cur, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles);
+Path AStar(pairInt start, pairInt end, Map& origin_map, Map& potential_map, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles);
 
 #endif

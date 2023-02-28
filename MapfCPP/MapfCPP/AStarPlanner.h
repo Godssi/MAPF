@@ -30,9 +30,9 @@ private:
 public:
 	AStarPlanner();
 
-	void set_static_obstacle(vecPInt static_obstacle);
+	void set_static_obstacle(const vecPInt& static_obstacle);
 	void modify_potential_map();
-	Path aStarPlan(pairInt start, pairInt goal, map<int, set<pairInt>> conf_path, map<int, set<pairInt>> semi_dynamic_obstacles, int max_iter, bool debug);
+	Path aStarPlan(pairInt start, pairInt goal, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, int max_iter, bool debug);
 
 	Map get_origin_map() { return origin_map; }
 	Map get_potential_map() { return potential_map; }

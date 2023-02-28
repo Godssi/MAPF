@@ -171,7 +171,6 @@ void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt
     return;
 }
 
-
 vecPAgent Planner::combination(vecAgent total_agent)
 {
     vecPAgent result;
@@ -274,7 +273,8 @@ map<int, setPInt> Planner::calculate_goal_times(CTNode& node, Agent& agent, vecA
 vecPInt Planner::calculate_path(Agent agent, Constraints constraints, map<int, setPInt> goal_times)
 {
     map<int, setPInt> a;
-    return aStarPlanner.aStarPlan(agent.start, agent.goal, constraints.setdefault(agent, a), goal_times, low_level_max_iter, debug);
+    map<int, setPInt> constraint = constraints.setdefault(agent, a);
+    return aStarPlanner.aStarPlan(agent.start, agent.goal, constraint, goal_times, low_level_max_iter, debug);
 }
 
 vec2PInt Planner::reformat(vecAgent agents, map<Agent, vecPInt>& solution)
@@ -288,7 +288,6 @@ vec2PInt Planner::reformat(vecAgent agents, map<Agent, vecPInt>& solution)
 
     return reformatted_solution;
 }
-
 
 void Planner::pad(map<Agent, vecPInt>& solution)
 {

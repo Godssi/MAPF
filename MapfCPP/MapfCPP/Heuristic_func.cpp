@@ -23,7 +23,7 @@ double heuristic_e(pairInt node, pairInt goal)
 	return sqrt(dx * dx + dy * dy);
 }
 
-double get_heuristic_to_goal_sq(pairInt node, pairInt goal, double R, Map& potential_map)
+double get_heuristic_to_goal_sq(pairInt node, pairInt goal, double R, const Map& potential_map)
 {
 	int len = abs(goal.first - node.first);
 	if (!len)
@@ -81,7 +81,7 @@ double get_heuristic_to_goal_sq(pairInt node, pairInt goal, double R, Map& poten
 	return h;
 }
 
-double get_heuristic_to_goal_rect(pairInt node, pairInt goal, double R, Map& potential_map)
+double get_heuristic_to_goal_rect(pairInt node, pairInt goal, double R, const Map& potential_map)
 {
 	double h_add1 = 0, h_add2 = 0;
 	ll upperCnt = 0, lowerCnt = 0;
@@ -176,7 +176,7 @@ double get_heuristic_to_goal_rect(pairInt node, pairInt goal, double R, Map& pot
 	return h;
 }
 
-double heuristic_around_obstacle(pairInt node, pairInt goal, ll r, double R, Map& map, Map& potential_map)
+double heuristic_around_obstacle(pairInt node, pairInt goal, ll r, double R, const Map& map, const Map& potential_map)
 {
 	pair<ll, ll> map_size = { map.size() , map.front().size() };
 	double h = 0;
@@ -218,7 +218,7 @@ double heuristic_around_obstacle(pairInt node, pairInt goal, ll r, double R, Map
 	return h;
 }
 
-double heuristic(pairInt node, pairInt goal, Map& map, Map& potential_map)
+double heuristic(pairInt node, pairInt goal, const Map& map, const Map& potential_map)
 {
 	double h = heuristic_e(node, goal);
 	double R = heuristic_e(node, goal);

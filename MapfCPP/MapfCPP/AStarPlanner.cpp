@@ -11,7 +11,7 @@ void AStarPlanner::modify_potential_map()
 	MAP_GEN::modify_potential_map(origin_map, potential_map);
 }
 
-void AStarPlanner::set_static_obstacle(vecPInt static_obstacle)
+void AStarPlanner::set_static_obstacle(const vecPInt& static_obstacle)
 {
 	for (auto& it : static_obstacle)
 	{
@@ -20,7 +20,8 @@ void AStarPlanner::set_static_obstacle(vecPInt static_obstacle)
 	}
 }
 
-Path AStarPlanner::aStarPlan(pairInt start, pairInt goal, map<int, set<pairInt>> conf_path, map<int, set<pairInt>> semi_dynamic_obstacles, int max_iter, bool debug)
+Path AStarPlanner::aStarPlan(pairInt start, pairInt goal, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, int max_iter, bool debug)
 {
-	return AStarAgent::get_astar_path(start, goal, origin_map, potential_map, conf_path, semi_dynamic_obstacles);
+	/*return AStarAgent::get_astar_path(start, goal, origin_map, potential_map, conf_path, semi_dynamic_obstacles);*/
+	return AStar(start, goal, origin_map, potential_map, conf_path, semi_dynamic_obstacles);
 }
