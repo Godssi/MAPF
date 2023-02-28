@@ -183,5 +183,6 @@ Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, con
 	deleteVector<Node>(closedList);
 	delete goalNode;
 
+	pathIdx.push_back({ -1, -1 });
 	return pathIdx;
 }

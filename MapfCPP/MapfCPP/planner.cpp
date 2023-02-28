@@ -73,7 +73,6 @@ vec2PInt Planner::plan(int max_iter, int low_level_max_iter, bool debug)
     while (!open.empty() && iter_ < max_iter) {
         iter_++;
         pair<vector<pairCTNode>, vector<vec2PInt>> results;
-        th.clear();
 
         for (auto iter = open.begin(); iter != open.end();) {
             th.clear();
@@ -218,6 +217,8 @@ int Planner::safe_distance(map<Agent, vecPInt> solution, Agent agent_i, Agent ag
     for (int i = 0; i < size; i++)
     {
         idx++;
+        if (paths_i[i].first == -1 || paths_j[i].first == -1)
+            continue;
         if (dist(paths_i[i], paths_j[i]) >= robot_radius)
             continue;
         return idx;
