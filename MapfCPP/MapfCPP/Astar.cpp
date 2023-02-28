@@ -189,6 +189,8 @@ Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, map
 					delete child;
 					continue;
 				}
+				//delete child;
+				//continue;
 			}
 			openList.push_back(child);
 		}

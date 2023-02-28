@@ -224,7 +224,7 @@ int Planner::safe_distance(map<Agent, vecPInt> solution, Agent agent_i, Agent ag
     for (int i = 0; i < size; i++)
     {
         idx++;                                              // 인덱스 번호 알려주기 위해 
-        if (dist(paths_i[i], paths_j[i]) > robot_radius)    // agent가 solution의 경로대로 이동하면서 충돌 여부 확인 (같은 시간에서 위치 비교)
+        if (dist(paths_i[i], paths_j[i]) >= robot_radius)    // agent가 solution의 경로대로 이동하면서 충돌 여부 확인 (같은 시간에서 위치 비교)
             continue;
         return idx;                                         // 충돌하는 인덱스 리턴
     }
