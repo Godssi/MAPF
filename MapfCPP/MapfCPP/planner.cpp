@@ -104,11 +104,7 @@ void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt
 {
     mutex mtx;
 
-    mtx.lock();
-    CTNode CTNode_copy = best;
-    mtx.unlock();
-
-    pair<vecAgent, int> val = validate_paths(this->agents, CTNode_copy); // 충돌 에이전트와 충돌 인덱스 정상 반환 
+    pair<vecAgent, int> val = validate_paths(this->agents, best); // 충돌 에이전트와 충돌 인덱스 정상 반환 
 
     Agent agent_i = ((val.first)[0]);
     Agent agent_j = ((val.first)[1]);
@@ -116,19 +112,19 @@ void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt
     if (time_of_conflict == -1) // 충돌이 없을 때
     {
         mtx.lock();
-        results.second.push_back(reformat(this->agents, CTNode_copy.solution));
+        results.second.push_back(reformat(this->agents, best.solution));
         mtx.unlock();
         return;
     }
 
-    Constraints agent_i_constraint = calculate_constraints(CTNode_copy, agent_i, agent_j, time_of_conflict);
-    Constraints agent_j_constraint = calculate_constraints(CTNode_copy, agent_j, agent_i, time_of_conflict);
+    Constraints agent_i_constraint = calculate_constraints(best, agent_i, agent_j, time_of_conflict);
+    Constraints agent_j_constraint = calculate_constraints(best, agent_j, agent_i, time_of_conflict);
 
-    vecPInt agent_i_path = calculate_path(agent_i, agent_i_constraint, calculate_goal_times(CTNode_copy, agent_i, agents));
-    vecPInt agent_j_path = calculate_path(agent_j, agent_j_constraint, calculate_goal_times(CTNode_copy, agent_j, agents));
+    vecPInt agent_i_path = calculate_path(agent_i, agent_i_constraint, calculate_goal_times(best, agent_i, agents));
+    vecPInt agent_j_path = calculate_path(agent_j, agent_j_constraint, calculate_goal_times(best, agent_j, agents));
 
-    map<Agent, vecPInt> solution_i = CTNode_copy.solution;
-    map<Agent, vecPInt> solution_j = CTNode_copy.solution;
+    map<Agent, vecPInt> solution_i = best.solution;
+    map<Agent, vecPInt> solution_j = best.solution;
     solution_i[agent_i] = agent_i_path;
     solution_j[agent_j] = agent_j_path;
 
