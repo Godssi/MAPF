@@ -9,6 +9,15 @@
 #include <ctime>
 #include <cmath>
 
+enum Object
+{
+	Ground,
+	Outer_Wall,
+	Inner_Wall,
+	Static_Ob,
+	Dynamic_Ob,
+};
+
 using namespace std;
 typedef long long ll;
 typedef pair<int, int> pairInt;

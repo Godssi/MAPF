@@ -22,6 +22,5 @@ void AStarPlanner::set_static_obstacle(const vecPInt& static_obstacle)
 
 Path AStarPlanner::aStarPlan(pairInt start, pairInt goal, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, int max_iter, bool debug)
 {
-	/*return AStarAgent::get_astar_path(start, goal, origin_map, potential_map, conf_path, semi_dynamic_obstacles);*/
 	return AStar(start, goal, origin_map, potential_map, conf_path, semi_dynamic_obstacles);
 }

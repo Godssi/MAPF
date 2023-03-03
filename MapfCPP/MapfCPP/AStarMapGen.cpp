@@ -9,15 +9,15 @@ Map MAP_GEN::potential_map_generator(Map map)
     {
         for (ll j = 0; j < map_size.second; j++)
         {
-            if (map[i][j] == 0)
+            if (map[i][j] == Ground)
             {
                 continue;
             }
-            else if(map[i][j] == 1)
+            else if(map[i][j] == Inner_Wall)
             {
-                int outer_r = 10;
-                int inner_r = 2;
-                int alpha = 10;
+                int outer_r = 4;
+                int inner_r = 1;
+                int alpha = 4;
                 
                 for (ll k = i - outer_r; k < i + outer_r + 1; k++)
                 {
@@ -39,36 +39,10 @@ Map MAP_GEN::potential_map_generator(Map map)
                     }   
                 }
             }
-            else if (map[i][j] == 2)
+            else if (map[i][j] == Outer_Wall)
             {
-                int outer_r = 7;
-                int inner_r = 2;
-                int alpha = 28;
-
-                for (ll k = i - outer_r; k < i + outer_r + 1; k++)
-                {
-                    for (ll m = j - outer_r; m < j + outer_r + 1; m++)
-                    {
-                        ll r = (k - i) * (k - i) + (m - j) * (m - j);
-                        if (r <= inner_r * inner_r && (0 <= k && k < map_size.first) && (0 <= m && m < map_size.second))
-                        {
-                            potential_map[k][m] += alpha;
-                        }
-                        else if (r <= outer_r * outer_r && (0 <= k && k < map_size.first) && (0 <= m && m < map_size.second))
-                        {
-                            r = static_cast<ll>(round(sqrt(r)));
-                            if (r < 1e-3)
-                                r = 1;
-                            potential_map[k][m] += (1 / (outer_r - inner_r)) *
-                                ((inner_r * outer_r * (alpha - 1)) / r + outer_r - inner_r * alpha);
-                        }
-                    }
-                }
-            }
-            else if (map[i][j] == 3)
-            {
-                int outer_r = 5;
-                int inner_r = 2;
+                int outer_r = 4;
+                int inner_r = 1;
                 int alpha = 4;
 
                 for (ll k = i - outer_r; k < i + outer_r + 1; k++)
@@ -91,11 +65,37 @@ Map MAP_GEN::potential_map_generator(Map map)
                     }
                 }
             }
-            else if (map[i][j] == 4)
+            else if (map[i][j] == Static_Ob)
             {
-                int outer_r = 10;
-                int inner_r = 2;
+                int outer_r = 8;
+                int inner_r = 1;
                 int alpha = 10;
+
+                for (ll k = i - outer_r; k < i + outer_r + 1; k++)
+                {
+                    for (ll m = j - outer_r; m < j + outer_r + 1; m++)
+                    {
+                        ll r = (k - i) * (k - i) + (m - j) * (m - j);
+                        if (r <= inner_r * inner_r && (0 <= k && k < map_size.first) && (0 <= m && m < map_size.second))
+                        {
+                            potential_map[k][m] += alpha;
+                        }
+                        else if (r <= outer_r * outer_r && (0 <= k && k < map_size.first) && (0 <= m && m < map_size.second))
+                        {
+                            r = static_cast<ll>(round(sqrt(r)));
+                            if (r < 1e-3)
+                                r = 1;
+                            potential_map[k][m] += (1 / (outer_r - inner_r)) *
+                                ((inner_r * outer_r * (alpha - 1)) / r + outer_r - inner_r * alpha);
+                        }
+                    }
+                }
+            }
+            else if (map[i][j] == Dynamic_Ob)
+            {
+                int outer_r = 24;
+                int inner_r = 3;
+                int alpha = 28;
 
                 for (ll k = i - outer_r; k < i + outer_r + 1; k++)
                 {
@@ -132,8 +132,8 @@ void MAP_GEN::modify_potential_map(Map map, Map& potential_map)
         {
             if (map[i][j] == 2)
             {
-                int outer_r = 7;
-                int inner_r = 2;
+                int outer_r = 24;
+                int inner_r = 3;
                 int alpha = 28;
 
                 for (ll k = i - outer_r; k < i + outer_r + 1; k++)

@@ -8,7 +8,6 @@
 #include <map>
 #include <set>
 
-#include "AStarAgent.h"
 #include "AStar.h"
 #include "AStarMapGen.h"
 

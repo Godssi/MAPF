@@ -42,9 +42,6 @@
     <ClCompile Include="planner.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="AStarAgent.cpp">
-      <Filter>소스 파일\astar</Filter>
-    </ClCompile>
     <ClCompile Include="AStarPlanner.cpp">
       <Filter>소스 파일\astar</Filter>
     </ClCompile>
@@ -79,9 +76,6 @@
     </ClInclude>
     <ClInclude Include="planner.h">
       <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="AStarAgent.h">
-      <Filter>헤더 파일\astar</Filter>
     </ClInclude>
     <ClInclude Include="AStar.h">
       <Filter>헤더 파일\astar</Filter>

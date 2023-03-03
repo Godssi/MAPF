@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AStarAgent.cpp" />
     <ClCompile Include="Agent.cpp" />
     <ClCompile Include="AStarPlanner.cpp" />
     <ClCompile Include="Assigner.cpp" />
@@ -34,7 +33,6 @@
     <ClCompile Include="planner.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AStarAgent.h" />
     <ClInclude Include="Agent.h" />
     <ClInclude Include="AStarPlanner.h" />
     <ClInclude Include="Assigner.h" />
