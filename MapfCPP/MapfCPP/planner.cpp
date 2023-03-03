@@ -31,7 +31,7 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_leve
 
 vec2PInt Planner::plan(int max_iter, int low_level_max_iter, bool debug)
 {
-    this->low_level_max_iter = low_level_max_iter;
+    aStarPlanner.set_low_level_max_iter(low_level_max_iter);
     this->debug = debug;
     this->agents = _assign(starts, goals);
     // this->agents = min_cost(starts, goals);
@@ -275,7 +275,7 @@ vecPInt Planner::calculate_path(Agent agent, Constraints constraints, map<int, s
 {
     map<int, setPInt> a;
     map<int, setPInt> constraint = constraints.setdefault(agent, a);
-    return aStarPlanner.aStarPlan(agent.start, agent.goal, constraint, goal_times, low_level_max_iter, debug);
+    return aStarPlanner.aStarPlan(agent.start, agent.goal, constraint, goal_times, debug);
 }
 
 vec2PInt Planner::reformat(vecAgent agents, map<Agent, vecPInt>& solution)

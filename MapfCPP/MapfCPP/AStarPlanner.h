@@ -25,13 +25,15 @@ class AStarPlanner
 private:
 	Map origin_map;
 	Map potential_map;
+	int low_level_max_iter;
 
 public:
 	AStarPlanner();
 
 	void set_static_obstacle(const vecPInt& static_obstacle);
 	void modify_potential_map();
-	Path aStarPlan(pairInt start, pairInt goal, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, int max_iter, bool debug);
+	void set_low_level_max_iter(int low_level_max_iter);
+	Path aStarPlan(pairInt start, pairInt goal, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, bool debug);
 
 	Map get_origin_map() { return origin_map; }
 	Map get_potential_map() { return potential_map; }

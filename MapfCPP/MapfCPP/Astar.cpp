@@ -82,7 +82,7 @@ bool valid_path2(Node* cur, const map<int, set<pairInt>>& conf_path, const map<i
 	return true;
 }
 
-Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles)
+Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, int low_level_max_iter)
 {
 	Path pathIdx;
 	Node* startNode = new Node(start);
@@ -97,7 +97,8 @@ Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, con
 	Node* curNode;
 	vector<pairInt> dxdy = { {-1, 0}, {0, -1}, {1, 0}, {0, 1}, {0, 0} };
 
-	while (!openList.empty())
+	int iter = 0;
+	while (!openList.empty() && iter < low_level_max_iter)
 	{
 		sort(openList.begin(), openList.end(), cmp);
 
@@ -177,6 +178,7 @@ Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, con
 			}
 			openList.push_back(child);
 		}
+		iter++;
 	}
 
 	deleteVector<Node>(openList);

@@ -86,22 +86,23 @@ int main()
 	clock_t startClock, endClock;
 
 	startClock = clock();
-	vector<p> start = { {2, 2}, {38, 1}, {2, 32}, {48, 39}, {2, 16}, {2, 1}, {1, 34}, {45, 1} };
-	vector<p> goal = { {14, 39}, {45, 31}, {49, 3}, {22, 5}, {24, 2}, {14, 40}, {49, 17}, {17, 1} };
-	vector<p> static_obstacle = { {24, 12} };
-	Planner planner(start, goal, 1, 1, static_obstacle);
-	
-	if (planner.validate_agent_position())
+	for (int i = 0; i < 1; i++)
 	{
-		cout << "not valid agent position\n";
-		return 0;
+		vector<pairInt> start = { {2, 2}, {38, 1}, {2, 32}, {48, 39}, {2, 16}, {2, 1}, {1, 34}, {45, 1} };
+		vector<pairInt> goal = { {14, 39}, {45, 31}, {49, 3}, {22, 5}, {24, 2}, {14, 40}, {49, 17}, {17, 1} };
+		vector<pairInt> static_obstacle = { {24, 12} };
+		Planner planner(start, goal, 1, 1, static_obstacle);
+
+		if (planner.validate_agent_position())
+		{
+			cout << "not valid agent position\n";
+			return 0;
+		}
+
+		planner.set_max_core();
+		vec2PInt result = planner.plan(200, 1000, false);
 	}
-
-	planner.set_max_core();
-	vec2PInt result = planner.plan(200, 100, false);
-
 	endClock = clock();
-	print_path_text(result);
 	cout << "\n\n\ttime: " << endClock - startClock << "  (ms)\n";
 
 	return 0;

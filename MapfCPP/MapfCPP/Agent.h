@@ -12,17 +12,17 @@
 #include <functional>
 
 using namespace std;
-typedef pair<int, int> p;
+typedef pair<int, int> pairInt;
 
 class Agent
 {
 public:
-	p start;
-	p goal;
+	pairInt start;
+	pairInt goal;
 	string agentName;
 
-	Agent(p start, p goal) : start(start), goal(goal) {}
-	Agent(p start, p goal, string agentName) : start(start), goal(goal), agentName(agentName) {}
+	Agent(pairInt start, pairInt goal) : start(start), goal(goal) {}
+	Agent(pairInt start, pairInt goal, string agentName) : start(start), goal(goal), agentName(agentName) {}
 	
 	int hash() const;
 	string str();

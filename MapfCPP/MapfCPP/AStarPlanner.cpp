@@ -20,7 +20,12 @@ void AStarPlanner::set_static_obstacle(const vecPInt& static_obstacle)
 	}
 }
 
-Path AStarPlanner::aStarPlan(pairInt start, pairInt goal, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, int max_iter, bool debug)
+void AStarPlanner::set_low_level_max_iter(int low_level_max_iter)
 {
-	return AStar(start, goal, origin_map, potential_map, conf_path, semi_dynamic_obstacles);
+	this->low_level_max_iter = low_level_max_iter;
+}
+
+Path AStarPlanner::aStarPlan(pairInt start, pairInt goal, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, bool debug)
+{
+	return AStar(start, goal, origin_map, potential_map, conf_path, semi_dynamic_obstacles, low_level_max_iter);
 }
