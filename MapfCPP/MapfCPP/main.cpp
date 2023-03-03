@@ -1,6 +1,5 @@
 #include <iostream>
 
-
 #include "AStar.h"
 #include "AStarMapGen.h"
 
@@ -58,6 +57,30 @@ void print_map(Planner planner)
 	cout << "\n";
 }
 
+#include <fstream>
+
+void print_path_text(vec2PInt pPath)
+{
+	ofstream fout("Visualization/multiagentpath.txt");
+	
+	if (!pPath.empty())
+	{
+		fout << pPath.begin()->size();
+		for (auto iter1 = pPath.begin(); iter1 != pPath.end(); iter1++)
+		{
+			for (auto iter2 = iter1->begin(); iter2 != iter1->end(); iter2++)
+			{
+				fout << "\n" << iter2->first << "\n" << iter2->second;
+			}
+		}
+	}
+	else
+	{
+		fout << 0;
+	}
+	fout.close();
+}
+
 int main()
 {
 	clock_t startClock, endClock;
@@ -78,7 +101,7 @@ int main()
 	vec2PInt result = planner.plan(200, 100, false);
 
 	endClock = clock();
-	print_path(result);
+	print_path_text(result);
 	cout << "\n\n\ttime: " << endClock - startClock << "  (ms)\n";
 
 	return 0;
