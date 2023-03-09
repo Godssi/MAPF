@@ -49,6 +49,8 @@ private:
 	vecPInt starts;
 	vecPInt goals;
 	vecAgent agents;
+	map<Agent, vecPInt> planResults;
+
 	vector<pair<Agent, Agent>> combi;
 public:
 	Planner(int grid_size, int robot_radius, vecPInt static_obstacle, int low_level_max_iter = 100, bool debug = false) :
@@ -72,7 +74,8 @@ public:
 	double dist(pairInt point1, pairInt point2);
 	Constraints calculate_constraints(CTNode& node, Agent& constrainted_agent, Agent& unchanged_agent, int& time_of_conflict);
 	map<int, setPInt> calculate_goal_times(CTNode& node, Agent& agent, vecAgent& agents);
-	vecPInt calculate_path(Agent agent, Constraints constraints, map<int, setPInt> goal_times);
+	vecPInt calculate_path(Agent agent, Constraints& constraints, map<int, setPInt> goal_times);
+	vecPInt recalculate_path(Agent agent, Constraints& constraints, map<int, setPInt> goal_times, int& time_of_conflict);
 	vec2PInt reformat(vecAgent agents, map<Agent, vecPInt>& solution);
 	void pad(map<Agent, vecPInt>& solution);
 

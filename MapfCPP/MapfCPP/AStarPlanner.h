@@ -16,9 +16,9 @@ typedef long long ll;
 typedef pair<int, int> pairInt;
 typedef vector<pairInt> vecPInt;
 typedef vector<vecPInt> vec2PInt;
-
 typedef vector<pairInt> Path;
 typedef vector<vector<ll>> Map;
+
 
 class AStarPlanner
 {
@@ -33,7 +33,7 @@ public:
 	void set_static_obstacle(const vecPInt& static_obstacle);
 	void modify_potential_map();
 	void set_low_level_max_iter(int low_level_max_iter);
-	Path aStarPlan(pairInt start, pairInt goal, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, bool debug);
+	Path aStarPlan(pairInt start, pairInt goal, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, int time_step, bool debug);
 
 	Map get_origin_map() { return origin_map; }
 	Map get_potential_map() { return potential_map; }

@@ -1,35 +1,13 @@
 #include "planner.h"
 
-void print_path(vecCTNode op)
-{
-    int set_num = 0;
-    for (auto iter1 = op.begin(); iter1 != op.end(); iter1++)
-    {
-        cout << "\nopen set : \t" << set_num;
-        char ch = 'A';
-        cout << "\n\n";
-        for (auto iter2 = iter1->solution.begin(); iter2 != iter1->solution.end(); iter2++)
-        {
-            cout << "\trobot " << ch << "\n\n";
-            int i = 0;
-            for (auto iter3 = iter2->second.begin(); iter3 != iter2->second.end(); iter3++, i++)
-                cout << " path: " << iter3->first << ", " << iter3->second << "\t\t: " << i << "\n";
-            cout << "\n";
-            ch++;
-        }
-        cout << "\n\n\n\n";
-        set_num++;
-    }
-}
-
-vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int max_iter, int low_level_max_iter, bool debug)
+vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int high_level_max_iter, int low_level_max_iter, bool debug)
 {
     this->starts = starts;
     this->goals = goals;
-    return plan(max_iter, low_level_max_iter, debug);
+    return plan(high_level_max_iter, low_level_max_iter, debug);
 }
 
-vec2PInt Planner::plan(int max_iter, int low_level_max_iter, bool debug)
+vec2PInt Planner::plan(int high_level_max_iter, int low_level_max_iter, bool debug)
 {
     aStarPlanner.set_low_level_max_iter(low_level_max_iter);
     this->debug = debug;
@@ -70,7 +48,7 @@ vec2PInt Planner::plan(int max_iter, int low_level_max_iter, bool debug)
     vector<thread> th;
     mutex mtx;
 
-    while (!open.empty() && iter_ < max_iter) {
+    while (!open.empty() && iter_ < high_level_max_iter) {
         iter_++;
         pair<vector<pairCTNode>, vector<vec2PInt>> results;
 
@@ -126,8 +104,8 @@ void Planner::search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt
     Constraints agent_i_constraint = calculate_constraints(copyNode, agent_i, agent_j, time_of_conflict);
     Constraints agent_j_constraint = calculate_constraints(copyNode, agent_j, agent_i, time_of_conflict);
 
-    vecPInt agent_i_path = calculate_path(agent_i, agent_i_constraint, calculate_goal_times(copyNode, agent_i, agents));
-    vecPInt agent_j_path = calculate_path(agent_j, agent_j_constraint, calculate_goal_times(copyNode, agent_j, agents));
+    vecPInt agent_i_path = recalculate_path(agent_i, agent_i_constraint, calculate_goal_times(copyNode, agent_i, agents), time_of_conflict);
+    vecPInt agent_j_path = recalculate_path(agent_j, agent_j_constraint, calculate_goal_times(copyNode, agent_j, agents), time_of_conflict);
 
     map<Agent, vecPInt> solution_i = copyNode.solution;
     map<Agent, vecPInt> solution_j = copyNode.solution;
@@ -271,11 +249,30 @@ map<int, setPInt> Planner::calculate_goal_times(CTNode& node, Agent& agent, vecA
     return goal_times;
 }
 
-vecPInt Planner::calculate_path(Agent agent, Constraints constraints, map<int, setPInt> goal_times)
+vecPInt Planner::calculate_path(Agent agent, Constraints& constraints, map<int, setPInt> goal_times)
 {
     map<int, setPInt> a;
     map<int, setPInt> constraint = constraints.setdefault(agent, a);
-    return aStarPlanner.aStarPlan(agent.start, agent.goal, constraint, goal_times, debug);
+    planResults[agent] = aStarPlanner.aStarPlan(agent.start, agent.goal, constraint, goal_times, 0, debug);
+    return planResults[agent];
+}
+
+vecPInt Planner::recalculate_path(Agent agent, Constraints& constraints, map<int, setPInt> goal_times, int& time_of_conflict)
+{
+    map<int, setPInt> a;
+    map<int, setPInt> constraint = constraints.setdefault(agent, a);
+    vecPInt dfadf = aStarPlanner.aStarPlan(agent.start, agent.goal, constraint, goal_times, 0, debug);
+    if (time_of_conflict > robot_radius + 2)
+    {
+        vecPInt tmp = aStarPlanner.aStarPlan(planResults[agent][time_of_conflict - (robot_radius + 2)], agent.goal, constraint, goal_times, time_of_conflict - (robot_radius + 2), debug);
+        planResults[agent].erase(planResults[agent].begin() + time_of_conflict - (robot_radius + 2) + 1, planResults[agent].end());
+        move(tmp.begin(), tmp.end(), back_inserter(planResults[agent]));
+    }
+    else
+    {
+        planResults[agent] = aStarPlanner.aStarPlan(agent.start, agent.goal, constraint, goal_times, 0, debug);
+    }
+    return planResults[agent];
 }
 
 vec2PInt Planner::reformat(vecAgent agents, map<Agent, vecPInt>& solution)

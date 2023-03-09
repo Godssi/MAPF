@@ -24,6 +24,8 @@ class Node
 public:  
     Node(pairInt position)
         : position(position), length(0) {}
+    Node(pairInt position, int lenght)
+        : position(position), length(length) {}
     Node(pairInt position, Node* parent)
         : position(position), parent(parent)
     {

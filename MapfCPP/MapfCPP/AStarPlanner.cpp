@@ -15,8 +15,8 @@ void AStarPlanner::set_static_obstacle(const vecPInt& static_obstacle)
 {
 	for (auto& it : static_obstacle)
 	{
-		if (origin_map[it.first][it.second] == 0)
-			origin_map[it.first][it.second] = 4;
+		if (origin_map[it.first][it.second] == Ground)
+			origin_map[it.first][it.second] = Static_Ob;
 	}
 }
 
@@ -25,7 +25,7 @@ void AStarPlanner::set_low_level_max_iter(int low_level_max_iter)
 	this->low_level_max_iter = low_level_max_iter;
 }
 
-Path AStarPlanner::aStarPlan(pairInt start, pairInt goal, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, bool debug)
+Path AStarPlanner::aStarPlan(pairInt start, pairInt goal, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, int time_step, bool debug)
 {
-	return AStar(start, goal, origin_map, potential_map, conf_path, semi_dynamic_obstacles, low_level_max_iter);
+	return AStar(start, goal, origin_map, potential_map, conf_path, semi_dynamic_obstacles, time_step, low_level_max_iter);
 }
