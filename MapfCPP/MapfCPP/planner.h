@@ -50,6 +50,8 @@ private:
 	vecPInt goals;
 	vecAgent agents;
 	map<Agent, vecPInt> planResults;
+	vector<pair<vecPInt, int>> dynamic_obstacle;
+	Map static_potential_map;
 
 	vector<pair<Agent, Agent>> combi;
 public:
@@ -58,10 +60,12 @@ public:
 	{
 		aStarPlanner.set_static_obstacle(static_obstacle);
 	}
-	Planner(vecPInt starts, vecPInt goals, int grid_size, int robot_radius, vecPInt static_obstacle, int low_level_max_iter = 100, bool debug = false) :
+	Planner(vecPInt starts, vecPInt goals, int grid_size, int robot_radius, vecPInt static_obstacle, vector<pair<vecPInt, int>> dynamic_obstacle, int low_level_max_iter = 100, bool debug = false) :
 		starts(starts), goals(goals), robot_radius(robot_radius), debug(debug)
 	{
 		aStarPlanner.set_static_obstacle(static_obstacle);
+		Planner::static_potential_map = aStarPlanner.get_potential_map();
+		Planner::dynamic_obstacle = dynamic_obstacle;
 	}
 
 	// MAPF setting

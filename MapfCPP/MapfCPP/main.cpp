@@ -71,6 +71,7 @@ void print_path_text(vec2PInt pPath)
 			for (auto iter2 = iter1->begin(); iter2 != iter1->end(); iter2++)
 			{
 				fout << "\n" << iter2->first << "\n" << iter2->second;
+				// print_path_text에서 \n 으로 좌표 자체를 알기 힘들게 한 것을 조금 더 편하게 좌표처럼 바꾸면 좋을 것 같다.
 			}
 		}
 	}
@@ -89,8 +90,9 @@ int main()
 
 	vector<pairInt> start = { {2, 2}, {38, 1}, {2, 32}, {48, 39}, {2, 16}, {2, 1}, {1, 34}, {45, 1} };
 	vector<pairInt> goal = { {14, 39}, {45, 31}, {49, 3}, {22, 5}, {24, 2}, {14, 40}, {49, 17}, {17, 1} };
-	vector<pairInt> static_obstacle = { {24, 12}, {27, 32} };
-	Planner planner(start, goal, 1, 1, static_obstacle);
+	vector<pairInt> static_obstacle = { {24, 12}, {10, 20} };  
+	vector<pair<vecPInt, int>> dynamic_obstacle = { {{{6,6},{0,1}},3} }; // {{현위치, 속도뱡향 좌표}, 속력}
+	Planner planner(start, goal, 1, 1, static_obstacle, dynamic_obstacle);
 
 	if (planner.validate_agent_position())
 	{
@@ -100,9 +102,12 @@ int main()
 
 	planner.set_max_core();
 	vec2PInt result = planner.plan(200, 1000, false);
+	print_path_text(result);
 
 	endClock = clock();
 	cout << "\n\n\ttime: " << endClock - startClock << "  (ms)\n";
 
 	return 0;
 }
+
+

@@ -82,8 +82,9 @@ bool valid_path2(Node* cur, const map<int, set<pairInt>>& conf_path, const map<i
 	return true;
 }
 
-Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, int time_step, int low_level_max_iter)
+Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, vector<pair<vecPInt, int>> dynamic_obstacle, int time_step, int low_level_max_iter)
 {
+	std::cout << dynamic_obstacle[0].first[0].first << ", " << dynamic_obstacle[0].first[0].second << ", " << dynamic_obstacle[0].second << std::endl;
 	Path pathIdx;
 	Node* startNode = new Node(start, time_step);
 	Node* goalNode = new Node(goal);

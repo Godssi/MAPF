@@ -92,5 +92,8 @@
     <ClInclude Include="AStarPlanner.h">
       <Filter>헤더 파일\astar</Filter>
     </ClInclude>
+    <ClInclude Include="Dyanmic_Object.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

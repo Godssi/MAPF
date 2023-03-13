@@ -39,6 +39,7 @@
     <ClInclude Include="AStar.h" />
     <ClInclude Include="Constraints.h" />
     <ClInclude Include="CTNode.h" />
+    <ClInclude Include="Dyanmic_Object.h" />
     <ClInclude Include="Heuristic_func.h" />
     <ClInclude Include="Hungarian.h" />
     <ClInclude Include="AStarMapGen.h" />
