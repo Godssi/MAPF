@@ -49,28 +49,30 @@ private:
 	vecPInt starts;
 	vecPInt goals;
 	vecAgent agents;
-	map<Agent, vecPInt> planResults;
-	vector<pair<vecPInt, int>> dynamic_obstacle;
-	Map static_potential_map;
 
+	Map static_potential_map;
+	vector<pair<vecPInt, int>> dynamic_obstacle;
+
+	map<Agent, vecPInt> planResults;
 	vector<pair<Agent, Agent>> combi;
+
 public:
-	Planner(int grid_size, int robot_radius, vecPInt static_obstacle, int low_level_max_iter = 100, bool debug = false) :
+	Planner(int grid_size, int robot_radius, vecPInt static_obstacle, int low_level_max_iter = 100) :
 		robot_radius(robot_radius), debug(debug)
 	{
 		aStarPlanner.set_static_obstacle(static_obstacle);
 	}
-	Planner(vecPInt starts, vecPInt goals, int grid_size, int robot_radius, vecPInt static_obstacle, vector<pair<vecPInt, int>> dynamic_obstacle, int low_level_max_iter = 100, bool debug = false) :
+	Planner(vecPInt starts, vecPInt goals, int grid_size, int robot_radius, vecPInt static_obstacle, vector<pair<vecPInt, int>> dynamic_obstacle, int low_level_max_iter = 100) :
 		starts(starts), goals(goals), robot_radius(robot_radius), debug(debug)
 	{
 		aStarPlanner.set_static_obstacle(static_obstacle);
-		Planner::static_potential_map = aStarPlanner.get_potential_map();
-		Planner::dynamic_obstacle = dynamic_obstacle;
+		this->static_potential_map = aStarPlanner.get_potential_map();
+		this->dynamic_obstacle = dynamic_obstacle;
 	}
 
 	// MAPF setting
-	vec2PInt plan(int max_iter = 200, int low_level_max_iter = 100, bool debug = false);
-	vec2PInt plan(vecPInt starts, vecPInt goals, int max_iter = 200, int low_level_max_iter = 100, bool debug = false);
+	vec2PInt plan(int max_iter = 200, int low_level_max_iter = 100);
+	vec2PInt plan(vecPInt starts, vecPInt goals, int max_iter = 200, int low_level_max_iter = 100);
 	void search_node(CTNode& best, pair<vector<pairCTNode>, vector<vec2PInt>>& results, mutex& mtx);
 	vecPAgent combination(vecAgent total_agent);
 	pair<vecAgent, int> validate_paths(vecAgent agents, CTNode node);
@@ -88,6 +90,7 @@ public:
 	void set_max_core(int n_core);
 	bool validate_agent_position();
 	void moving_obstacle_to_origin_map(const vecPInt& movePoint);
+	void modify_potential_map();
 	int get_max_core() { return max_core; };
 	AStarPlanner get_aStarPlanner() { return aStarPlanner; };
 };

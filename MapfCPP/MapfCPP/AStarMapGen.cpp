@@ -122,9 +122,10 @@ Map MAP_GEN::potential_map_generator(Map map)
     return potential_map;
 }
 
-void MAP_GEN::modify_potential_map(Map map, Map& potential_map)
+Map MAP_GEN::modify_potential_map(const Map& map, const Map& static_potential_map)
 {
     pair<ll, ll> map_size = { map.size() , map[0].size() };
+    Map potential_map = static_potential_map;
 
     for (ll i = 0; i < map_size.first; i++)
     {
@@ -158,7 +159,7 @@ void MAP_GEN::modify_potential_map(Map map, Map& potential_map)
             }
         }
     }
-    return;
+    return potential_map;
 }
 
 Map MAP_GEN::moving_obstacle_to_origin_map(Map map, const vecPInt& movePoint)

@@ -30,7 +30,7 @@ typedef vector<vector<ll>> Map;
 namespace MAP_GEN
 {
 	Map potential_map_generator(Map map);
-	void modify_potential_map(Map map, Map& potential_map);
+	Map modify_potential_map(const Map& map, const Map& static_potential_map);
 	Map moving_obstacle_to_origin_map(Map map, const vecPInt& movePoint);
 	Map test_maze_gen1();
 	Map test_maze_gen2();

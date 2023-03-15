@@ -1,13 +1,13 @@
 #include "planner.h"
 
-vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int high_level_max_iter, int low_level_max_iter, bool debug)
+vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int high_level_max_iter, int low_level_max_iter)
 {
     this->starts = starts;
     this->goals = goals;
-    return plan(high_level_max_iter, low_level_max_iter, debug);
+    return plan(high_level_max_iter, low_level_max_iter);
 }
 
-vec2PInt Planner::plan(int high_level_max_iter, int low_level_max_iter, bool debug)
+vec2PInt Planner::plan(int high_level_max_iter, int low_level_max_iter)
 {
     aStarPlanner.set_low_level_max_iter(low_level_max_iter);
     this->debug = debug;
@@ -50,6 +50,7 @@ vec2PInt Planner::plan(int high_level_max_iter, int low_level_max_iter, bool deb
 
     while (!open.empty() && iter_ < high_level_max_iter) {
         iter_++;
+        modify_potential_map();
         pair<vector<pairCTNode>, vector<vec2PInt>> results;
 
         for (auto iter = open.begin(); iter != open.end();) {
@@ -253,7 +254,7 @@ vecPInt Planner::calculate_path(Agent agent, Constraints& constraints, map<int, 
 {
     map<int, setPInt> a;
     map<int, setPInt> constraint = constraints.setdefault(agent, a);
-    planResults[agent] = aStarPlanner.aStarPlan(agent.start, agent.goal, constraint, goal_times, dynamic_obstacle, 0, debug);
+    planResults[agent] = aStarPlanner.aStarPlan(agent.start, agent.goal, constraint, goal_times, dynamic_obstacle, 0);
     return planResults[agent];
 }
 
@@ -261,16 +262,16 @@ vecPInt Planner::recalculate_path(Agent agent, Constraints& constraints, map<int
 {
     map<int, setPInt> a;
     map<int, setPInt> constraint = constraints.setdefault(agent, a);
-    vecPInt dfadf = aStarPlanner.aStarPlan(agent.start, agent.goal, constraint, goal_times, dynamic_obstacle, 0, debug);
+    vecPInt dfadf = aStarPlanner.aStarPlan(agent.start, agent.goal, constraint, goal_times, dynamic_obstacle, 0);
     if (time_of_conflict > robot_radius + 2)
     {
-        vecPInt tmp = aStarPlanner.aStarPlan(planResults[agent][time_of_conflict - (robot_radius + 2)], agent.goal, constraint, goal_times, dynamic_obstacle, time_of_conflict - (robot_radius + 2), debug);
+        vecPInt tmp = aStarPlanner.aStarPlan(planResults[agent][time_of_conflict - (robot_radius + 2)], agent.goal, constraint, goal_times, dynamic_obstacle, time_of_conflict - (robot_radius + 2));
         planResults[agent].erase(planResults[agent].begin() + time_of_conflict - (robot_radius + 2) + 1, planResults[agent].end());
         move(tmp.begin(), tmp.end(), back_inserter(planResults[agent]));
     }
     else
     {
-        planResults[agent] = aStarPlanner.aStarPlan(agent.start, agent.goal, constraint, goal_times, dynamic_obstacle, 0, debug);
+        planResults[agent] = aStarPlanner.aStarPlan(agent.start, agent.goal, constraint, goal_times, dynamic_obstacle, 0);
     }
     return planResults[agent];
 }
@@ -334,6 +335,11 @@ bool Planner::validate_agent_position()
             return true;
     }
     return false;
+}
+
+void Planner::modify_potential_map()
+{
+    aStarPlanner.modify_potential_map(static_potential_map);
 }
 
 void Planner::moving_obstacle_to_origin_map(const vecPInt& movePoint)
