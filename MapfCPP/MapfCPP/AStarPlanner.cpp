@@ -6,9 +6,9 @@ AStarPlanner::AStarPlanner()
 	potential_map = MAP_GEN::potential_map_generator(origin_map);
 }
 
-void AStarPlanner::modify_potential_map(const Map& static_potential_map)
+void AStarPlanner::modify_potential_map(const Map& static_potential_map, const dynamicOb& dynamic_obstacle)
 {
-	potential_map = MAP_GEN::modify_potential_map(origin_map, static_potential_map);
+	potential_map = MAP_GEN::modify_potential_map(origin_map, static_potential_map, dynamic_obstacle);
 }
 
 void AStarPlanner::set_static_obstacle(const vecPInt& static_obstacle)

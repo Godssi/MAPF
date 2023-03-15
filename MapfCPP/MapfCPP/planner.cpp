@@ -10,7 +10,6 @@ vec2PInt Planner::plan(vecPInt starts, vecPInt goals, int high_level_max_iter, i
 vec2PInt Planner::plan(int high_level_max_iter, int low_level_max_iter)
 {
     aStarPlanner.set_low_level_max_iter(low_level_max_iter);
-    this->debug = debug;
     this->agents = _assign(starts, goals);
     // this->agents = min_cost(starts, goals);
 
@@ -18,6 +17,7 @@ vec2PInt Planner::plan(int high_level_max_iter, int low_level_max_iter)
     bool tf = true;
     map<Agent, vecPInt> solution;
 
+    modify_potential_map();
     for (Agent agent : agents) {
         solution[agent] = calculate_path(agent, constraints, {});
     }
@@ -339,7 +339,7 @@ bool Planner::validate_agent_position()
 
 void Planner::modify_potential_map()
 {
-    aStarPlanner.modify_potential_map(static_potential_map);
+    aStarPlanner.modify_potential_map(static_potential_map, dynamic_obstacle);
 }
 
 void Planner::moving_obstacle_to_origin_map(const vecPInt& movePoint)

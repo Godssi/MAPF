@@ -34,13 +34,13 @@ typedef vector<pairInt> vecPInt;
 typedef vector<pairAgent> vecPAgent;
 typedef vector<vecPInt> vec2PInt;
 typedef set<pairInt> setPInt;
+typedef vector<pair<vecPInt, int>> dynamicOb;
 
 
 class Planner
 {
 private:
 	int robot_radius;
-	bool debug;
 
 	int core = 0;
 	int max_core = 2;
@@ -51,19 +51,19 @@ private:
 	vecAgent agents;
 
 	Map static_potential_map;
-	vector<pair<vecPInt, int>> dynamic_obstacle;
+	dynamicOb dynamic_obstacle;
 
 	map<Agent, vecPInt> planResults;
 	vector<pair<Agent, Agent>> combi;
 
 public:
 	Planner(int grid_size, int robot_radius, vecPInt static_obstacle, int low_level_max_iter = 100) :
-		robot_radius(robot_radius), debug(debug)
+		robot_radius(robot_radius)
 	{
 		aStarPlanner.set_static_obstacle(static_obstacle);
 	}
-	Planner(vecPInt starts, vecPInt goals, int grid_size, int robot_radius, vecPInt static_obstacle, vector<pair<vecPInt, int>> dynamic_obstacle, int low_level_max_iter = 100) :
-		starts(starts), goals(goals), robot_radius(robot_radius), debug(debug)
+	Planner(vecPInt starts, vecPInt goals, int grid_size, int robot_radius, vecPInt static_obstacle, dynamicOb dynamic_obstacle, int low_level_max_iter = 100) :
+		starts(starts), goals(goals), robot_radius(robot_radius)
 	{
 		aStarPlanner.set_static_obstacle(static_obstacle);
 		this->static_potential_map = aStarPlanner.get_potential_map();
@@ -92,7 +92,8 @@ public:
 	void moving_obstacle_to_origin_map(const vecPInt& movePoint);
 	void modify_potential_map();
 	int get_max_core() { return max_core; };
-	AStarPlanner get_aStarPlanner() { return aStarPlanner; };
+	Map get_static_potential_map() { return static_potential_map; }
+	AStarPlanner get_aStarPlanner() { return aStarPlanner; }
 };
 
 
