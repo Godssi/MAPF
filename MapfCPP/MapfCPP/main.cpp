@@ -129,8 +129,6 @@ int main()
 	dynamicOb dynamic_obstacle = { {{{6,6},{0,1}},3} }; // {{현위치, 속도뱡향 좌표}, 속력}
 	Planner planner(start, goal, 1, 1, static_obstacle, dynamic_obstacle);
 
-	print_origin_map(planner);
-
 	if (planner.validate_agent_position())
 	{
 		cout << "not valid agent position\n";
@@ -140,10 +138,12 @@ int main()
 	planner.set_max_core();
 	vec2PInt result = planner.plan(200, 1000);
 
-	print_static_potential_map(planner);
-	print_dynamic_potential_map(planner);
 	endClock = clock();
 	cout << "\n\n\ttime: " << endClock - startClock << "  (ms)\n";
+
+	print_origin_map(planner);
+	print_static_potential_map(planner);
+	print_dynamic_potential_map(planner);
 
 	return 0;
 }

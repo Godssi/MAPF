@@ -171,9 +171,7 @@ double get_heuristic_to_goal_rect(pairInt node, pairInt goal, double R, const Ma
 
 	h_add1 = (h_add1 / upperCnt) * sqrt(R);
 	h_add2 = (h_add2 / lowerCnt) * sqrt(R);
-	double h = min(h_add1, h_add2);
-
-	return h;
+	return min(h_add1, h_add2);
 }
 
 double heuristic_around_obstacle(pairInt node, pairInt goal, ll r, double R, const Map& map, const Map& potential_map)
@@ -221,8 +219,7 @@ double heuristic_around_obstacle(pairInt node, pairInt goal, ll r, double R, con
 double heuristic(pairInt node, pairInt goal, const Map& map, const Map& potential_map)
 {
 	double h = heuristic_e(node, goal);
-	double R = heuristic_e(node, goal);
-	double beta = 40;
+	double R = h;
 
 	if (goal.first - node.first == goal.second - node.second)
 		h = get_heuristic_to_goal_sq(node, goal, R, potential_map);

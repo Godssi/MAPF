@@ -143,17 +143,20 @@ Map MAP_GEN::modify_potential_map(const Map& map, const Map& static_potential_ma
                 for (ll m = j - outer_r; m < j + outer_r + 1; m++)
                 {
                     ll r = (k - i) * (k - i) + (m - j) * (m - j);
-                    if (r <= inner_r * inner_r && (0 <= k && k < map_size.first) && (0 <= m && m < map_size.second))
+                    if (0 <= k && k < map_size.first && 0 <= m && m < map_size.second)
                     {
-                        potential_map[k][m] += alpha;
-                    }
-                    else if (r <= outer_r * outer_r && (0 <= k && k < map_size.first) && (0 <= m && m < map_size.second))
-                    {
-                        r = static_cast<ll>(round(sqrt(r)));
-                        if (r < 1e-3)
-                            r = 1;
-                        potential_map[k][m] += (1 / (outer_r - inner_r)) *
-                            ((inner_r * outer_r * (alpha - 1)) / r + outer_r - inner_r * alpha);
+                        if (r <= inner_r * inner_r)
+                        {
+                            potential_map[k][m] += alpha;
+                        }
+                        else if (r <= outer_r * outer_r)
+                        {
+                            r = static_cast<ll>(round(sqrt(r)));
+                            if (r < 1e-3)
+                                r = 1;
+                            potential_map[k][m] += (1 / (outer_r - inner_r)) *
+                                ((inner_r * outer_r * (alpha - 1)) / r + outer_r - inner_r * alpha);
+                        }
                     }
                 }
             }

@@ -1,2 +1,3 @@
-﻿  main.cpp
+﻿  Heuristic_func.cpp
+C:\Users\choi\Desktop\MapfCPP\Heuristic_func.cpp(230,45): warning C4244: 'argument': conversion from 'double' to 'll', possible loss of data
   MapfCPP.vcxproj -> C:\Users\choi\Desktop\MapfCPP\x64\Debug\MapfCPP.exe
