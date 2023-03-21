@@ -82,7 +82,7 @@ bool valid_path2(Node* cur, const map<int, set<pairInt>>& conf_path, const map<i
 	return true;
 }
 
-Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, const dynamicOb& dynamic_obstacle, int time_step, int low_level_max_iter)
+Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& static_potential_map, Map& dynamic_potential_map, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, const dynamicOb& dynamic_obstacle, int time_step, int low_level_max_iter)
 {
 	Path pathIdx;
 	Node* startNode = new Node(start, time_step);
@@ -158,7 +158,7 @@ Path AStar(pairInt start, pairInt goal, Map& origin_map, Map& potential_map, con
 			}
 
 			child->g = curNode->g + 1;
-			child->h = heuristic(child->position, goalNode->position, origin_map, potential_map);
+			child->h = heuristic(child->position, goalNode->position, origin_map, static_potential_map, dynamic_potential_map);
 			child->f = child->g + child->h;
 
 			if ((*child) ^ (openList))

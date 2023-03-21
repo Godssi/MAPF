@@ -77,7 +77,7 @@ void print_static_potential_map(Planner planner)
 
 void print_dynamic_potential_map(Planner planner)
 {
-	Map map = planner.get_aStarPlanner().get_potential_map();
+	Map map = planner.get_aStarPlanner().get_dynamic_potential_map();
 	cout << "\n\t\t\t\tDynamic Potential Map\n";
 	for (auto iter1 = map.begin(); iter1 != map.end(); iter1++)
 	{

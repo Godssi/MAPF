@@ -25,7 +25,8 @@ class AStarPlanner
 {
 private:
 	Map origin_map;
-	Map potential_map;
+	Map static_potential_map;
+	Map dynamic_potential_map;
 	int low_level_max_iter;
 
 public:
@@ -38,7 +39,8 @@ public:
 	Path aStarPlan(pairInt start, pairInt goal, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, vector<pair<vecPInt, int>> dynamic_obstacle, int time_step);
 
 	Map get_origin_map() { return origin_map; }
-	Map get_potential_map() { return potential_map; }
+	Map get_static_potential_map() { return static_potential_map; }
+	Map get_dynamic_potential_map() { return dynamic_potential_map; }
 	void set_origin_map(Map& map) { origin_map = map; }
 };
 

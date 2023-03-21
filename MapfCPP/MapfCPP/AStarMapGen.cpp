@@ -1,6 +1,6 @@
 #include "AStarMapGen.h"
 
-Map MAP_GEN::potential_map_generator(Map map)
+Map MAP_GEN::potential_map_generator(const Map& map)
 {
     pair<ll, ll> map_size = { map.size() , map[0].size()};
     Map potential_map(map_size.first, vector<ll>(map_size.second, 0));
@@ -15,55 +15,13 @@ Map MAP_GEN::potential_map_generator(Map map)
             }
             else if (map[i][j] == Outer_Wall)
             {
-                ll outer_r = 4;
-                ll inner_r = 1;
                 ll alpha = 4;
-
-                for (ll k = i - outer_r; k < i + outer_r + 1; k++)
-                {
-                    for (ll m = j - outer_r; m < j + outer_r + 1; m++)
-                    {
-                        ll r = (k - i) * (k - i) + (m - j) * (m - j);
-                        if (r <= inner_r * inner_r && (0 <= k && k < map_size.first) && (0 <= m && m < map_size.second))
-                        {
-                            potential_map[k][m] += alpha;
-                        }
-                        else if (r <= outer_r * outer_r && (0 <= k && k < map_size.first) && (0 <= m && m < map_size.second))
-                        {
-                            r = static_cast<ll>(round(sqrt(r)));
-                            if (r < 1e-3)
-                                r = 1;
-                            potential_map[k][m] += (1 / (outer_r - inner_r)) *
-                                ((inner_r * outer_r * (alpha - 1)) / r + outer_r - inner_r * alpha);
-                        }
-                    }
-                }
+                potential_map[i][j] += alpha;
             }
             else if(map[i][j] == Inner_Wall)
             {
-                ll outer_r = 4;
-                ll inner_r = 1;
                 ll alpha = 4;
-                
-                for (ll k = i - outer_r; k < i + outer_r + 1; k++)
-                {
-                    for (ll m = j - outer_r; m < j + outer_r + 1; m++)
-                    {
-                        ll r = (k - i) * (k - i) + (m - j) * (m - j);
-                        if (r <= inner_r * inner_r && (0 <= k && k < map_size.first) && (0 <= m && m < map_size.second))
-                        {
-                            potential_map[k][m] += alpha;
-                        }
-                        else if (r <= outer_r * outer_r && (0 <= k && k < map_size.first) && (0 <= m && m< map_size.second))
-                        {
-                            r = static_cast<ll>(round(sqrt(r)));
-                            if (r < 1e-3)
-                                r = 1;
-                            potential_map[k][m] += (1 / (outer_r - inner_r)) *
-                                ((inner_r * outer_r * (alpha - 1)) / r + outer_r - inner_r * alpha);
-                        }
-                    }   
-                }
+                potential_map[i][j] += alpha;
             }
             else if (map[i][j] == Static_Ob)
             {
@@ -91,41 +49,15 @@ Map MAP_GEN::potential_map_generator(Map map)
                     }
                 }
             }
-            else if (map[i][j] == Dynamic_Ob)
-            {
-                ll outer_r = 24;
-                ll inner_r = 3;
-                ll alpha = 28;
-
-                for (ll k = i - outer_r; k < i + outer_r + 1; k++)
-                {
-                    for (ll m = j - outer_r; m < j + outer_r + 1; m++)
-                    {
-                        ll r = (k - i) * (k - i) + (m - j) * (m - j);
-                        if (r <= inner_r * inner_r && (0 <= k && k < map_size.first) && (0 <= m && m < map_size.second))
-                        {
-                            potential_map[k][m] += alpha;
-                        }
-                        else if (r <= outer_r * outer_r && (0 <= k && k < map_size.first) && (0 <= m && m < map_size.second))
-                        {
-                            r = static_cast<ll>(round(sqrt(r)));
-                            if (r < 1e-3)
-                                r = 1;
-                            potential_map[k][m] += (1 / (outer_r - inner_r)) *
-                                ((inner_r * outer_r * (alpha - 1)) / r + outer_r - inner_r * alpha);
-                        }
-                    }
-                }
-            }
         }
     }
     return potential_map;
 }
 
-Map MAP_GEN::modify_potential_map(const Map& map, const Map& static_potential_map, const dynamicOb& dynamic_obstacle)
+Map MAP_GEN::dynamic_potential_map(const Map& map, const dynamicOb& dynamic_obstacle)
 {
     pair<ll, ll> map_size = { map.size() , map[0].size() };
-    Map potential_map = static_potential_map;
+    Map dynamic_potential_map(map_size.first, vector<ll>(map_size.second, 0));
 
     for (auto ob_iter = dynamic_obstacle.begin(); ob_iter != dynamic_obstacle.end(); ob_iter++)
     {
@@ -147,14 +79,14 @@ Map MAP_GEN::modify_potential_map(const Map& map, const Map& static_potential_ma
                     {
                         if (r <= inner_r * inner_r)
                         {
-                            potential_map[k][m] += alpha;
+                            dynamic_potential_map[k][m] += alpha;
                         }
                         else if (r <= outer_r * outer_r)
                         {
                             r = static_cast<ll>(round(sqrt(r)));
                             if (r < 1e-3)
                                 r = 1;
-                            potential_map[k][m] += (1 / (outer_r - inner_r)) *
+                            dynamic_potential_map[k][m] += (1 / (outer_r - inner_r)) *
                                 ((inner_r * outer_r * (alpha - 1)) / r + outer_r - inner_r * alpha);
                         }
                     }
@@ -163,7 +95,7 @@ Map MAP_GEN::modify_potential_map(const Map& map, const Map& static_potential_ma
         }
     }
 
-    return potential_map;
+    return dynamic_potential_map;
 }
 
 Map MAP_GEN::moving_obstacle_to_origin_map(Map map, const vecPInt& movePoint)
@@ -241,69 +173,5 @@ Map MAP_GEN::test_maze_gen1()
                 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},  // 49
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1} };// 50
     //  y        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42
-    return map;
-}
-
-
-Map MAP_GEN::test_maze_gen2()
-{
-    Map map = { {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
-                {3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3},
-                {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3},
-                {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3} };
-    return map;
-}
-
-Map MAP_GEN::random_maze_gen()
-{
-    srand((unsigned int)time(NULL));
-    pair<ll, ll> map_size = { rand() % 20 + 30, rand() % 20 + 30 };
-
-    Map map(map_size.first, vector<ll>(map_size.second, 0));
-    for (ll i = 0; i < map_size.first; i++)
-    {
-        for (ll j = 0; j < map_size.second; j++)
-        {
-            map[i][j] = rand() % 500 / 495;
-        }
-    }
-
-    for (ll i = 0; i < map_size.first; i++)
-    {
-        map[i][0] = 3;
-        map[i][map_size.second - 1] = 3;
-    }
-
-    for (ll i = 0; i < map_size.second; i++)
-    {
-        map[0][i] = 3;
-        map[map_size.first - 1][i] = 3;
-    }
-
-    for (int i = 1; i < 3; i++)
-    {
-        for (int j = 1; j < 3; j++)
-        {
-            map[i][j] = 0;
-        }
-    }
     return map;
 }

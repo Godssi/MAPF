@@ -57,6 +57,9 @@
     <ClCompile Include="AStarNode.cpp">
       <Filter>소스 파일\astar</Filter>
     </ClCompile>
+    <ClCompile Include="DynamicObstacle.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Agent.h">
@@ -92,7 +95,7 @@
     <ClInclude Include="AStarPlanner.h">
       <Filter>헤더 파일\astar</Filter>
     </ClInclude>
-    <ClInclude Include="Dyanmic_Object.h">
+    <ClInclude Include="DynamicObstacle.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -25,6 +25,7 @@
     <ClCompile Include="AStar.cpp" />
     <ClCompile Include="Constraints.cpp" />
     <ClCompile Include="CTNode.cpp" />
+    <ClCompile Include="DynamicObstacle.cpp" />
     <ClCompile Include="Heuristic_func.cpp" />
     <ClCompile Include="Hungarian.cpp" />
     <ClCompile Include="main.cpp" />
@@ -39,7 +40,7 @@
     <ClInclude Include="AStar.h" />
     <ClInclude Include="Constraints.h" />
     <ClInclude Include="CTNode.h" />
-    <ClInclude Include="Dyanmic_Object.h" />
+    <ClInclude Include="DynamicObstacle.h" />
     <ClInclude Include="Heuristic_func.h" />
     <ClInclude Include="Hungarian.h" />
     <ClInclude Include="AStarMapGen.h" />

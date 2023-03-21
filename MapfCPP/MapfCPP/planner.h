@@ -66,7 +66,7 @@ public:
 		starts(starts), goals(goals), robot_radius(robot_radius)
 	{
 		aStarPlanner.set_static_obstacle(static_obstacle);
-		this->static_potential_map = aStarPlanner.get_potential_map();
+		this->static_potential_map = aStarPlanner.get_static_potential_map();
 		this->dynamic_obstacle = dynamic_obstacle;
 	}
 
