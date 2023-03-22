@@ -33,8 +33,7 @@ namespace MAP_GEN
 	Map potential_map_generator(const Map& map);
 	Map dynamic_potential_map(const Map& map, const dynamicOb& dynamic_obstacle);
 	Map moving_obstacle_to_origin_map(Map map, const vecPInt& movePoint);
-	Map test_maze_gen1();
-
+	Map test_maze_gen();
 }
 
 # endif

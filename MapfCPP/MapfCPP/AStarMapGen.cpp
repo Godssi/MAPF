@@ -15,12 +15,12 @@ Map MAP_GEN::potential_map_generator(const Map& map)
             }
             else if (map[i][j] == Outer_Wall)
             {
-                ll alpha = 4;
+                ll alpha = 1;
                 potential_map[i][j] += alpha;
             }
             else if(map[i][j] == Inner_Wall)
             {
-                ll alpha = 4;
+                ll alpha = 1;
                 potential_map[i][j] += alpha;
             }
             else if (map[i][j] == Static_Ob)
@@ -61,34 +61,31 @@ Map MAP_GEN::dynamic_potential_map(const Map& map, const dynamicOb& dynamic_obst
 
     for (auto ob_iter = dynamic_obstacle.begin(); ob_iter != dynamic_obstacle.end(); ob_iter++)
     {
-        for (auto pos_iter = ob_iter->first.begin(); pos_iter != ob_iter->first.end(); pos_iter++)
+        ll i = ob_iter->first[0].first;
+        ll j = ob_iter->first[0].second;
+
+        ll outer_r = 3;
+        ll inner_r = 1;
+        ll alpha = 20;
+
+        for (ll k = i - outer_r; k < i + outer_r + 1; k++)
         {
-            ll i = pos_iter->first;
-            ll j = pos_iter->second;
-
-            ll outer_r = 24;
-            ll inner_r = 3;
-            ll alpha = 28;
-
-            for (ll k = i - outer_r; k < i + outer_r + 1; k++)
+            for (ll m = j - outer_r; m < j + outer_r + 1; m++)
             {
-                for (ll m = j - outer_r; m < j + outer_r + 1; m++)
+                double r = (k - i) * (k - i) + (m - j) * (m - j);
+                if (0 <= k && k < map_size.first && 0 <= m && m < map_size.second)
                 {
-                    ll r = (k - i) * (k - i) + (m - j) * (m - j);
-                    if (0 <= k && k < map_size.first && 0 <= m && m < map_size.second)
+                    if (r <= inner_r * inner_r)
                     {
-                        if (r <= inner_r * inner_r)
-                        {
-                            dynamic_potential_map[k][m] += alpha;
-                        }
-                        else if (r <= outer_r * outer_r)
-                        {
-                            r = static_cast<ll>(round(sqrt(r)));
-                            if (r < 1e-3)
-                                r = 1;
-                            dynamic_potential_map[k][m] += (1 / (outer_r - inner_r)) *
-                                ((inner_r * outer_r * (alpha - 1)) / r + outer_r - inner_r * alpha);
-                        }
+                        dynamic_potential_map[k][m] += alpha;
+                    }
+                    else if (r <= outer_r * outer_r)
+                    {
+                        r = sqrt(r);
+                        if (r < 1e-3)
+                            r = 1;
+                        dynamic_potential_map[k][m] += (1 / static_cast<double>(outer_r - inner_r)) *
+                            ((inner_r * outer_r * (alpha - 1)) / r + outer_r - inner_r * alpha);
                     }
                 }
             }
@@ -118,7 +115,7 @@ Map MAP_GEN::moving_obstacle_to_origin_map(Map map, const vecPInt& movePoint)
     return map;
 }
 
-Map MAP_GEN::test_maze_gen1()
+Map MAP_GEN::test_maze_gen()
 {
     //  y        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42      x
     Map map = { {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},  // 0

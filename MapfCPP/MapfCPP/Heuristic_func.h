@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 #include <utility>
+#include <tuple>
+#include <cmath>
 #include "DynamicObstacle.h"
 
 using namespace std;

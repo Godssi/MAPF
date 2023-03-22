@@ -12,7 +12,7 @@
 #include <functional>
 #include "AStar.h"
 
-// ¹æÇâÀ» ÇÏ³ªÀÇ int °ªÀ¸·Î ¼³Á¤ÇÏ¿©¼­ Á¶±Ý º¸±â ÆíÇÏ°Ô ¼³Á¤
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ int ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
 enum Direction {
 	None,
 	North,
@@ -30,10 +30,10 @@ using namespace std;
 class DynamicObstacle
 {
 public:
-	vecPInt path; // ÀüÃ¼ °æ·Î¸¦ ÀúÀåÇÏ´Â ¸â¹ö º¯¼ö
-	int direct_vector; // ¼Óµµ ¹æÇâ º¤ÅÍ º¯¼ö
+	vecPInt path; // ï¿½ï¿½Ã¼ ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	int direct_vector; // ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	string dynamicObstacle_Name;
-	// ÇöÀç À§Ä¡¿Í ±× ´ÙÀ½ À§Ä¡¸¦ ¸â¹ö º¯¼ö·Î ÀúÀå
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	int present_idx;
 	int after_idx;
 	
@@ -43,11 +43,11 @@ public:
 		after_idx = 1;
 	};
 
-	int hash() const;  // °¢°¢ÀÇ DynamicObstacleÀ» ±¸º°ÇÏ±â À§ÇÑ ÇÔ¼ö¿Í ÇÔ¼ö°ªÀ» ¸¸µå´Â ÇÔ¼ö
+	int hash() const;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DynamicObstacleï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 	string str();
 	string repr();
-	bool operator == (const DynamicObstacle& other) const;
-	bool operator< (const DynamicObstacle& other) const;
+	bool operator==(const DynamicObstacle& other) const;
+	bool operator<(const DynamicObstacle& other) const;
 	friend std::ostream& operator<< (std::ostream& os, const DynamicObstacle& a);
 
 	void Direction(vector< pairInt> path);

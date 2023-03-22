@@ -61,6 +61,7 @@ public:
 		robot_radius(robot_radius)
 	{
 		aStarPlanner.set_static_obstacle(static_obstacle);
+		this->static_potential_map = aStarPlanner.get_static_potential_map();
 	}
 	Planner(vecPInt starts, vecPInt goals, int grid_size, int robot_radius, vecPInt static_obstacle, dynamicOb dynamic_obstacle, int low_level_max_iter = 100) :
 		starts(starts), goals(goals), robot_radius(robot_radius)
@@ -86,14 +87,13 @@ public:
 	void pad(map<Agent, vecPInt>& solution);
 
 	// Planner setting
-	void set_max_core();
-	void set_max_core(int n_core);
 	bool validate_agent_position();
-	void moving_obstacle_to_origin_map(const vecPInt& movePoint);
 	void modify_potential_map();
-	int get_max_core() { return max_core; };
 	Map get_static_potential_map() { return static_potential_map; }
 	AStarPlanner get_aStarPlanner() { return aStarPlanner; }
+	void set_max_core();
+	void set_max_core(int n_core);
+	int get_max_core() { return max_core; };
 };
 
 

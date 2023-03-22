@@ -262,7 +262,6 @@ vecPInt Planner::recalculate_path(Agent agent, Constraints& constraints, map<int
 {
     map<int, setPInt> a;
     map<int, setPInt> constraint = constraints.setdefault(agent, a);
-    vecPInt dfadf = aStarPlanner.aStarPlan(agent.start, agent.goal, constraint, goal_times, dynamic_obstacle, 0);
     if (time_of_conflict > robot_radius + 2)
     {
         vecPInt tmp = aStarPlanner.aStarPlan(planResults[agent][time_of_conflict - (robot_radius + 2)], agent.goal, constraint, goal_times, dynamic_obstacle, time_of_conflict - (robot_radius + 2));
@@ -309,17 +308,6 @@ void Planner::pad(map<Agent, vecPInt>& solution)
     }
 }
 
-void Planner::set_max_core()
-{
-    max_core = thread::hardware_concurrency();
-    max_core = max_core > 5 ? max_core - 4 : max_core;
-}
-
-void Planner::set_max_core(int n_core)
-{
-    max_core = n_core;
-}
-
 bool Planner::validate_agent_position()
 {
     Map map = aStarPlanner.get_origin_map();
@@ -339,11 +327,16 @@ bool Planner::validate_agent_position()
 
 void Planner::modify_potential_map()
 {
-    aStarPlanner.modify_potential_map(static_potential_map, dynamic_obstacle);
+    aStarPlanner.modify_potential_map(dynamic_obstacle);
 }
 
-void Planner::moving_obstacle_to_origin_map(const vecPInt& movePoint)
+void Planner::set_max_core()
 {
-    Map map = MAP_GEN::moving_obstacle_to_origin_map(aStarPlanner.get_origin_map(), movePoint);
-    aStarPlanner.set_origin_map(map);
+    max_core = thread::hardware_concurrency();
+    max_core = max_core > 5 ? max_core - 4 : max_core;
+}
+
+void Planner::set_max_core(int n_core)
+{
+    max_core = n_core;
 }

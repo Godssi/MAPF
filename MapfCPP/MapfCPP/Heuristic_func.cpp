@@ -1,6 +1,4 @@
 #include "Heuristic_func.h"
-#include <tuple>
-#include <cmath>
 
 double heuristic_m(pairInt node, pairInt goal, double d = 1)
 {
@@ -86,7 +84,7 @@ double get_heuristic_to_goal_rect(pairInt node, pairInt goal, double R, const Ma
 	double h_add1 = 0, h_add2 = 0;
 	ll upperCnt = 0, lowerCnt = 0;
 	// Quadrant 1
-	if (node.first <= goal.first and node.second <= goal.second)
+	if (node.first <= goal.first && node.second <= goal.second)
 	{
 		for (int i = node.first; i < goal.first + 1; i++)
 		{
@@ -106,7 +104,7 @@ double get_heuristic_to_goal_rect(pairInt node, pairInt goal, double R, const Ma
 		}
 	}
 	// Quadrant 2
-	else if (node.first >= goal.first and node.second <= goal.second)
+	else if (node.first >= goal.first && node.second <= goal.second)
 	{
 		for (int i = node.first; i > goal.first - 1; i--)
 		{
@@ -126,7 +124,7 @@ double get_heuristic_to_goal_rect(pairInt node, pairInt goal, double R, const Ma
 		}
 	}
 	// Quadrant 3
-	else if (node.first >= goal.first and node.second >= goal.second)
+	else if (node.first >= goal.first && node.second >= goal.second)
 	{
 		for (int i = node.first; i > goal.first - 1; i--)
 		{
@@ -146,7 +144,7 @@ double get_heuristic_to_goal_rect(pairInt node, pairInt goal, double R, const Ma
 		}
 	}
 	// Quadrant 4
-	else if (node.first <= goal.first and node.second >= goal.second)
+	else if (node.first <= goal.first && node.second >= goal.second)
 	{
 		for (int i = node.first; i < goal.first + 1; i++)
 		{

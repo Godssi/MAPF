@@ -1,5 +1,8 @@
-﻿  AStarPlanner.cpp
-  main.cpp
-  planner.cpp
-  코드를 생성하고 있습니다...
-  MapfCPP.vcxproj -> C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\x64\Debug\MapfCPP.exe
+﻿  AStarMapGen.cpp
+C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(75,26): warning C4244: 'initializing': conversion from 'll' to 'double', possible loss of data
+C:\Users\choi\Desktop\MapfCPP\AStarMapGen.cpp(87,101): warning C4244: '+=': conversion from 'double' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=ll
+          ]
+  MapfCPP.vcxproj -> C:\Users\choi\Desktop\MapfCPP\x64\Debug\MapfCPP.exe

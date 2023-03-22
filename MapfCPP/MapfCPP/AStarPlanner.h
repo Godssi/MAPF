@@ -35,7 +35,7 @@ public:
 
 	void set_static_obstacle(const vecPInt& static_obstacle);
 	void set_dynamic_obstacle(const vecPInt& dynamic_obstacle);
-	void modify_potential_map(const Map& static_potential_map, const dynamicOb& dynamic_obstacle);
+	void modify_potential_map(const dynamicOb& dynamic_obstacle);
 	Path aStarPlan(pairInt start, pairInt goal, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, vector<pair<vecPInt, int>> dynamic_obstacle, int time_step);
 
 	Map get_origin_map() { return origin_map; }

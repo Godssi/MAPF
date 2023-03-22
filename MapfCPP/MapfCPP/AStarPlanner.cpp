@@ -2,11 +2,11 @@
 
 AStarPlanner::AStarPlanner()
 {
-	origin_map = MAP_GEN::test_maze_gen1();
+	origin_map = MAP_GEN::test_maze_gen();
 	static_potential_map = MAP_GEN::potential_map_generator(origin_map);
 }
 
-void AStarPlanner::modify_potential_map(const Map& static_potential_map, const dynamicOb& dynamic_obstacle)
+void AStarPlanner::modify_potential_map(const dynamicOb& dynamic_obstacle)
 {
 	dynamic_potential_map = MAP_GEN::dynamic_potential_map(origin_map, dynamic_obstacle);
 }
