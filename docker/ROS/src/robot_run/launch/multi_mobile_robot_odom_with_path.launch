@@ -1,0 +1,10 @@
+<launch>
+    <param name="ROS_IP" value="${hostname -I}"/>
+    <param name="n_robot" type="int" value="2"/>
+
+    <node name="mobile_robot_run" pkg="robot_run" type="mobile_robot_run.py" 
+        args="--wait" output="screen" respawn="true"/>
+
+    <include file="$(find mapf)/launch/multi_path_gen.launch"/>
+    <include file="$(find move_control)/launch/move_control_with_path.launch"/>
+</launch>

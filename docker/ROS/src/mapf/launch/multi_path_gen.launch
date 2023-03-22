@@ -1,0 +1,6 @@
+<launch>
+    <include file="$(find robot_odom)/launch/get_robot_odom.launch"/>
+    
+    <node name="mapf" pkg="mapf" type="mapf_node"
+        args="--wait" output="screen" respawn="true"/>
+</launch>

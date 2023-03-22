@@ -1,0 +1,12 @@
+<launch>
+    <!-- IP Adress -->
+    <param name="ROS_IP" value="${hostname -I}"/>
+
+    <!-- Connection -->
+    <node name="mobile_robot_run" pkg="robot_run" type="mobile_robot_run.py" 
+        args="--wait" output="screen" respawn="true"/>
+
+    <!-- Publishers and Subscribers -->
+    <include file="$(find robot_odom)/launch/get_robot_odom.launch"/>
+    <include file="$(find move_control)/launch/move_control.launch"/>
+</launch>

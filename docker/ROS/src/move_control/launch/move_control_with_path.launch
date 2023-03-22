@@ -1,0 +1,6 @@
+<launch>
+    <param name="exist_path" type="bool" value="true"/>
+    
+    <node name="move_control" pkg="move_control" type="move_control_node" 
+        args="--wait" output="screen" respawn="true"/>
+</launch>

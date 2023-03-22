@@ -1,0 +1,10 @@
+<launch>
+    <!-- IP Adress -->
+    <param name="ROS_IP" value="${hostname -I}"/>
+
+    <!-- Connection -->
+    <node name="robot_odom" pkg="robot_odom" type="robot_odom_node" 
+        args="--wait" output="screen" respawn="true"/>
+
+    <!-- Publishers and Subscribers -->
+</launch>

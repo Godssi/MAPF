@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  ros:
+    image: ros:mobile_robot
+    container_name: ros
+    build:
+      context: .
+      dockerfile: Dockerfile
+    stdin_open: true  # -i
+    tty: true         # -t
+    ports:
+      - 10000:10000
