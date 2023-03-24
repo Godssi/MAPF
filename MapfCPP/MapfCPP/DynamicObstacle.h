@@ -31,13 +31,13 @@ class DynamicObstacle
 {
 public:
 	vecPInt path; // ��ü ��θ� �����ϴ� ��� ����
-	vecInt direct_vector; // �ӵ� ���� ���� ����
+	vector<int> direct_vector; // �ӵ� ���� ���� ����
 	string dynamicObstacle_Name;
 	// ���� ��ġ�� �� ���� ��ġ�� ��� ������ ����
 	int present_idx;
 	int after_idx;
 	
-	DynamicObstacle(string dynamicObstacle_Name, vector< pairInt> path, pairInt present_pos, pairInt after_pos) : dynamicObstacle_Name(dynamicObstacle_Name), path(path) 
+	DynamicObstacle(string dynamicObstacle_Name, vector<pairInt> path) : dynamicObstacle_Name(dynamicObstacle_Name), path(path) 
 	{
 		present_idx = 0;
 		after_idx = 1;

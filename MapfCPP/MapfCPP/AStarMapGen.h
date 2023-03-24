@@ -28,16 +28,18 @@ typedef vector<vecPInt> vec2PInt;
 
 typedef vector<pairInt> Path;
 typedef vector<vector<ll>> Map;
-typedef vector<DynamicObstacle> dynamicOb; // Dynamic Object가 여러 개로 존재할 수 있기 때문에 
+/*typedef vector<DynamicObstacle> dynamicOb*/; // Dynamic Object가 여러 개로 존재할 수 있기 때문에 
 
 namespace MAP_GEN
 {
 	Map potential_map_generator(const Map& map);
-	Map dynamic_potential_map(const Map& map, const dynamicOb& dynamic_obstacle);
+	Map dynamic_potential_map(const Map& map, const vector<DynamicObstacle>& dynamic_obstacles);
 	Map moving_obstacle_to_origin_map(Map map, const vecPInt& movePoint);
 	Map test_maze_gen();
 
-	bool Ellipse_equation(int x, int y);
+	bool Ellipse_equation(int x, int y, int search_x, int search_y, int direct, int speed, char Big_Small);
+	double cosine_degree(int degree);
+	double sine_degree(int degree);
 }
 
 # endif

@@ -16,7 +16,7 @@
 #include <thread>
 
 #include "AStarPlanner.h"
-
+#include "DynamicObstacle.h"
 #include "Agent.h"
 #include "CTNode.h"
 #include "Constraints.h"
@@ -34,7 +34,6 @@ typedef vector<pairInt> vecPInt;
 typedef vector<pairAgent> vecPAgent;
 typedef vector<vecPInt> vec2PInt;
 typedef set<pairInt> setPInt;
-typedef vector<pair<vecPInt, int>> dynamicOb;
 
 
 class Planner
@@ -51,7 +50,7 @@ private:
 	vecAgent agents;
 
 	Map static_potential_map;
-	dynamicOb dynamic_obstacle;
+	vector<DynamicObstacle> dynamic_obstacle;
 
 	map<Agent, vecPInt> planResults;
 	vector<pair<Agent, Agent>> combi;
@@ -63,7 +62,7 @@ public:
 		aStarPlanner.set_static_obstacle(static_obstacle);
 		this->static_potential_map = aStarPlanner.get_static_potential_map();
 	}
-	Planner(vecPInt starts, vecPInt goals, int grid_size, int robot_radius, vecPInt static_obstacle, dynamicOb dynamic_obstacle, int low_level_max_iter = 100) :
+	Planner(vecPInt starts, vecPInt goals, int grid_size, int robot_radius, vecPInt static_obstacle, vector<DynamicObstacle> dynamic_obstacle, int low_level_max_iter = 100) :
 		starts(starts), goals(goals), robot_radius(robot_radius)
 	{
 		aStarPlanner.set_static_obstacle(static_obstacle);

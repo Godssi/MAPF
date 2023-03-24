@@ -42,7 +42,7 @@ void DynamicObstacle::Direction(vector< pairInt> path)
 	pairInt present_pos = path[present_idx];
 	pairInt after_pos = path[after_idx];
 
-	if (present_pos == path[-1]) direct_vector = None; // 이런 상황에서는 에러 처리 필요
+	if (present_pos == path[-1]) direct_vector.push_back(None); // 마지막 위치에서는 나아갈 방향이 없으므로 None으로 처리
 
 	if (after_pos.second - present_pos.second == 1)
 	{

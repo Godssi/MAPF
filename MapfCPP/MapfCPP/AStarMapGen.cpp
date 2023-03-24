@@ -54,7 +54,7 @@ Map MAP_GEN::potential_map_generator(const Map& map)
     return potential_map;
 }
 
-Map MAP_GEN::dynamic_potential_map(const Map& map, const dynamicOb& dynamic_obstacle)
+Map MAP_GEN::dynamic_potential_map(const Map& map, const vector<DynamicObstacle>& dynamic_obstacles)
 {
     // dynamic_potential_map 을 만드는 코드
     pair<ll, ll> map_size = { map.size() , map[0].size() };
@@ -63,57 +63,61 @@ Map MAP_GEN::dynamic_potential_map(const Map& map, const dynamicOb& dynamic_obst
 
 
     // potential map을 수정해주는 코드
-    for (auto ob_iter = 0; ob_iter != dynamic_obstacle.size(); ob_iter++)
+    for (auto ob_iter = 0; ob_iter != dynamic_obstacles.size(); ob_iter++)
     {
         // 각각의 dynamic_obstacle의 방향 벡터 가져오기
-        vecInt path_direc = dynamic_obstacle[ob_iter].direct_vector;
+        vector<int> path_direc = dynamic_obstacles[ob_iter].direct_vector;
 
-        for (auto path_index = 0; path_index != dynamic_obstacle[ob_iter].path.size(); path_index++)
+        for (auto path_index = 0; path_index != dynamic_obstacles[ob_iter].path.size(); path_index++)
         {
-            pairInt path = dynamic_obstacle[ob_iter].path[path_index]; // 타원의 초점이자 동적 장애물의 위치
+            pairInt path = dynamic_obstacles[ob_iter].path[path_index]; // 타원의 초점이자 동적 장애물의 위치
             int direct = path_direc[path_index]; // 동적 장애물의 해당 위치에서의 방향 벡터
-            ll i = path.first; // x좌표
-            ll j = path.second; // y좌표
+            int i = path.first; // x좌표
+            int j = path.second; // y좌표
 
-            /*
-            * 원의 방정식 부분
-            ll outer_r = 3;
-            ll inner_r = 1;
-            ll alpha = 20;
+            // Ellipse_equation으로 살퍄볼 좌표들의 range
+            int x_range_left = i - 2 * speed;
+            int x_range_right = i + 5 * speed;
+            int y_range_left = j - 2 * speed;
+            int y_range_right = j + 5 * speed;
 
-            for (ll k = i - outer_r; k < i + outer_r + 1; k++)
+            vector<int> x_range = {};
+            for (int i = x_range_left; i <= x_range_right; i++)
             {
-                for (ll m = j - outer_r; m < j + outer_r + 1; m++)
-                {
-                    double r = (k - i) * (k - i) + (m - j) * (m - j);
-                    if (0 <= k && k < map_size.first && 0 <= m && m < map_size.second)
-                    {
-                        if (r <= inner_r * inner_r)
-                        {
-                            dynamic_potential_map[k][m] += alpha;
-                        }
-                        else if (r <= outer_r * outer_r)
-                        {
-                            r = sqrt(r);
-                            if (r < 1e-3)
-                                r = 1;
-                            dynamic_potential_map[k][m] += (1 / static_cast<double>(outer_r - inner_r)) *
-                                ((inner_r * outer_r * (alpha - 1)) / r + outer_r - inner_r * alpha);
-                        }
-                    }
-                }
+                if (i <= 0) continue;
+                else x_range.push_back(i);
             }
-            */
+            vector<int> y_range = {};
+            for (int j = y_range_left; j <= y_range_right; j++)
+            {
+                if (j < 0) continue;
+                else y_range.push_back(j);
+            }
 
             // 타원의 방정식 부분
-            // 1. 큰 타원
-            
+            // 1. 큰 타원의 가중치 부여
+            for (auto x_iter = x_range.begin(); x_iter != x_range.end(); x_iter++) 
+            {
+                for (auto y_iter = y_range.begin(); y_iter != y_range.end(); y_iter++) {
+                    int search_x = *x_iter;
+                    int search_y = *y_iter;
 
-            
+                    if (Ellipse_equation(i, j, search_x, search_y, direct, speed, 'B'))
+                        dynamic_potential_map[*x_iter][*y_iter] += 15;
+                }
+            }
 
-            // 2. 내부 타원
-            ll inner_center_x = i + 0.75 * speed * cos((45 * (direct - 1)) * PI / 180);  // r 값
-            ll inner_center_y = j + 0.75 * speed * sin((45 * (direct - 1)) * PI / 180);  // s 값
+            // 2. 작은 타원의 가중치 부여
+            for (auto x_iter = x_range.begin(); x_iter != x_range.end(); x_iter++)
+            {
+                for (auto y_iter = y_range.begin(); y_iter != y_range.end(); y_iter++) {
+                    int search_x = *x_iter;
+                    int search_y = *y_iter;
+
+                    if (Ellipse_equation(i, j, search_x, search_y, direct, speed, 'S'))
+                        dynamic_potential_map[*x_iter][*y_iter] += 30;
+                }
+            }
         }
     }
 
@@ -198,35 +202,48 @@ Map MAP_GEN::test_maze_gen()
     return map;
 }
 
-bool Ellipse_equation(pairInt path, ll search_x, ll search_y, int direct, int speed, char Big_Small)  // x, y 는 타원의 중심값, direct는 방향, Big_Small은 타원 방정식 판단 값
+double cosine_degree(int degree)
 {
+    return cos(degree * PI / 180);
+}
+
+double sine_degree(int degree)
+{
+    return sin(degree * PI / 180);
+}
+
+bool Ellipse_equation(int x, int y, int search_x, int search_y, int direct, int speed, char Big_Small) 
+{ // Ellipse_equation 이란 해당 좌표가 타원 안에 존재하는지 확인하는지 파악하는 함수
+  // x, y는 Dynamic_Object의 위치, search_x, search_y는 찾기 위한 좌표, direct는 방향, speed : dynamic Object의 속도, Big_Small은 타원 방정식 판단 값
     if (Big_Small == 'B')
-    {   
-        ll i = path.first;
-        ll j = path.second;
+    {  
+        // 타원의 중심점
+        double center_x = x + 1.5 * speed * cosine_degree(45 * (direct-1));  // p 값
+        double center_y = y + 1.5 * speed * sine_degree(45 * (direct - 1));  // q 값
 
-        ll center_x = i + 1.5 * speed * cos((45 * (direct - 1)) * PI / 180);  // p 값
-        ll center_y = j + 1.5 * speed * sin((45 * (direct - 1)) * PI / 180);  // q 값
+        int a1 = 3.5 * speed;
+        int b1 = 2 * speed;
 
-        ll a1 = 3.5 * speed;
-        ll b1 = 2 * speed;
-
-        if ((cos(45 * (direct-1) * PI / 180) * (search_x - center_x) + sin(45 * (direct - 1) * PI / 180) * (search_y - center_y)^2 / pow(a1,2) + (-sin(45 * (direct - 1) * PI / 180)*(search_x - center_x) + cos(45 * (direct - 1) * PI / 180) * (search_y - center_y) ^ 2 / pow(b1, 2) <= 1)
+        double a1_part = pow(cosine_degree(45 * (direct - 1)) * (search_x - center_x) + sine_degree(search_y - center_y), 2);
+        double b1_part = pow( (-1) * sine_degree(45 * (direct - 1)) * (search_x - center_x) + cosine_degree(search_y - center_y), 2);
+        if ( (a1_part / pow(a1,2)) + (b1_part / pow(b1,2)) <= 1)
             return true;
         else return false;
     }
     else if (Big_Small == 'S')
     {
-        ll i = path.first;
-        ll j = path.second;
+        double center_x = x + 0.75 * speed * cos((45 * (direct - 1)) * PI / 180);  // p 값
+        double center_y = y + 0.75 * speed * sin((45 * (direct - 1)) * PI / 180);  // q 값
 
-        ll center_x = i + 0.75 * speed * cos((45 * (direct - 1)) * PI / 180);  // p 값
-        ll center_y = j + 0.75 * speed * sin((45 * (direct - 1)) * PI / 180);  // q 값
+        int a2 = 1.75 * speed;
+        int b2 = speed;
 
-        ll a2 = 1.75 * speed;
-        ll b2 = speed;
-
-        if ((cos(45 * (direct - 1) * PI / 180) * (search_x - center_x) + sin(45 * (direct - 1) * PI / 180) * (search_y - center_y)) ^ 2 / a2 ^ 2 + (-sin(45 * (direct - 1) * PI / 180) * (search_x - center_x) + cos(45 * (direct - 1) * PI / 180) * (search_y - center_y)) ^ 2 / b2 ^ 2 <= 1) return true;
+        double a2_part = pow(cosine_degree(45 * (direct - 1)) * (search_x - center_x) + sine_degree(search_y - center_y), 2);
+        double b2_part = pow((-1) * sine_degree(45 * (direct - 1)) * (search_x - center_x) + cosine_degree(search_y - center_y), 2);
+        if ((a2_part / pow(a2, 2)) + (b2_part / pow(b2, 2)) <= 1)
+            return true;
         else return false;
     }
+    // 좌표값을 int형이 아닌 long long 형식으로 받은 이유가 따로 있는지 잘 모르겠다...
 }
+
