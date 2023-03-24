@@ -1,6 +1,8 @@
 #ifndef ASTAR_MAP_GEN_H
 #define ASTAR_MAP_GEN_H
+#define PI 3.141592
 
+#include "DynamicObstacle.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -26,7 +28,7 @@ typedef vector<vecPInt> vec2PInt;
 
 typedef vector<pairInt> Path;
 typedef vector<vector<ll>> Map;
-typedef vector<pair<vecPInt, int>> dynamicOb;
+typedef vector<DynamicObstacle> dynamicOb; // Dynamic Object가 여러 개로 존재할 수 있기 때문에 
 
 namespace MAP_GEN
 {
@@ -34,6 +36,8 @@ namespace MAP_GEN
 	Map dynamic_potential_map(const Map& map, const dynamicOb& dynamic_obstacle);
 	Map moving_obstacle_to_origin_map(Map map, const vecPInt& movePoint);
 	Map test_maze_gen();
+
+	bool Ellipse_equation(int x, int y);
 }
 
 # endif

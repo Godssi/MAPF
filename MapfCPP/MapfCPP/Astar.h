@@ -14,6 +14,7 @@
 
 using namespace std;
 typedef long long ll;
+typedef vector<int> vecInt;
 typedef pair<int, int> pairInt;
 typedef vector<pairInt> vecPInt;
 typedef vector<vecPInt> vec2PInt;

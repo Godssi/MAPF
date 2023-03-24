@@ -36,6 +36,7 @@ std::ostream& operator<< (std::ostream& os, const DynamicObstacle& agent)
 	return os;
 }
 
+// path의 위치에 따라 direction_vector 값을 바꾸어서 넣어주는 코드 
 void DynamicObstacle::Direction(vector< pairInt> path)
 {
 	pairInt present_pos = path[present_idx];
@@ -48,13 +49,13 @@ void DynamicObstacle::Direction(vector< pairInt> path)
 		switch (after_pos.first - present_pos.first)
 		{
 		case -1:
-			direct_vector = North_West;
+			direct_vector.push_back(North_West);
 			break;
 		case 0:
-			direct_vector = North;
+			direct_vector.push_back(North);
 			break;
 		case 1:
-			direct_vector = North_East;
+			direct_vector.push_back(North_East);
 			break;
 		}
 	}
@@ -63,10 +64,10 @@ void DynamicObstacle::Direction(vector< pairInt> path)
 		switch (after_pos.first - present_pos.first)
 		{
 		case -1:
-			direct_vector = West;
+			direct_vector.push_back(West);
 			break;
 		case 1:
-			direct_vector = East;
+			direct_vector.push_back(East);
 			break;
 		}
 	}
@@ -75,13 +76,13 @@ void DynamicObstacle::Direction(vector< pairInt> path)
 		switch (after_pos.first - present_pos.first)
 		{
 		case -1:
-			direct_vector = South_West;
+			direct_vector.push_back(South_West);
 			break;
 		case 0:
-			direct_vector = South;
+			direct_vector.push_back(South);
 			break;
 		case 1:
-			direct_vector = South_East;
+			direct_vector.push_back(South_East);
 			break;
 		}
 
@@ -89,3 +90,4 @@ void DynamicObstacle::Direction(vector< pairInt> path)
 		after_idx = after_idx + 1;
 	}
 }
+

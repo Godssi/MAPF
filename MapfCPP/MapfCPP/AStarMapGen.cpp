@@ -56,39 +56,64 @@ Map MAP_GEN::potential_map_generator(const Map& map)
 
 Map MAP_GEN::dynamic_potential_map(const Map& map, const dynamicOb& dynamic_obstacle)
 {
+    // dynamic_potential_map 을 만드는 코드
     pair<ll, ll> map_size = { map.size() , map[0].size() };
     Map dynamic_potential_map(map_size.first, vector<ll>(map_size.second, 0));
+    int speed = 6;// 동적 장애물의 속도
 
-    for (auto ob_iter = dynamic_obstacle.begin(); ob_iter != dynamic_obstacle.end(); ob_iter++)
+
+    // potential map을 수정해주는 코드
+    for (auto ob_iter = 0; ob_iter != dynamic_obstacle.size(); ob_iter++)
     {
-        ll i = ob_iter->first[0].first;
-        ll j = ob_iter->first[0].second;
+        // 각각의 dynamic_obstacle의 방향 벡터 가져오기
+        vecInt path_direc = dynamic_obstacle[ob_iter].direct_vector;
 
-        ll outer_r = 3;
-        ll inner_r = 1;
-        ll alpha = 20;
-
-        for (ll k = i - outer_r; k < i + outer_r + 1; k++)
+        for (auto path_index = 0; path_index != dynamic_obstacle[ob_iter].path.size(); path_index++)
         {
-            for (ll m = j - outer_r; m < j + outer_r + 1; m++)
+            pairInt path = dynamic_obstacle[ob_iter].path[path_index]; // 타원의 초점이자 동적 장애물의 위치
+            int direct = path_direc[path_index]; // 동적 장애물의 해당 위치에서의 방향 벡터
+            ll i = path.first; // x좌표
+            ll j = path.second; // y좌표
+
+            /*
+            * 원의 방정식 부분
+            ll outer_r = 3;
+            ll inner_r = 1;
+            ll alpha = 20;
+
+            for (ll k = i - outer_r; k < i + outer_r + 1; k++)
             {
-                double r = (k - i) * (k - i) + (m - j) * (m - j);
-                if (0 <= k && k < map_size.first && 0 <= m && m < map_size.second)
+                for (ll m = j - outer_r; m < j + outer_r + 1; m++)
                 {
-                    if (r <= inner_r * inner_r)
+                    double r = (k - i) * (k - i) + (m - j) * (m - j);
+                    if (0 <= k && k < map_size.first && 0 <= m && m < map_size.second)
                     {
-                        dynamic_potential_map[k][m] += alpha;
-                    }
-                    else if (r <= outer_r * outer_r)
-                    {
-                        r = sqrt(r);
-                        if (r < 1e-3)
-                            r = 1;
-                        dynamic_potential_map[k][m] += (1 / static_cast<double>(outer_r - inner_r)) *
-                            ((inner_r * outer_r * (alpha - 1)) / r + outer_r - inner_r * alpha);
+                        if (r <= inner_r * inner_r)
+                        {
+                            dynamic_potential_map[k][m] += alpha;
+                        }
+                        else if (r <= outer_r * outer_r)
+                        {
+                            r = sqrt(r);
+                            if (r < 1e-3)
+                                r = 1;
+                            dynamic_potential_map[k][m] += (1 / static_cast<double>(outer_r - inner_r)) *
+                                ((inner_r * outer_r * (alpha - 1)) / r + outer_r - inner_r * alpha);
+                        }
                     }
                 }
             }
+            */
+
+            // 타원의 방정식 부분
+            // 1. 큰 타원
+            
+
+            
+
+            // 2. 내부 타원
+            ll inner_center_x = i + 0.75 * speed * cos((45 * (direct - 1)) * PI / 180);  // r 값
+            ll inner_center_y = j + 0.75 * speed * sin((45 * (direct - 1)) * PI / 180);  // s 값
         }
     }
 
@@ -171,4 +196,37 @@ Map MAP_GEN::test_maze_gen()
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1} };// 50
     //  y        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42
     return map;
+}
+
+bool Ellipse_equation(pairInt path, ll search_x, ll search_y, int direct, int speed, char Big_Small)  // x, y 는 타원의 중심값, direct는 방향, Big_Small은 타원 방정식 판단 값
+{
+    if (Big_Small == 'B')
+    {   
+        ll i = path.first;
+        ll j = path.second;
+
+        ll center_x = i + 1.5 * speed * cos((45 * (direct - 1)) * PI / 180);  // p 값
+        ll center_y = j + 1.5 * speed * sin((45 * (direct - 1)) * PI / 180);  // q 값
+
+        ll a1 = 3.5 * speed;
+        ll b1 = 2 * speed;
+
+        if ((cos(45 * (direct-1) * PI / 180) * (search_x - center_x) + sin(45 * (direct - 1) * PI / 180) * (search_y - center_y)^2 / pow(a1,2) + (-sin(45 * (direct - 1) * PI / 180)*(search_x - center_x) + cos(45 * (direct - 1) * PI / 180) * (search_y - center_y) ^ 2 / pow(b1, 2) <= 1)
+            return true;
+        else return false;
+    }
+    else if (Big_Small == 'S')
+    {
+        ll i = path.first;
+        ll j = path.second;
+
+        ll center_x = i + 0.75 * speed * cos((45 * (direct - 1)) * PI / 180);  // p 값
+        ll center_y = j + 0.75 * speed * sin((45 * (direct - 1)) * PI / 180);  // q 값
+
+        ll a2 = 1.75 * speed;
+        ll b2 = speed;
+
+        if ((cos(45 * (direct - 1) * PI / 180) * (search_x - center_x) + sin(45 * (direct - 1) * PI / 180) * (search_y - center_y)) ^ 2 / a2 ^ 2 + (-sin(45 * (direct - 1) * PI / 180) * (search_x - center_x) + cos(45 * (direct - 1) * PI / 180) * (search_y - center_y)) ^ 2 / b2 ^ 2 <= 1) return true;
+        else return false;
+    }
 }

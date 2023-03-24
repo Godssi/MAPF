@@ -15,14 +15,14 @@
 // ������ �ϳ��� int ������ �����Ͽ��� ���� ���� ���ϰ� ����
 enum Direction {
 	None,
-	North,
-	North_East,
 	East,
-	South_East,
-	South,
-	South_West,
+	North_East,
+	North,
+	North_West,
 	West,
-	North_West
+	South_West,
+	South,
+	South_East,
 };
 
 using namespace std;
@@ -31,7 +31,7 @@ class DynamicObstacle
 {
 public:
 	vecPInt path; // ��ü ��θ� �����ϴ� ��� ����
-	int direct_vector; // �ӵ� ���� ���� ����
+	vecInt direct_vector; // �ӵ� ���� ���� ����
 	string dynamicObstacle_Name;
 	// ���� ��ġ�� �� ���� ��ġ�� ��� ������ ����
 	int present_idx;
