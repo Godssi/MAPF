@@ -7,9 +7,10 @@ MoveControl::MoveControl()
     resizeMsgs();
     _pidController = new PIDController[n_robot];
 
-    _cmd_pub = _nh.advertise<move_control::MultiTwist>("unity/agent/cmd_vel", 1);
-    _odom_sub = _nh.subscribe("agent/multi_odom", 1, &MoveControl::odomCallback, this);
-    _path_sub = _nh.subscribe("agent/path", 1, &MoveControl::pathCallback, this);
+    _cmd_pub = _nh.advertise<move_control::MultiTwist>("/unity/agent/cmd_vel", 1);
+    _odom_sub = _nh.subscribe("/agent/multi_odom", 1, &MoveControl::odomCallback, this);
+    _path_sub = _nh.subscribe("/agent/path", 1, &MoveControl::pathCallback, this);
+    pre_time = ros::Time::now();
 }
 
 void MoveControl::publish()
@@ -18,11 +19,14 @@ void MoveControl::publish()
     {
         for (int i = 0; i < n_robot; i++)
         {
+            time = ros::Time::now();
             p cmd = _pidController[i].calQ( _multiAgentOdom.pose[i], _multiTargetPose.pose[i] );
+            _pidController[i].updateDeltaTime((time - pre_time).toSec());
             _multiTwist.linear[i].x = cmd.first;
             _multiTwist.angular[i].z = cmd.second;
-            _cmd_pub.publish(_multiTwist);
         }
+        _cmd_pub.publish(_multiTwist);
+        pre_time = time;
     }
     else
     {
@@ -35,8 +39,8 @@ void MoveControl::publish()
             p cmd = _pidController[i].calQ( _multiAgentOdom.pose[i], pose );
             _multiTwist.linear[i].x = cmd.first;
             _multiTwist.angular[i].z = cmd.second;
-            _cmd_pub.publish(_multiTwist);
         }
+        _cmd_pub.publish(_multiTwist);
     }
 }
 

@@ -1,89 +1,149 @@
 #include <move_control/pid_controller.h>
 
-double calAng2(p p1, p p2)
+PIDController::PIDController(double kp[3], double ki[3], double kd[3], double maxQ[3], double minQ[3])
 {
-    double new_ang = atan2(p2.second - p1.second, p2.first - p1.first);
-    new_ang = new_ang > pi / 2 ? new_ang - pi : (new_ang < -pi / 2 ? new_ang + pi : new_ang);
-    return new_ang;
-}
+    this->_kp[0] = kp[0];
+    this->_kp[1] = kp[1];
+    this->_kp[2] = kp[2];
+    this->_ki[0] = ki[0];
+    this->_ki[1] = ki[1];
+    this->_ki[2] = ki[2];
+    this->_kd[0] = kd[0];
+    this->_kd[1] = kd[1];
+    this->_kd[2] = kd[2];
 
-PIDController::PIDController(p kp, p ki, p kd, p maxQ, p minQ)
-{
-    this->_kp = kp;
-    this->_ki = ki;
-    this->_kd = kd;
-
-    this->_maxQ = maxQ;
-    this->_minQ = minQ;
+    this->_maxQ[0] = maxQ[0];
+    this->_maxQ[1] = maxQ[1];
+    this->_maxQ[2] = maxQ[2];
+    this->_minQ[0] = minQ[0];
+    this->_minQ[1] = minQ[1];
+    this->_minQ[2] = minQ[2];
 }
 
 p PIDController::calQ(const geometry_msgs::Pose& cur, const geometry_msgs::Pose& goal)
 {
-    p curPose = { cur.position.x, cur.position.y };
+    // tf::Quaternion curQuaternion(
+    //     cur.orientation.x,
+    //     cur.orientation.y,
+    //     cur.orientation.z,
+    //     cur.orientation.w);
+    // double curPose[3] = { cur.position.x, cur.position.y, tf::getYaw(curQuaternion) };
+    // double goalPose[3] = { goal.position.x, goal.position.y, calThetaAng(goal.position.x, goal.position.y) };
+
+    // double errDist = calDist(goalPose, curPose);
+    // double errAlphaAng = calAlphaAng(goalPose, curPose, curPose[2]);
+    // double errBetaAng = calBetaAng(goalPose[2], curPose[2], errAlphaAng);
+
+    // if (errAlphaAng > pi / 2)
+    // {
+    //     errAlphaAng = rad2rad(pi - errAlphaAng);
+    //     errBetaAng = rad2rad(pi - errBetaAng);
+    // }
+
+    // double kp[3] = { _kp[0] * errDist, _kp[1] * errAlphaAng, _kp[2] * errBetaAng };
+
+    // _intErr[0] += _kp[0] * errDist * _dt[0];
+    // _intErr[1] += _kp[1] * errAlphaAng * _dt[1];
+    // _intErr[2] += _kp[2] * errBetaAng * _dt[2];
+    // double ki[3] = { _ki[0] * _intErr[0], _ki[1] * _intErr[1], _ki[2] * _intErr[2] };
+
+    // double kd[3] = { (errDist - _preErr[0] / _dt[0]), (errAlphaAng - _preErr[1] / _dt[1]), (errBetaAng - _preErr[2] / _dt[2]) };
+    // kd[0] = _kd[0] * kd[0];
+    // kd[1] = _kd[1] * kd[1];
+    // kd[2] = _kd[2] * kd[2];
+
+    // p cmd = { kp[0] + ki[0] + kd[0], kp[1] + ki[1] + kd[1] + kp[2] + ki[2] + kd[2] };
+    // cmd.first = cmd.first > _maxQ[0] ? _maxQ[0] : (cmd.first < _minQ[0] ? _minQ[0] : cmd.first);
+    // cmd.second = cmd.second > _maxQ[1] ? _maxQ[1] : (cmd.second < _minQ[1] ? _minQ[1] : cmd.second);
+
+    // // print pid gain and velocity
+    // ROS_INFO(" cur: %f, %f, %f", curPose[0], curPose[1], curPose[2]);
+    // ROS_INFO("goal: %f, %f, %f", goalPose[0], goalPose[1], goalPose[2]);
+    // ROS_INFO(" err: %f, %f, %f", errDist, errAlphaAng, errBetaAng);
+    // ROS_INFO(" lienar kp: %f, ki: %f, kd: %f", kp[0], ki[0], kd[0]);
+    // ROS_INFO("angular kp: %f, ki: %f, kd: %f", kp[1], ki[1], kd[1]);
+    // ROS_INFO("cmd_vel\n                                     linear x: %f\n                                    angular z: %f", cmd.first, cmd.second);
+
     tf::Quaternion curQuaternion(
         cur.orientation.x,
         cur.orientation.y,
         cur.orientation.z,
         cur.orientation.w);
-    double curOri = tf::getYaw(curQuaternion);
+    double curPose[3] = { cur.position.x, cur.position.y, tf::getYaw(curQuaternion) };
+    double goalPose[3] = { goal.position.x, goal.position.y, calThetaAng(goal.position.x, goal.position.y) };
 
-    p goalPose = { goal.position.x, goal.position.y };
+    double errDist = calDist(goalPose, curPose);
+    double errAlphaAng = calAlphaAng(goalPose, curPose, curPose[2]);
+    double errBetaAng = calBetaAng(goalPose[2], curPose[2], errAlphaAng);
 
-    double errDist = calDist(curPose, goalPose);
-    double errAng = calAng(curPose, goalPose, curOri);
-    p err = { errDist, errAng };
-    p kp = { _kp.first * errDist, _kp.second * errAng };
+    if (errAlphaAng > pi / 2)
+    {
+        errAlphaAng = rad2rad(pi - errAlphaAng);
+        errBetaAng = rad2rad(pi - errBetaAng);
+    }
 
-    _intErr[0] += _kp.first * errDist * _dt[0];
-    _intErr[1] += _kp.second * errDist * _dt[1];
-    p ki = { _ki.first * _intErr[0], _ki.second * _intErr[1] };
+    double kp[3] = { _kp[0] * errDist, _kp[1] * errAlphaAng, _kp[2] * errBetaAng };
 
-    p kd = { (err.first - _preErr[0] / _dt[0]), (err.second - _preErr[1] / _dt[1]) };
-    kd = { _kd.first * kd.first, _kd.second * kd.second };
+    double kd[3] = { (errDist - _preErr[0] / _dt[0]), (errAlphaAng - _preErr[1] / _dt[1]), (errBetaAng - _preErr[2] / _dt[2]) };
+    kd[0] = _kd[0] * kd[0];
+    kd[1] = _kd[1] * kd[1];
+    kd[2] = _kd[2] * kd[2];
 
-    p cmd = { kp.first + ki.first + kd.first, kp.second + ki.second + kd.second };
-    cmd.first = cmd.first > 0 ? cmd.first + 0.3 : cmd.first - 0.3;
-    cmd.first = cmd.first > _maxQ.first ? _maxQ.first : (cmd.first < _minQ.first ? _minQ.first : cmd.first);
-    cmd.second = cmd.second > _maxQ.second ? _maxQ.second : (cmd.second < _minQ.second ? _minQ.second : cmd.second);
-
+    p cmd = { kp[0] + kd[0], kp[1] + kd[1] + kp[2] + kd[2] };
+    cmd.first = cmd.first > _maxQ[0] ? _maxQ[0] : (cmd.first < _minQ[0] ? _minQ[0] : cmd.first);
+    cmd.second = cmd.second > _maxQ[1] ? _maxQ[1] : (cmd.second < _minQ[1] ? _minQ[1] : cmd.second);
 
     // print pid gain and velocity
-    // ROS_INFO(" cur: %f, %f, %f", curPose.first, curPose.second, curOri);
-    // ROS_INFO("goal: %f, %f, %f", goalPose.first, goalPose.second, errAng);
-    // ROS_INFO(" err: %f, %f", errDist, errAng);
-    // ROS_INFO(" lienar kp: %f, ki: %f, kd: %f", kp.first, ki.first, kd.first);
-    // ROS_INFO("angular kp: %f, ki: %f, kd: %f", kp.second, ki.second, kd.second);
-    // ROS_INFO("cmd_vel\n                                     linear x: %f\n                                    angular z: %f", cmd.first, cmd.second);
+    ROS_INFO(" cur: %f, %f, %f", curPose[0], curPose[1], curPose[2]);
+    ROS_INFO("goal: %f, %f, %f", goalPose[0], goalPose[1], goalPose[2]);
+    ROS_INFO(" err: %f, %f, %f", errDist, errAlphaAng, errBetaAng);
+    ROS_INFO(" lienar kp: %f, kd: %f", kp[0], kd[0]);
+    ROS_INFO("angular kp: %f, kd: %f", kp[1], kd[1]);
+    ROS_INFO("cmd_vel\n                                     linear x: %f\n                                    angular z: %f", cmd.first, cmd.second);
 
     return cmd;
 }
 
-void PIDController::updateDeltaTime(double updateTime[])
+void PIDController::updateDeltaTime()
 {
-    _dt[0] += updateTime[0];
-    _dt[1] += updateTime[1];
+    _dt[0] += 1;
+    _dt[1] += 1;
+    _dt[2] += 1;
 }
 
-void PIDController::tuning_gain(p kp, p ki, p kd)
+void PIDController::updateDeltaTime(double updateTime)
 {
-    _kp = kp;
-    _ki = ki;
-    _kd = kd;
+    _dt[0] += updateTime;
+    _dt[1] += updateTime;
+    _dt[2] += updateTime;
+}
+
+void PIDController::tuning_gain(double kp[3], double ki[3], double kd[3])
+{
+    _kp[0] = kp[0];
+    _kp[1] = kp[1];
+    _kp[2] = kp[2];
+    _ki[0] = ki[0];
+    _ki[1] = ki[1];
+    _ki[2] = ki[2];
+    _kd[0] = kd[0];
+    _kd[1] = kd[1];
+    _kd[2] = kd[2];
 }
 
 void PIDController::clearController()
 {
-    memset(_preErr, 0.0, 2 * sizeof(double));
-    memset(_intErr, 0.0, 2 * sizeof(double));
-    memset(_dt, 1.0, 2 * sizeof(double));
+    memset(_preErr, 0.0, 3 * sizeof(double));
+    memset(_intErr, 0.0, 3 * sizeof(double));
+    memset(_dt, 1.0, 3 * sizeof(double));
 
-    memset(_overshoot, 0.0, 2 * sizeof(double));
-    memset(_decayratio, 0.0, 2 * sizeof(double));
-    memset(_oscillPeriod, 0.0, 2 * sizeof(double));
-    memset(_tuningInterval, 0.0, 2 * sizeof(double));
+    memset(_overshoot, 0.0, 3 * sizeof(double));
+    memset(_decayratio, 0.0, 3 * sizeof(double));
+    memset(_oscillPeriod, 0.0, 3 * sizeof(double));
+    memset(_tuningInterval, 0.0, 3 * sizeof(double));
 }
 
-double PIDController::curOff(double q, double max, double min)
+double PIDController::cutOff(double q, double max, double min)
 {
     if (q > max)
         return max;
@@ -94,16 +154,44 @@ double PIDController::curOff(double q, double max, double min)
     return q;
 }
 
-double PIDController::calDist(p p1, p p2)
+double PIDController::calDist(double p1[3], double p2[3])
 {
-    return sqrt(pow(p1.first - p2.first, 2) + pow(p1.second - p2.second, 2));
+    return sqrt(pow(p1[0] - p2[0], 2) + pow(p1[1] - p2[1], 2));
 }
 
-double PIDController::calAng(p p1, p p2, double ang)
+double PIDController::calThetaAng(double p[3])
 {
-    int x = round(p2.first - p1.first);
-    int y = round(p2.second - p1.second);
+    double ang = atan2(p[1], p[0]);
+    ang = rad2rad(ang);
+    return ang;
+}
+
+double PIDController::calThetaAng(double x, double y)
+{
+    double ang = atan2(x, y);
+    ang = rad2rad(ang);
+    return ang;
+}
+
+double PIDController::calAlphaAng(double p1[3], double p2[3], double ang)
+{
+    double x = p2[0] - p1[0];
+    double y = p2[1] - p1[1];
     double new_ang = atan2(y, x) - ang;
-    new_ang = new_ang > pi / 2 ? new_ang - pi : (new_ang < -pi / 2 ? new_ang + pi : new_ang);
+    new_ang = rad2rad(new_ang);
     return new_ang;
+}
+
+double PIDController::calBetaAng(double goalAng, double poseAng, double theta)
+{
+    double new_ang = goalAng - poseAng;
+    new_ang = rad2rad(new_ang);
+    new_ang -= theta;
+    return new_ang;
+}
+
+double PIDController::rad2rad(double q)
+{
+    q = q > pi / 2 ? q - pi : (q < -pi / 2 ? q + pi : q);
+    return q;
 }

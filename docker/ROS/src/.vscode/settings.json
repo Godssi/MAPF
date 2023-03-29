@@ -17,6 +17,8 @@
         "string": "cpp",
         "list": "cpp",
         "xhash": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "iterator": "cpp",
+        "xlocale": "cpp"
     }
 }

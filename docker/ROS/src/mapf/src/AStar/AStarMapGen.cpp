@@ -15,12 +15,12 @@ Map MAP_GEN::potential_map_generator(const Map& map)
             }
             else if (map[i][j] == Outer_Wall)
             {
-                ll alpha = 4;
+                ll alpha = 0;
                 potential_map[i][j] += alpha;
             }
             else if(map[i][j] == Inner_Wall)
             {
-                ll alpha = 4;
+                ll alpha = 0;
                 potential_map[i][j] += alpha;
             }
             else if (map[i][j] == Static_Ob)

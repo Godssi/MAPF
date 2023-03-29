@@ -5,7 +5,7 @@ int main(int argc, char** argv)
     ros::init(argc, argv, "move_control");
     MoveControl moveControl;
     
-    ros::Rate rate(1);
+    ros::Rate rate(0.5);
     while (ros::ok())
     {
         moveControl.publish();

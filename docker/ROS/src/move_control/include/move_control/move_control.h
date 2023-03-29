@@ -15,14 +15,16 @@
 
 #include <move_control/pid_controller.h>
 
-#include <ctime>
-
 typedef std::pair<double, double> p;
 
 class MoveControl
 {
 private:
     int n_robot;
+    bool _exist_path;
+    ros::Time time;
+    ros::Time pre_time;
+
     PIDController* _pidController;
     move_control::MultiTwist _multiTwist;
     robot_odom::MultiAgentOdom _multiAgentOdom;
@@ -32,8 +34,6 @@ private:
     ros::Publisher _cmd_pub;
     ros::Subscriber _odom_sub;
     ros::Subscriber _path_sub;
-    bool _exist_path;
-
 public:
     MoveControl();
     ~MoveControl() {};

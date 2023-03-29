@@ -3,9 +3,11 @@
 
 #include <ros/ros.h>
 #include <geometry_msgs/Point.h>
+#include <geometry_msgs/Pose.h>
 #include <nav_msgs/Odometry.h>
 #include <robot_odom/MultiAgentOdom.h>
 #include <mapf/MultiTargetPose.h>
+#include <mapf/MultiAgentPath.h>
 #include <mapf/GoalPose.h>
 
 #include <string>
@@ -17,6 +19,7 @@ using namespace std;
 
 typedef pair<int, int> pairInt;
 typedef vector<pairInt> vecPInt;
+typedef vector<vecPInt> vec2PInt;
 
 class MAPFController
 {
@@ -26,12 +29,14 @@ public:
 	Planner planner;
 	string assigner;
 	mapf::GoalPose _goalPose;
+	mapf::MultiAgentPath _multiAgentPath;
 	mapf::MultiTargetPose _multiTargetPose;
 
 	ros::NodeHandle _nh;
 	ros::Subscriber _goal_sub;
 	ros::Subscriber _odom_sub;
 	ros::Publisher _path_pub;
+	ros::Publisher _unity_path_pub;
 	
 public:
 	MAPFController(int robot_radius = 1, int low_level_max_iter = 1000);
@@ -43,6 +48,7 @@ public:
 	void goalCallback(const mapf::GoalPose& goalPose);
 	void publish();
 	void setMaxCore();
+	vecPInt result2Target(vec2PInt pPath);
 };
 
 #endif
