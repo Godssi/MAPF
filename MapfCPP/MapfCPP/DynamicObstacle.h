@@ -30,7 +30,7 @@ using namespace std;
 class DynamicObstacle
 {
 public:
-	vecPInt path; // ��ü ��θ� �����ϴ� ��� ����
+	vecPInt path; // ��ü
 	vector<int> direct_vector; // �ӵ� ���� ���� ����
 	string dynamicObstacle_Name;
 	// ���� ��ġ�� �� ���� ��ġ�� ��� ������ ����
@@ -50,7 +50,7 @@ public:
 	bool operator<(const DynamicObstacle& other) const;
 	friend std::ostream& operator<< (std::ostream& os, const DynamicObstacle& a);
 
-	void Direction(vector< pairInt> path);
+	void Direction(vector<pairInt> path);
 };
 
 #endif

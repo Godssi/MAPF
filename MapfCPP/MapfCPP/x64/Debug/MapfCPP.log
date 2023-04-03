@@ -7,9 +7,9 @@ C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,47): er
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,54): message : 'pairInt' 선언을 참조하십시오.
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,47): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,25): error C2065: 'pairInt': 선언되지 않은 식별자입니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,24): error C2065: 'pairInt': 선언되지 않은 식별자입니다.
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,17): error C2923: 'std::vector': 'pairInt'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,25): message : 'pairInt' 선언을 참조하십시오.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,24): message : 'pairInt' 선언을 참조하십시오.
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,17): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,115): error C2614: 'DynamicObstacle': 멤버 초기화가 잘못되었습니다. 'path'이(가) 기본 또는 멤버가 아닙니다.
@@ -22,16 +22,12 @@ C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,47): er
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,54): message : 'pairInt' 선언을 참조하십시오.
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,47): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,25): error C2065: 'pairInt': 선언되지 않은 식별자입니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,24): error C2065: 'pairInt': 선언되지 않은 식별자입니다.
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,17): error C2923: 'std::vector': 'pairInt'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,25): message : 'pairInt' 선언을 참조하십시오.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,24): message : 'pairInt' 선언을 참조하십시오.
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,17): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,115): error C2614: 'DynamicObstacle': 멤버 초기화가 잘못되었습니다. 'path'이(가) 기본 또는 멤버가 아닙니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStar.cpp(85,223): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStar.cpp(85,223): error C2143: 구문 오류: ','이(가) '&' 앞에 없습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStar.cpp(88,36): error C2065: 'time_step': 선언되지 않은 식별자입니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStar.cpp(101,37): error C2065: 'low_level_max_iter': 선언되지 않은 식별자입니다.
   DynamicObstacle.cpp
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
@@ -63,9 +59,9 @@ C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,47): er
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,54): message : 'pairInt' 선언을 참조하십시오.
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,47): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,25): error C2065: 'pairInt': 선언되지 않은 식별자입니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,24): error C2065: 'pairInt': 선언되지 않은 식별자입니다.
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,17): error C2923: 'std::vector': 'pairInt'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,25): message : 'pairInt' 선언을 참조하십시오.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,24): message : 'pairInt' 선언을 참조하십시오.
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,17): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,115): error C2614: 'DynamicObstacle': 멤버 초기화가 잘못되었습니다. 'path'이(가) 기본 또는 멤버가 아닙니다.
@@ -102,9 +98,9 @@ C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,47): er
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,54): message : 'pairInt' 선언을 참조하십시오.
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,47): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,25): error C2065: 'pairInt': 선언되지 않은 식별자입니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,24): error C2065: 'pairInt': 선언되지 않은 식별자입니다.
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,17): error C2923: 'std::vector': 'pairInt'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,25): message : 'pairInt' 선언을 참조하십시오.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,24): message : 'pairInt' 선언을 참조하십시오.
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,17): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
 C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,115): error C2614: 'DynamicObstacle': 멤버 초기화가 잘못되었습니다. 'path'이(가) 기본 또는 멤버가 아닙니다.
