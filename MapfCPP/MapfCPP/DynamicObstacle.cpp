@@ -37,55 +37,62 @@ std::ostream& operator<< (std::ostream& os, const DynamicObstacle& agent)
 }
 
 // path의 위치에 따라 direction_vector 값을 바꾸어서 넣어주는 코드 
-void DynamicObstacle::Direction(vector< pairInt> path)
+void DynamicObstacle::Direction(vector<pairInt> path)
 {
-	pairInt present_pos = path[present_idx];
-	pairInt after_pos = path[after_idx];
+	while (true)
+	{
+		pairInt present_pos = path[present_idx];
 
-	if (present_pos == *(path.end() -1)) direct_vector.push_back(None); // 마지막 위치에서는 나아갈 방향이 없으므로 None으로 처리
-
-	if (after_pos.second - present_pos.second == 1)
-	{
-		switch (after_pos.first - present_pos.first)
+		if (present_pos == *(path.end() - 1))
 		{
-		case -1:
-			direct_vector.push_back(North_West);
-			break;
-		case 0:
-			direct_vector.push_back(North);
-			break;
-		case 1:
-			direct_vector.push_back(North_East);
-			break;
-		}
-	}
-	else if(after_pos.second - present_pos.second == 0)
-	{
-		switch (after_pos.first - present_pos.first)
-		{
-		case -1:
-			direct_vector.push_back(West);
-			break;
-		case 1:
-			direct_vector.push_back(East);
-			break;
-		}
-	}
-	else
-	{
-		switch (after_pos.first - present_pos.first)
-		{
-		case -1:
-			direct_vector.push_back(South_West);
-			break;
-		case 0:
-			direct_vector.push_back(South);
-			break;
-		case 1:
-			direct_vector.push_back(South_East);
+			direct_vector.push_back(None); // 마지막 위치에서는 나아갈 방향이 없으므로 None으로 처리
 			break;
 		}
 
+		pairInt after_pos = path[after_idx];
+
+		if (after_pos.second - present_pos.second == 1)
+		{
+			switch (after_pos.first - present_pos.first)
+			{
+			case -1:
+				direct_vector.push_back(North_West);
+				break;
+			case 0:
+				direct_vector.push_back(North);
+				break;
+			case 1:
+				direct_vector.push_back(North_East);
+				break;
+			}
+		}
+		else if (after_pos.second - present_pos.second == 0)
+		{
+			switch (after_pos.first - present_pos.first)
+			{
+			case -1:
+				direct_vector.push_back(West);
+				break;
+			case 1:
+				direct_vector.push_back(East);
+				break;
+			}
+		}
+		else
+		{
+			switch (after_pos.first - present_pos.first)
+			{
+			case -1:
+				direct_vector.push_back(South_West);
+				break;
+			case 0:
+				direct_vector.push_back(South);
+				break;
+			case 1:
+				direct_vector.push_back(South_East);
+				break;
+			}
+		}
 		present_idx = after_idx;
 		after_idx = after_idx + 1;
 	}

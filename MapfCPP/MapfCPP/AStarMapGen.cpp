@@ -58,23 +58,24 @@ Map MAP_GEN::dynamic_potential_map(const Map& map, const vector<DynamicObstacle>
 {
     // dynamic_potential_map 을 만드는 코드
     pair<ll, ll> map_size = { map.size() , map[0].size() };
-    Map dynamic_potential_map(map_size.first, vector<ll>(map_size.second, 0));
+    Map dynamicPotentialMap(map_size.first, vector<ll>(map_size.second, 0));
     int speed = 6;// 동적 장애물의 속도
 
 
     // potential map을 수정해주는 코드
-    for (auto ob_iter = 0; ob_iter != dynamic_obstacles.size(); ob_iter++)
+    for (auto ob_iter = dynamic_obstacles.begin(); ob_iter != dynamic_obstacles.end(); ob_iter++)
     {
         // 각각의 dynamic_obstacle의 방향 벡터 가져오기
-        vector<int> path_direc = dynamic_obstacles[ob_iter].direct_vector;
+        vector<int> path_direc = ob_iter->direct_vector;
 
-        if (!dynamic_obstacles[ob_iter].path.size())
+        if (ob_iter->path.empty())
             break;
 
-        for (auto path_index = 0; path_index != dynamic_obstacles[ob_iter].path.size(); path_index++)
+        int idx = 0;
+        for (auto path_index = ob_iter->path.begin(); path_index != ob_iter->path.end(); path_index++)
         {
-            pairInt path = dynamic_obstacles[ob_iter].path[path_index]; // 타원의 초점이자 동적 장애물의 위치
-            int direct = path_direc[path_index]; // 동적 장애물의 해당 위치에서의 방향 벡터
+            pairInt path = *path_index; // 타원의 초점이자 동적 장애물의 위치
+            int direct = path_direc[idx]; // 동적 장애물의 해당 위치에서의 방향 벡터
             int i = path.first; // x좌표
             int j = path.second; // y좌표
 
@@ -84,47 +85,26 @@ Map MAP_GEN::dynamic_potential_map(const Map& map, const vector<DynamicObstacle>
             int y_range_left = (j - 2 * speed < 0) ? 0 : j - 2 * speed;
             int y_range_right = ( j + 5 * speed >= map_size.second) ? map_size.second - 1 : j + 5 * speed;
 
-            vector<int> x_range = {};
-            for (int i = x_range_left; i <= x_range_right; i++)
-            {
-                if (i <= 0) continue;
-                else x_range.push_back(i);
-            }
-            vector<int> y_range = {};
-            for (int j = y_range_left; j <= y_range_right; j++)
-            {
-                if (j < 0) continue;
-                else y_range.push_back(j);
-            }
-
             // 타원의 방정식 부분
             // 1. 큰 타원의 가중치 부여
-            for (auto x_iter = x_range.begin(); x_iter != x_range.end(); x_iter++) 
+            for (auto x_iter = x_range_left; x_iter <= x_range_right; x_iter++)
             {
-                for (auto y_iter = y_range.begin(); y_iter != y_range.end(); y_iter++) {
-                    int search_x = *x_iter;
-                    int search_y = *y_iter;
+                for (auto y_iter = y_range_left; y_iter <= y_range_right; y_iter++) {
+                    int search_x = x_iter;
+                    int search_y = y_iter;
 
                     if (Ellipse_equation(i, j, search_x, search_y, direct, speed, 'B'))
-                        dynamic_potential_map[*x_iter][*y_iter] += 15;
+                        dynamicPotentialMap[x_iter][y_iter] += 15;
+
+                    /*if (Ellipse_equation(i, j, search_x, search_y, direct, speed, 'S'))
+                        dynamicPotentialMap[x_iter][y_iter] += 15;*/
                 }
             }
-
-            // 2. 작은 타원의 가중치 부여
-            for (auto x_iter = x_range.begin(); x_iter != x_range.end(); x_iter++)
-            {
-                for (auto y_iter = y_range.begin(); y_iter != y_range.end(); y_iter++) {
-                    int search_x = *x_iter;
-                    int search_y = *y_iter;
-
-                    if (Ellipse_equation(i, j, search_x, search_y, direct, speed, 'S'))
-                        dynamic_potential_map[*x_iter][*y_iter] += 30;
-                }
-            }
+            idx++;
         }
     }
 
-    return dynamic_potential_map;
+    return dynamicPotentialMap;
 }
 
 Map MAP_GEN::moving_obstacle_to_origin_map(Map map, const vecPInt& movePoint)
