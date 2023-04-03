@@ -7,7 +7,7 @@
 #include <utility>
 #include <map>
 #include <set>
-
+#include "DynamicObstacle.h"
 #include "AStar.h"
 #include "AStarMapGen.h"
 

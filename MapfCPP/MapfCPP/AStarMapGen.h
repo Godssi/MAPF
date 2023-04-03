@@ -2,7 +2,6 @@
 #define ASTAR_MAP_GEN_H
 #define PI 3.141592
 
-#include "DynamicObstacle.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -10,6 +9,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
+#include "DynamicObstacle.h"
 
 enum Object
 {

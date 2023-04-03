@@ -1,107 +1,19 @@
-﻿  AStarPlanner.cpp
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(33,10): error C3646: 'path': 알 수 없는 재정의 지정자입니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(33,14): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,54): error C2065: 'pairInt': 선언되지 않은 식별자입니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,47): error C2923: 'std::vector': 'pairInt'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,54): message : 'pairInt' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,47): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,24): error C2065: 'pairInt': 선언되지 않은 식별자입니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,17): error C2923: 'std::vector': 'pairInt'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,24): message : 'pairInt' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,17): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,115): error C2614: 'DynamicObstacle': 멤버 초기화가 잘못되었습니다. 'path'이(가) 기본 또는 멤버가 아닙니다.
-  AStar.cpp
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(33,10): error C3646: 'path': 알 수 없는 재정의 지정자입니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(33,14): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,54): error C2065: 'pairInt': 선언되지 않은 식별자입니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,47): error C2923: 'std::vector': 'pairInt'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,54): message : 'pairInt' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,47): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,24): error C2065: 'pairInt': 선언되지 않은 식별자입니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,17): error C2923: 'std::vector': 'pairInt'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,24): message : 'pairInt' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,17): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,115): error C2614: 'DynamicObstacle': 멤버 초기화가 잘못되었습니다. 'path'이(가) 기본 또는 멤버가 아닙니다.
-  DynamicObstacle.cpp
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStar.h(30,220): error C2065: 'DynamicObstacle': 선언되지 않은 식별자입니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStar.h(30,213): error C2923: 'std::vector': 'DynamicObstacle'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStar.h(30,220): message : 'DynamicObstacle' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStar.h(30,213): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
-  Heuristic_func.cpp
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStar.h(30,220): error C2065: 'DynamicObstacle': 선언되지 않은 식별자입니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStar.h(30,213): error C2923: 'std::vector': 'DynamicObstacle'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStar.h(30,220): message : 'DynamicObstacle' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStar.h(30,213): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\Heuristic_func.cpp(210,45): warning C4244: '인수': 'double'에서 'll'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\Heuristic_func.cpp(217,54): warning C4244: 'return': 'const _Ty'에서 'double'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  AStarMapGen.cpp
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(83,31): warning C4244: '초기화 중': '_Ty1'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
           with
           [
-              _Ty=ll
+              _Ty1=ll
           ]
-  main.cpp
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(33,10): error C3646: 'path': 알 수 없는 재정의 지정자입니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(33,14): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,54): error C2065: 'pairInt': 선언되지 않은 식별자입니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,47): error C2923: 'std::vector': 'pairInt'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,54): message : 'pairInt' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,47): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,24): error C2065: 'pairInt': 선언되지 않은 식별자입니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,17): error C2923: 'std::vector': 'pairInt'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,24): message : 'pairInt' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,17): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,115): error C2614: 'DynamicObstacle': 멤버 초기화가 잘못되었습니다. 'path'이(가) 기본 또는 멤버가 아닙니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\main.cpp(129,34): error C2665: 'DynamicObstacle::DynamicObstacle': 모든 인수 형식을 변환할 수 있는 오버로드된 함수가 없습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,2): message : 'DynamicObstacle::DynamicObstacle(std::string,std::vector)'일 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\main.cpp(129,34): message : 'DynamicObstacle::DynamicObstacle(std::string,std::vector)': 인수 2을(를) 'initializer list'에서 'std::vector'(으)로 변환할 수 없습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\main.cpp(129,45): message : 소스 형식을 가져올 수 있는 생성자가 없거나 생성자 오버로드 확인이 모호합니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\main.cpp(129,34): message : 인수 목록 '(const char [7], initializer list)'을(를) 일치시키는 동안
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\main.cpp(130,34): error C2665: 'DynamicObstacle::DynamicObstacle': 모든 인수 형식을 변환할 수 있는 오버로드된 함수가 없습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,2): message : 'DynamicObstacle::DynamicObstacle(std::string,std::vector)'일 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\main.cpp(130,34): message : 'DynamicObstacle::DynamicObstacle(std::string,std::vector)': 인수 2을(를) 'initializer list'에서 'std::vector'(으)로 변환할 수 없습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\main.cpp(130,45): message : 소스 형식을 가져올 수 있는 생성자가 없거나 생성자 오버로드 확인이 모호합니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\main.cpp(130,34): message : 인수 목록 '(const char [7], initializer list)'을(를) 일치시키는 동안
-  AStarMapGen.cpp
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStar.h(30,220): error C2065: 'DynamicObstacle': 선언되지 않은 식별자입니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStar.h(30,213): error C2923: 'std::vector': 'DynamicObstacle'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStar.h(30,220): message : 'DynamicObstacle' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStar.h(30,213): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(224,16): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(227,110): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(228,118): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(238,16): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(241,110): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(242,117): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  planner.cpp
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(33,10): error C3646: 'path': 알 수 없는 재정의 지정자입니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(33,14): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,54): error C2065: 'pairInt': 선언되지 않은 식별자입니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,47): error C2923: 'std::vector': 'pairInt'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,54): message : 'pairInt' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,47): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,24): error C2065: 'pairInt': 선언되지 않은 식별자입니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,17): error C2923: 'std::vector': 'pairInt'은(는) '_Ty' 매개 변수에 대한 올바른 템플릿 형식 인수가 아닙니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,24): message : 'pairInt' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(53,17): error C2976: 'std::vector': 템플릿 인수가 너무 적습니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(494,1): message : 'std::vector' 선언을 참조하십시오.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\DynamicObstacle.h(40,115): error C2614: 'DynamicObstacle': 멤버 초기화가 잘못되었습니다. 'path'이(가) 기본 또는 멤버가 아닙니다.
-  코드를 생성하고 있습니다...
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(85,31): warning C4244: '초기화 중': '_Ty2'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty2=ll
+          ]
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(227,16): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(230,110): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(231,118): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(241,16): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(244,110): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(245,117): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(251): warning C4715: 'MAP_GEN::Ellipse_equation': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  MapfCPP.vcxproj -> C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\x64\Debug\MapfCPP.exe

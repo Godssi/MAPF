@@ -68,6 +68,9 @@ Map MAP_GEN::dynamic_potential_map(const Map& map, const vector<DynamicObstacle>
         // 각각의 dynamic_obstacle의 방향 벡터 가져오기
         vector<int> path_direc = dynamic_obstacles[ob_iter].direct_vector;
 
+        if (!dynamic_obstacles[ob_iter].path.size())
+            break;
+
         for (auto path_index = 0; path_index != dynamic_obstacles[ob_iter].path.size(); path_index++)
         {
             pairInt path = dynamic_obstacles[ob_iter].path[path_index]; // 타원의 초점이자 동적 장애물의 위치
@@ -76,10 +79,10 @@ Map MAP_GEN::dynamic_potential_map(const Map& map, const vector<DynamicObstacle>
             int j = path.second; // y좌표
 
             // Ellipse_equation으로 살퍄볼 좌표들의 range
-            int x_range_left = i - 2 * speed;
-            int x_range_right = i + 5 * speed;
-            int y_range_left = j - 2 * speed;
-            int y_range_right = j + 5 * speed;
+            int x_range_left = (i - 2 * speed < 0) ? 0 : i - 2 * speed;
+            int x_range_right = ( i + 5 * speed >= map_size.first) ? map_size.first - 1 : i + 5 * speed;
+            int y_range_left = (j - 2 * speed < 0) ? 0 : j - 2 * speed;
+            int y_range_right = ( j + 5 * speed >= map_size.second) ? map_size.second - 1 : j + 5 * speed;
 
             vector<int> x_range = {};
             for (int i = x_range_left; i <= x_range_right; i++)
@@ -202,17 +205,17 @@ Map MAP_GEN::test_maze_gen()
     return map;
 }
 
-double cosine_degree(int degree)
+double MAP_GEN::cosine_degree(int degree)
 {
     return cos(degree * PI / 180);
 }
 
-double sine_degree(int degree)
+double MAP_GEN::sine_degree(int degree)
 {
     return sin(degree * PI / 180);
 }
 
-bool Ellipse_equation(int x, int y, int search_x, int search_y, int direct, int speed, char Big_Small) 
+bool MAP_GEN::Ellipse_equation(int x, int y, int search_x, int search_y, int direct, int speed, char Big_Small) 
 { // Ellipse_equation 이란 해당 좌표가 타원 안에 존재하는지 확인하는지 파악하는 함수
   // x, y는 Dynamic_Object의 위치, search_x, search_y는 찾기 위한 좌표, direct는 방향, speed : dynamic Object의 속도, Big_Small은 타원 방정식 판단 값
     if (Big_Small == 'B')

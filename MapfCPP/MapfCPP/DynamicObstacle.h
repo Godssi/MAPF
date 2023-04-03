@@ -1,5 +1,5 @@
-#ifndef DYANAMICOBSTACLE_H
-#define DYANAMICOBSTACLE_H
+#ifndef DYNAMICOBSTACLE_H
+#define DYNAMICOBSTACLE_H
 
 #include <iostream>
 #include <utility>
@@ -10,9 +10,16 @@
 #include <cmath>
 #include <algorithm>
 #include <functional>
-#include "AStar.h"
 
-// ������ �ϳ��� int ������ �����Ͽ��� ���� ���� ���ϰ� ����
+using namespace std;
+
+typedef pair<int, int> pairInt;
+typedef vector<pairInt> vecPInt;
+typedef vector<vecPInt> vec2PInt;
+
+typedef vector<pairInt> Path;
+
+//  direction??int 값으�??�정?�과 ?�시??계산
 enum Direction {
 	None,
 	East,
@@ -25,15 +32,12 @@ enum Direction {
 	South_East,
 };
 
-using namespace std;
-
 class DynamicObstacle
 {
 public:
-	vecPInt path; // ��ü
-	vector<int> direct_vector; // �ӵ� ���� ���� ����
+	vecPInt path;
+	vector<int> direct_vector;
 	string dynamicObstacle_Name;
-	// ���� ��ġ�� �� ���� ��ġ�� ��� ������ ����
 	int present_idx;
 	int after_idx;
 	
@@ -41,9 +45,10 @@ public:
 	{
 		present_idx = 0;
 		after_idx = 1;
+		Direction(path);
 	};
 
-	int hash() const;  // ������ DynamicObstacle�� �����ϱ� ���� �Լ��� �Լ����� ����� �Լ�
+	int hash() const;
 	string str();
 	string repr();
 	bool operator==(const DynamicObstacle& other) const;
