@@ -72,10 +72,12 @@ Map MAP_GEN::dynamic_potential_map(const Map& map, const vector<DynamicObstacle>
         if (ob_iter->path.empty())
             break;
 
+        // 이 부분에서 path 전체를 분석하게 되면서 전체 path에 대한 dynamic potential map이 나오게 된다.
+        // 한 path 마다 dynamic potential map을 출력하고 다시 출력할 때에는 새롭게 초기화 한 것으로 나오게 수정 필요
         int idx = 0;
-        for (auto path_index = ob_iter->path.begin(); path_index != ob_iter->path.end(); path_index++)
+        for (auto path_index = ob_iter->path.begin(); path_index != ob_iter->path.end(); path_index++) // path의 index가 아니라 그냥 path의 하나의 값이 나옴
         {
-            Map present_dynamicPotentialMap(map_size.first, vector<ll>(map_size.second, 0));
+            Map present_dynamicPotentialMap(map_size.first, vector<ll>(map_size.second, 0)); // 현재 위치에서의 앞으로 나아갈 방향에 대한 potential map 기본값
 
             pairInt path = *path_index; // 타원의 초점이자 동적 장애물의 위치
             int direct = path_direc[idx]; // 동적 장애물의 해당 위치에서의 방향 벡터
@@ -89,23 +91,37 @@ Map MAP_GEN::dynamic_potential_map(const Map& map, const vector<DynamicObstacle>
             int y_range_right = ( j + 5 * speed >= map_size.second) ? map_size.second - 1 : j + 5 * speed;
 
             // 타원의 방정식 부분
-            // 1. 큰 타원의 가중치 부여
             for (auto x_iter = x_range_left; x_iter <= x_range_right; x_iter++)
             {
                 for (auto y_iter = y_range_left; y_iter <= y_range_right; y_iter++) {
                     int search_x = x_iter;
                     int search_y = y_iter;
-
+                    
+                    // 큰 타원의 가중치 부여
                     if (Ellipse_equation(i, j, search_x, search_y, direct, speed, 'B')) {
                         dynamicPotentialMap[x_iter][y_iter] += 15;
                         present_dynamicPotentialMap[x_iter][y_iter] += 15;
                     }
-                    /*if (Ellipse_equation(i, j, search_x, search_y, direct, speed, 'S'))
-                        dynamicPotentialMap[x_iter][y_iter] += 15;*/
+
+                    // 작은 타원의 가중치 부여
+                    if (Ellipse_equation(i, j, search_x, search_y, direct, speed, 'S'))
+                        present_dynamicPotentialMap[x_iter][y_iter] += 15;
                 }
             }
 
-            idx++;
+            cout << "\n\t\t\t\tPresent Dynamic Potential Map\n";
+            for (auto iter1 = present_dynamicPotentialMap.begin(); iter1 != present_dynamicPotentialMap.end(); iter1++)
+            {
+                cout << "\n\t";
+                for (auto iter2 = iter1->begin(); iter2 != iter1->end(); iter2++)
+                {
+                    cout.width(2);
+                    cout.fill('0');
+                    cout << *iter2 << " ";
+                }
+            }
+            cout << "\n";
+            idx++; //idx에서의 오류가 없는 이유가 어차피 path가 있는 만큼 증가가 될 것이라서!
         }
     }
 
@@ -232,6 +248,5 @@ bool MAP_GEN::Ellipse_equation(int x, int y, int search_x, int search_y, int dir
             return true;
         else return false;
     }
-    // 좌표값을 int형이 아닌 long long 형식으로 받은 이유가 따로 있는지 잘 모르겠다...
 }
 
