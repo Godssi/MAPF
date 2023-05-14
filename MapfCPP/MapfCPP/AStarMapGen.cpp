@@ -55,78 +55,69 @@ Map MAP_GEN::potential_map_generator(const Map& map)
 }
 
 // dynamicPotentialMap이 한 번 움직일 때 마다 결과가 나와야 하지만 지금은 전체 경로에 대해서 누적된 dynamicPotentialMap이 나온다.
+// 원과 같은 결과가 나오는 Data 처리에 대한 문제가 계속 생겨남.
 Map MAP_GEN::dynamic_potential_map(const Map& map, const vector<DynamicObstacle>& dynamic_obstacles)
 {
     // dynamic_potential_map 을 만드는 코드
     pair<ll, ll> map_size = { map.size() , map[0].size() };
-    Map dynamicPotentialMap(map_size.first, vector<ll>(map_size.second, 0));  // 누적된 dynamicPotentialMap
-    int speed = 4;// 동적 장애물의 속도
-
+    Map dynamicPotentialMap(map_size.first, vector<ll>(map_size.second, 0));  // 누적된 dynamicPotentialMap으로 dynamic_object가 여러 개 있을 경우 그 모든 object에 대한 potential을 담고 있는 map
 
     // potential map을 수정해주는 코드
     for (auto ob_iter = dynamic_obstacles.begin(); ob_iter != dynamic_obstacles.end(); ob_iter++)
     {
-        // 각각의 dynamic_obstacle의 방향 벡터 가져오기
-        vector<int> path_direc = ob_iter->direct_vector;
+        // 동적으로 움직이는 장애물에 대한 속도 방향 벡터를 분석하여서 potential map 수정
+        Map present_dynamicPotentialMap(map_size.first, vector<ll>(map_size.second, 0)); // 현재 위치에서의 앞으로 나아갈 방향에 대한 potential map 기본값
 
-        if (ob_iter->path.empty())
-            break;
+        int x_pos = (*ob_iter).x_pos; // 동적 장애물의 현재 x 위치
+        int y_pos = (*ob_iter).y_pos; // 동적 장애물의 현재 y 위치
+		int direct = (*ob_iter).velo_theta; // 동적 장애물의 해당 위치에서의 속도 방향 벡터
+        double speed = (*ob_iter).velocity; // 동적 장애물의 일정속도
 
-        // 이 부분에서 path 전체를 분석하게 되면서 전체 path에 대한 dynamic potential map이 나오게 된다.
-        // 한 path 마다 dynamic potential map을 출력하고 다시 출력할 때에는 새롭게 초기화 한 것으로 나오게 수정 필요
-        int idx = 0;
-        for (auto path_index = ob_iter->path.begin(); path_index != ob_iter->path.end(); path_index++) // path의 index가 아니라 그냥 path의 하나의 값이 나옴
-        {
-            Map present_dynamicPotentialMap(map_size.first, vector<ll>(map_size.second, 0)); // 현재 위치에서의 앞으로 나아갈 방향에 대한 potential map 기본값
+		// Ellipse_equation으로 살퍄볼 좌표들의 range
+		int x_range_left = (x_pos - 2 * speed < 0) ? 0 : x_pos - 2 * speed;
+		int x_range_right = (x_pos + 5 * speed >= map_size.first) ? map_size.first - 1 : x_pos + 5 * speed;
+		int y_range_left = (y_pos - 2 * speed < 0) ? 0 : y_pos - 2 * speed;
+		int y_range_right = (y_pos + 5 * speed >= map_size.second) ? map_size.second - 1 : y_pos + 5 * speed;
 
-            pairInt path = *path_index; // 타원의 초점이자 동적 장애물의 위치
-            int direct = path_direc[idx]; // 동적 장애물의 해당 위치에서의 방향 벡터
-            int i = path.first; // x좌표
-            int j = path.second; // y좌표
+		// 타원의 방정식 부분
+		for (auto x_iter = x_range_left; x_iter <= x_range_right; x_iter++)
+		{
+			for (auto y_iter = y_range_left; y_iter <= y_range_right; y_iter++) {
+				int search_x = x_iter;
+				int search_y = y_iter;
 
-            // Ellipse_equation으로 살퍄볼 좌표들의 range
-            int x_range_left = (i - 2 * speed < 0) ? 0 : i - 2 * speed;
-            int x_range_right = ( i + 5 * speed >= map_size.first) ? map_size.first - 1 : i + 5 * speed;
-            int y_range_left = (j - 2 * speed < 0) ? 0 : j - 2 * speed;
-            int y_range_right = ( j + 5 * speed >= map_size.second) ? map_size.second - 1 : j + 5 * speed;
+				// 큰 타원의 가중치 부여
+				if (Ellipse_equation(x_pos, y_pos, search_x, search_y, direct, speed, 'B')) {
+                    dynamicPotentialMap[x_iter][y_iter] += 15;
+					present_dynamicPotentialMap[x_iter][y_iter] += 15;
+				}
 
-            // 타원의 방정식 부분
-            for (auto x_iter = x_range_left; x_iter <= x_range_right; x_iter++)
-            {
-                for (auto y_iter = y_range_left; y_iter <= y_range_right; y_iter++) {
-                    int search_x = x_iter;
-                    int search_y = y_iter;
-                    
-                    // 큰 타원의 가중치 부여
-                    if (Ellipse_equation(i, j, search_x, search_y, direct, speed, 'B')) {
-                        dynamicPotentialMap[x_iter][y_iter] += 15;
-                        present_dynamicPotentialMap[x_iter][y_iter] += 15;
-                    }
+				// 작은 타원의 가중치 부여
+				if (Ellipse_equation(x_pos, y_pos, search_x, search_y, direct, speed, 'S'))
+                    dynamicPotentialMap[x_iter][y_iter] += 15;
+					present_dynamicPotentialMap[x_iter][y_iter] += 15;
+			}
+		}
 
-                    // 작은 타원의 가중치 부여
-                    if (Ellipse_equation(i, j, search_x, search_y, direct, speed, 'S'))
-                        present_dynamicPotentialMap[x_iter][y_iter] += 15;
-                }
-            }
-
-            cout << "\n\t\t\t\tPresent Dynamic Potential Map\n";
-            for (auto iter1 = present_dynamicPotentialMap.begin(); iter1 != present_dynamicPotentialMap.end(); iter1++)
-            {
-                cout << "\n\t";
-                for (auto iter2 = iter1->begin(); iter2 != iter1->end(); iter2++)
-                {
-                    cout.width(2);
-                    cout.fill('0');
-                    cout << *iter2 << " ";
-                }
-            }
-            cout << "\n";
-            idx++; //idx에서의 오류가 없는 이유가 어차피 path가 있는 만큼 증가가 될 것이라서!
-        }
-    }
+        // 항상 출력이 두 번 나온다...
+		cout << "\n\t\t\t\tPresent Dynamic Potential Map\n";
+		for (auto iter1 = present_dynamicPotentialMap.begin(); iter1 != present_dynamicPotentialMap.end(); iter1++)
+		{
+			cout << "\n\t";
+			for (auto iter2 = iter1->begin(); iter2 != iter1->end(); iter2++)
+			{
+				cout.width(2);
+				cout.fill('0');
+				cout << *iter2 << " ";
+			}
+		}
+        cout << "\n";
+	}
 
     return dynamicPotentialMap;
-}
+ }
+
+    
 
 Map MAP_GEN::moving_obstacle_to_origin_map(Map map, const vecPInt& movePoint)
 {

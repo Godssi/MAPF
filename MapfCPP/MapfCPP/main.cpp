@@ -126,7 +126,7 @@ int main()
 	vector<pairInt> start = { {2, 2}, {38, 1}, {2, 32}, {48, 39}, {2, 16}, {2, 1}, {1, 34}, {45, 1} };
 	vector<pairInt> goal = { {14, 39}, {45, 31}, {49, 3}, {22, 5}, {24, 2}, {14, 40}, {49, 17}, {17, 1} };
 	vector<pairInt> static_obstacle = { {24, 12}, {10, 20} }; 
-	DynamicObstacle DynamicObstacle1("dy_ob1", {{14, 1}, {14, 2}, {14, 3}});
+	DynamicObstacle DynamicObstacle1("dy_ob1", 22, 14, 1);
 	/*DynamicObstacle DynamicObstacle2("dy_ob2", { {1, 40}, {2, 40}, {3, 40} });*/
 	vector<DynamicObstacle> dynamic_obstacle = { DynamicObstacle1 } ; // 동적 장애물을 직접 만들어서 넣어줌!
 	Planner planner(start, goal, 1, 1, static_obstacle, dynamic_obstacle);

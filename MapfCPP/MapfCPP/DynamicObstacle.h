@@ -10,52 +10,38 @@
 #include <cmath>
 #include <algorithm>
 #include <functional>
+#include <cstdlib>
 
 using namespace std;
 
 typedef pair<int, int> pairInt;
 typedef vector<pairInt> vecPInt;
 typedef vector<vecPInt> vec2PInt;
-
 typedef vector<pairInt> Path;
 
-//  direction??int 媛믪쑝濡??ㅼ젙?④낵 ?숈떆??怨꾩궛
-enum Direction {
-	None,
-	East,
-	North_East,
-	North,
-	North_West,
-	West,
-	South_West,
-	South,
-	South_East,
-};
 
 class DynamicObstacle
 {
 public:
-	vecPInt path;
-	vector<int> direct_vector;
+	double x_pos; // 동적 장애물의 x 위치
+	double y_pos; // 동적 장애물의 y 위치
+	double velocity; // 동적 장애물의 속도
+	double velo_theta; // 동적 장애물의 이동 방향
 	string dynamicObstacle_Name;
-	int present_idx;
-	int after_idx;
 	
-	DynamicObstacle(string dynamicObstacle_Name, vector<pairInt> path) : dynamicObstacle_Name(dynamicObstacle_Name), path(path) 
-	{
-		present_idx = 0;
-		after_idx = 1;
-		Direction(path);
-	};
+	DynamicObstacle(string dynamicObstacle_Name, double x, double y, double v) : dynamicObstacle_Name(dynamicObstacle_Name), x_pos(x), y_pos(y), velocity(v), velo_theta(0) {};
 
 	int hash() const;
 	string str();
 	string repr();
 	bool operator==(const DynamicObstacle& other) const;
-	bool operator<(const DynamicObstacle& other) const;
+	/*bool operator<(const dynamicobstacle& other) const;*/
 	friend std::ostream& operator<< (std::ostream& os, const DynamicObstacle& a);
 
-	void Direction(vector<pairInt> path);
+	// 동적 장애물이 움직일 방향을 정하는 함수 (랜덤 함수를 사용해서 정의)
+	void Random_Theta();
+	// 동적 장애물의 위치를 수정하는 함수
+	void Move();
 };
 
 #endif
