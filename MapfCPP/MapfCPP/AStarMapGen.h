@@ -1,4 +1,4 @@
-#ifndef ASTAR_MAP_GEN_H
+ï»¿#ifndef ASTAR_MAP_GEN_H
 #define ASTAR_MAP_GEN_H
 #define PI 3.141592
 
@@ -28,7 +28,7 @@ typedef vector<vecPInt> vec2PInt;
 
 typedef vector<pairInt> Path;
 typedef vector<vector<ll>> Map;
-/*typedef vector<DynamicObstacle> dynamicOb*/; // Dynamic Object°¡ ¿©·¯ °³·Î Á¸ÀçÇÒ ¼ö ÀÖ±â ¶§¹®¿¡ 
+/*typedef vector<DynamicObstacle> dynamicOb*/; // Dynamic Objectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 
 namespace MAP_GEN
 {

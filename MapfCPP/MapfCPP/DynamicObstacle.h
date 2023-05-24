@@ -1,4 +1,4 @@
-#ifndef DYNAMICOBSTACLE_H
+癤�#ifndef DYNAMICOBSTACLE_H
 #define DYNAMICOBSTACLE_H
 
 #include <iostream>
@@ -10,38 +10,52 @@
 #include <cmath>
 #include <algorithm>
 #include <functional>
-#include <cstdlib>
 
 using namespace std;
 
 typedef pair<int, int> pairInt;
 typedef vector<pairInt> vecPInt;
 typedef vector<vecPInt> vec2PInt;
+
 typedef vector<pairInt> Path;
 
+//  direction??int 媛믪쑝占�??占쎌젙?占쎄낵 ?占쎌떆??怨꾩궛
+enum Direction {
+	None,
+	East,
+	North_East,
+	North,
+	North_West,
+	West,
+	South_West,
+	South,
+	South_East,
+};
 
 class DynamicObstacle
 {
 public:
-	double x_pos; // 동적 장애물의 x 위치
-	double y_pos; // 동적 장애물의 y 위치
-	double velocity; // 동적 장애물의 속도
-	double velo_theta; // 동적 장애물의 이동 방향
+	vecPInt DoB_path;
+	vector<int> direct_vector;
 	string dynamicObstacle_Name;
-	
-	DynamicObstacle(string dynamicObstacle_Name, double x, double y, double v) : dynamicObstacle_Name(dynamicObstacle_Name), x_pos(x), y_pos(y), velocity(v), velo_theta(0) {};
+	int present_idx;
+	int after_idx;
+
+	DynamicObstacle(string dynamicObstacle_Name, vector<pairInt> path) : dynamicObstacle_Name(dynamicObstacle_Name), DoB_path(path)
+	{
+		present_idx = 0;
+		after_idx = 1;
+		Direction(DoB_path);
+	};
 
 	int hash() const;
 	string str();
 	string repr();
 	bool operator==(const DynamicObstacle& other) const;
-	/*bool operator<(const dynamicobstacle& other) const;*/
+	bool operator<(const DynamicObstacle& other) const;
 	friend std::ostream& operator<< (std::ostream& os, const DynamicObstacle& a);
 
-	// 동적 장애물이 움직일 방향을 정하는 함수 (랜덤 함수를 사용해서 정의)
-	void Random_Theta();
-	// 동적 장애물의 위치를 수정하는 함수
-	void Move();
+	void Direction(vector<pairInt> path);
 };
 
 #endif

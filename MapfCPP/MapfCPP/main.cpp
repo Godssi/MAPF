@@ -36,7 +36,7 @@ void print_path(vec2PInt pPath)
 		cout << "\trobot " << ch << "\n\n";
 		for (auto iter2 = iter1->begin(); iter2 != iter1->end(); iter2++, i++)
 		{
-			cout << " path: " << iter2->first << ", " << iter2->second <<  "\t\t: " << i << "\n";
+			cout << " path: " << iter2->first << ", " << iter2->second << "\t\t: " << i << "\n";
 		}
 		cout << "\n";
 		ch++;
@@ -97,7 +97,7 @@ void print_dynamic_potential_map(Planner planner)
 void print_path_text(vec2PInt pPath)
 {
 	ofstream fout("Visualization/multiagentpath.txt");
-	
+
 	if (!pPath.empty())
 	{
 		fout << pPath.begin()->size();
@@ -125,10 +125,10 @@ int main()
 
 	vector<pairInt> start = { {2, 2}, {38, 1}, {2, 32}, {48, 39}, {2, 16}, {2, 1}, {1, 34}, {45, 1} };
 	vector<pairInt> goal = { {14, 39}, {45, 31}, {49, 3}, {22, 5}, {24, 2}, {14, 40}, {49, 17}, {17, 1} };
-	vector<pairInt> static_obstacle = { {24, 12}, {10, 20} }; 
-	DynamicObstacle DynamicObstacle1("dy_ob1", 22, 14, 1);
+	vector<pairInt> static_obstacle = { {24, 12}, {10, 20} };
+	DynamicObstacle DynamicObstacle1("dy_ob1", { {14, 1}, {14, 2}, {14, 3} });
 	/*DynamicObstacle DynamicObstacle2("dy_ob2", { {1, 40}, {2, 40}, {3, 40} });*/
-	vector<DynamicObstacle> dynamic_obstacle = { DynamicObstacle1 } ; // 동적 장애물을 직접 만들어서 넣어줌!
+	vector<DynamicObstacle> dynamic_obstacle = { DynamicObstacle1 }; // 동적 장애물을 직접 만들어서 넣어줌!
 	Planner planner(start, goal, 1, 1, static_obstacle, dynamic_obstacle);
 
 	if (planner.validate_agent_position())

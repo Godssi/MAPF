@@ -1,27 +1,27 @@
-#include "DynamicObstacle.h"
+ï»¿#include "DynamicObstacle.h"
 
 int DynamicObstacle::hash() const
 {
-	return x_pos * 1000 + y_pos;
+	return DoB_path[0].first * 1000 + DoB_path[0].second;
 }
 
 bool DynamicObstacle::operator == (const DynamicObstacle& other) const
 {
-	if (x_pos == other.x_pos && y_pos == other.y_pos)
+	if (DoB_path[0] == other.DoB_path[0] && DoB_path[-1] == other.DoB_path[-1])
 		return true;
 	else
 		return false;
 }
 
-//bool dynamicobstacle::operator< (const dynamicobstacle& other) const
-//{
-//	return (this->hash() < other.hash());
-//}
+bool DynamicObstacle::operator< (const DynamicObstacle& other) const
+{
+	return (this->hash() < other.hash());
+}
 
 
 string DynamicObstacle::str()
 {
-	string result = dynamicObstacle_Name;
+	string result = "[" + DoB_path[0].first + ', ' + DoB_path[0].second + ']';
 	return result;
 }
 
@@ -32,18 +32,69 @@ string DynamicObstacle::repr()
 
 std::ostream& operator<< (std::ostream& os, const DynamicObstacle& agent)
 {
-	os << '[' << agent.x_pos << "," << agent.y_pos << ']';
+	os << '[' << agent.DoB_path[0].first << "," << agent.DoB_path[0].second << ']';
 	return os;
 }
 
-void DynamicObstacle::Random_Theta() {
-	srand(static_cast<unsigned>(time(0)));
+// pathï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ direction_vector ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²Ù¾î¼­ ï¿½Ö¾ï¿½ï¿½Ö´ï¿½ ï¿½Úµï¿½ 
+void DynamicObstacle::Direction(vector<pairInt> path)
+{
+	while (true)
+	{
+		pairInt present_pos = path[present_idx];
 
-	// RandomÇÑ ÀÌµ¿ ¹æÇâÀ» -120 ~ 120µµ·Î ¼³Á¤
-	 this->velo_theta = (((double)rand() / RAND_MAX) * 240 - 120) * (3.141592 / 180);	 
+		if (present_pos == *(path.end() - 1))
+		{
+			direct_vector.push_back(None); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ Noneï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+			break;
+		}
+
+		pairInt after_pos = path[after_idx];
+
+		if (after_pos.second - present_pos.second == 1)
+		{
+			switch (after_pos.first - present_pos.first)
+			{
+			case -1:
+				direct_vector.push_back(North_West);
+				break;
+			case 0:
+				direct_vector.push_back(North);
+				break;
+			case 1:
+				direct_vector.push_back(North_East);
+				break;
+			}
+		}
+		else if (after_pos.second - present_pos.second == 0)
+		{
+			switch (after_pos.first - present_pos.first)
+			{
+			case -1:
+				direct_vector.push_back(West);
+				break;
+			case 1:
+				direct_vector.push_back(East);
+				break;
+			}
+		}
+		else
+		{
+			switch (after_pos.first - present_pos.first)
+			{
+			case -1:
+				direct_vector.push_back(South_West);
+				break;
+			case 0:
+				direct_vector.push_back(South);
+				break;
+			case 1:
+				direct_vector.push_back(South_East);
+				break;
+			}
+		}
+		present_idx = after_idx;
+		after_idx = after_idx + 1;
+	}
 }
 
-void DynamicObstacle::Move() {
-	x_pos = x_pos + velocity * cos(velo_theta);
-	y_pos = y_pos + velocity * sin(velo_theta);
-}

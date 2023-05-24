@@ -1,18 +1,19 @@
 ﻿  AStarMapGen.cpp
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(71,19): warning C4244: '초기화 중': 'const double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(72,19): warning C4244: '초기화 중': 'const double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(73,14): warning C4244: '초기화 중': 'const double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(77,20): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(78,21): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(79,20): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(80,21): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(90,68): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(96,68): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(218,16): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(221,110): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(222,118): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(232,16): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(235,110): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(236,117): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(241): warning C4715: 'MAP_GEN::Ellipse_equation': 모든 제어 경로에서 값을 반환하지는 않습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(82,31): warning C4244: '초기화 중': '_Ty1'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty1=ll
+          ]
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(84,31): warning C4244: '초기화 중': '_Ty2'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty2=ll
+          ]
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(203,16): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(206,110): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(207,117): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(217,16): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(220,110): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(221,117): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(226): warning C4715: 'MAP_GEN::Ellipse_equation': 모든 제어 경로에서 값을 반환하지는 않습니다.
   MapfCPP.vcxproj -> C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\x64\Debug\MapfCPP.exe

@@ -1,8 +1,8 @@
-#include "AStarMapGen.h"
+癤�#include "AStarMapGen.h"
 
 Map MAP_GEN::potential_map_generator(const Map& map)
 {
-    pair<ll, ll> map_size = { map.size() , map[0].size()};
+    pair<ll, ll> map_size = { map.size() , map[0].size() };
     Map potential_map(map_size.first, vector<ll>(map_size.second, 0));
 
     for (ll i = 0; i < map_size.first; i++)
@@ -18,7 +18,7 @@ Map MAP_GEN::potential_map_generator(const Map& map)
                 ll alpha = 1;
                 potential_map[i][j] += alpha;
             }
-            else if(map[i][j] == Inner_Wall)
+            else if (map[i][j] == Inner_Wall)
             {
                 ll alpha = 1;
                 potential_map[i][j] += alpha;
@@ -54,74 +54,60 @@ Map MAP_GEN::potential_map_generator(const Map& map)
     return potential_map;
 }
 
-// dynamicPotentialMap이 한 번 움직일 때 마다 결과가 나와야 하지만 지금은 전체 경로에 대해서 누적된 dynamicPotentialMap이 나온다.
-// 원과 같은 결과가 나오는 Data 처리에 대한 문제가 계속 생겨남.
 Map MAP_GEN::dynamic_potential_map(const Map& map, const vector<DynamicObstacle>& dynamic_obstacles)
 {
-    // dynamic_potential_map 을 만드는 코드
     pair<ll, ll> map_size = { map.size() , map[0].size() };
-    Map dynamicPotentialMap(map_size.first, vector<ll>(map_size.second, 0));  // 누적된 dynamicPotentialMap으로 dynamic_object가 여러 개 있을 경우 그 모든 object에 대한 potential을 담고 있는 map
+    Map dynamicPotentialMap(map_size.first, vector<ll>(map_size.second, 0));
+    int speed = 4;
 
-    // potential map을 수정해주는 코드
+
     for (auto ob_iter = dynamic_obstacles.begin(); ob_iter != dynamic_obstacles.end(); ob_iter++)
     {
-        // 동적으로 움직이는 장애물에 대한 속도 방향 벡터를 분석하여서 potential map 수정
-        Map present_dynamicPotentialMap(map_size.first, vector<ll>(map_size.second, 0)); // 현재 위치에서의 앞으로 나아갈 방향에 대한 potential map 기본값
+        vector<int> path_direc = ob_iter->direct_vector;
 
-        int x_pos = (*ob_iter).x_pos; // 동적 장애물의 현재 x 위치
-        int y_pos = (*ob_iter).y_pos; // 동적 장애물의 현재 y 위치
-		int direct = (*ob_iter).velo_theta; // 동적 장애물의 해당 위치에서의 속도 방향 벡터
-        double speed = (*ob_iter).velocity; // 동적 장애물의 일정속도
+        if (ob_iter->DoB_path.empty())
+            break;
 
-		// Ellipse_equation으로 살퍄볼 좌표들의 range
-		int x_range_left = (x_pos - 2 * speed < 0) ? 0 : x_pos - 2 * speed;
-		int x_range_right = (x_pos + 5 * speed >= map_size.first) ? map_size.first - 1 : x_pos + 5 * speed;
-		int y_range_left = (y_pos - 2 * speed < 0) ? 0 : y_pos - 2 * speed;
-		int y_range_right = (y_pos + 5 * speed >= map_size.second) ? map_size.second - 1 : y_pos + 5 * speed;
+        int idx = 0;
+        for (auto path_index = ob_iter->DoB_path.begin(); path_index != ob_iter->DoB_path.end(); path_index++)
+        {
+            Map present_dynamicPotentialMap(map_size.first, vector<ll>(map_size.second, 0)); 
 
-		// 타원의 방정식 부분
-		for (auto x_iter = x_range_left; x_iter <= x_range_right; x_iter++)
-		{
-			for (auto y_iter = y_range_left; y_iter <= y_range_right; y_iter++) {
-				int search_x = x_iter;
-				int search_y = y_iter;
+            pairInt path = *path_index; 
+            int direct = path_direc[idx]; 
+            int i = path.first; 
+            int j = path.second; 
 
-				// 큰 타원의 가중치 부여
-				if (Ellipse_equation(x_pos, y_pos, search_x, search_y, direct, speed, 'B')) {
-                    dynamicPotentialMap[x_iter][y_iter] += 15;
-					present_dynamicPotentialMap[x_iter][y_iter] += 15;
-				}
+            int x_range_left = (i - 2 * speed < 0) ? 0 : i - 2 * speed;
+            int x_range_right = (i + 5 * speed >= map_size.first) ? map_size.first - 1 : i + 5 * speed;
+            int y_range_left = (j - 2 * speed < 0) ? 0 : j - 2 * speed;
+            int y_range_right = (j + 5 * speed >= map_size.second) ? map_size.second - 1 : j + 5 * speed;
 
-				// 작은 타원의 가중치 부여
-				if (Ellipse_equation(x_pos, y_pos, search_x, search_y, direct, speed, 'S'))
-                    dynamicPotentialMap[x_iter][y_iter] += 15;
-					present_dynamicPotentialMap[x_iter][y_iter] += 15;
-			}
-		}
+            for (auto x_iter = x_range_left; x_iter <= x_range_right; x_iter++)
+            {
+                for (auto y_iter = y_range_left; y_iter <= y_range_right; y_iter++) {
+                    int search_x = x_iter;
+                    int search_y = y_iter;
 
-        // 항상 출력이 두 번 나온다...
-		cout << "\n\t\t\t\tPresent Dynamic Potential Map\n";
-		for (auto iter1 = present_dynamicPotentialMap.begin(); iter1 != present_dynamicPotentialMap.end(); iter1++)
-		{
-			cout << "\n\t";
-			for (auto iter2 = iter1->begin(); iter2 != iter1->end(); iter2++)
-			{
-				cout.width(2);
-				cout.fill('0');
-				cout << *iter2 << " ";
-			}
-		}
-        cout << "\n";
-	}
+                    if (Ellipse_equation(i, j, search_x, search_y, direct, speed, 'B')) {
+                        dynamicPotentialMap[x_iter][y_iter] += 15;
+                        present_dynamicPotentialMap[x_iter][y_iter] += 15;
+                    }
+
+                    if (Ellipse_equation(i, j, search_x, search_y, direct, speed, 'S'))
+                        present_dynamicPotentialMap[x_iter][y_iter] += 15;
+                }
+            }
+            idx++;
+        }
+    }
 
     return dynamicPotentialMap;
- }
-
-    
+}
 
 Map MAP_GEN::moving_obstacle_to_origin_map(Map map, const vecPInt& movePoint)
 {
-    pair<ll, ll> map_size = { map.size() , map.front().size()};
+    pair<ll, ll> map_size = { map.size() , map.front().size() };
 
     for (ll i = 0; i < map_size.first; i++)
     {
@@ -207,28 +193,26 @@ double MAP_GEN::sine_degree(int degree)
     return sin(degree * PI / 180);
 }
 
-bool MAP_GEN::Ellipse_equation(int x, int y, int search_x, int search_y, int direct, int speed, char Big_Small) 
-{ // Ellipse_equation 이란 해당 좌표가 타원 안에 존재하는지 확인하는지 파악하는 함수
-  // x, y는 Dynamic_Object의 위치, search_x, search_y는 찾기 위한 좌표, direct는 방향, speed : dynamic Object의 속도, Big_Small은 타원 방정식 판단 값
+bool MAP_GEN::Ellipse_equation(int x, int y, int search_x, int search_y, int direct, int speed, char Big_Small)
+{
     if (Big_Small == 'B')
-    {  
-        // 타원의 중심점
-        double center_x = x + 1.5 * speed * cosine_degree(45 * (direct-1));  // p 값
-        double center_y = y + 1.5 * speed * sine_degree(45 * (direct - 1));  // q 값
+    {
+        double center_x = x + 1.5 * speed * cosine_degree(45 * (direct - 1));  
+        double center_y = y + 1.5 * speed * sine_degree(45 * (direct - 1));  
 
         int a1 = 3.5 * speed;
         int b1 = 2 * speed;
 
         double a1_part = pow(cosine_degree(45 * (direct - 1)) * (search_x - center_x) + sine_degree(search_y - center_y), 2);
-        double b1_part = pow( (-1) * sine_degree(45 * (direct - 1)) * (search_x - center_x) + cosine_degree(search_y - center_y), 2);
-        if ( (a1_part / pow(a1,2)) + (b1_part / pow(b1,2)) <= 1)
+        double b1_part = pow((-1) * sine_degree(45 * (direct - 1)) * (search_x - center_x) + cosine_degree(search_y - center_y), 2);
+        if ((a1_part / pow(a1, 2)) + (b1_part / pow(b1, 2)) <= 1)
             return true;
         else return false;
     }
     else if (Big_Small == 'S')
     {
-        double center_x = x + 0.75 * speed * cos((45 * (direct - 1)) * PI / 180);  // p 값
-        double center_y = y + 0.75 * speed * sin((45 * (direct - 1)) * PI / 180);  // q 값
+        double center_x = x + 0.75 * speed * cos((45 * (direct - 1)) * PI / 180);  
+        double center_y = y + 0.75 * speed * sin((45 * (direct - 1)) * PI / 180);  
 
         int a2 = 1.75 * speed;
         int b2 = speed;
@@ -240,4 +224,3 @@ bool MAP_GEN::Ellipse_equation(int x, int y, int search_x, int search_y, int dir
         else return false;
     }
 }
-
