@@ -138,14 +138,17 @@ int main()
 	}
 
 	planner.set_max_core();
-	vec2PInt result = planner.plan(200, 1000);
+	vec2PInt result = planner.plan(200, 2000);
 
 	endClock = clock();
 	cout << "\n\n\ttime: " << endClock - startClock << "  (ms)\n";
 
+	print_path(result);
+
 	print_origin_map(planner);
 	print_static_potential_map(planner);
 	print_dynamic_potential_map(planner);
+	
 
 	return 0;
 }

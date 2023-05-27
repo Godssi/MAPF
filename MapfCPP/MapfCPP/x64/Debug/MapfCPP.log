@@ -9,11 +9,11 @@ C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(84,31): warn
           [
               _Ty2=ll
           ]
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(203,16): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(206,110): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(207,117): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(217,16): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(220,110): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(221,117): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(226): warning C4715: 'MAP_GEN::Ellipse_equation': 모든 제어 경로에서 값을 반환하지는 않습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(212,16): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(215,110): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(216,117): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(226,16): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(229,110): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(230,117): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\AStarMapGen.cpp(235): warning C4715: 'MAP_GEN::Ellipse_equation': 모든 제어 경로에서 값을 반환하지는 않습니다.
   MapfCPP.vcxproj -> C:\Users\User\Documents\GitHub\MAPF\MapfCPP\MapfCPP\x64\Debug\MapfCPP.exe
