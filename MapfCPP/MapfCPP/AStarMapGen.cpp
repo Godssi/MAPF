@@ -25,9 +25,9 @@ Map MAP_GEN::potential_map_generator(const Map& map)
             }
             else if (map[i][j] == Static_Ob)
             {
-                ll outer_r = 8;
-                ll inner_r = 1;
-                ll alpha = 10;
+                ll outer_r = 10;
+                ll inner_r = 2;
+                ll alpha = 25;
 
                 for (ll k = i - outer_r; k < i + outer_r + 1; k++)
                 {
@@ -54,7 +54,7 @@ Map MAP_GEN::potential_map_generator(const Map& map)
     return potential_map;
 }
 
-Map MAP_GEN::dynamic_potential_map(const Map& map, const vector<DynamicObstacle>& dynamic_obstacles)
+Map MAP_GEN::dynamic_potential_map(const Map& map, vector<DynamicObstacle>& dynamic_obstacles)
 {
     pair<ll, ll> map_size = { map.size() , map[0].size() };
     Map dynamicPotentialMap(map_size.first, vector<ll>(map_size.second, 0));
@@ -71,7 +71,6 @@ Map MAP_GEN::dynamic_potential_map(const Map& map, const vector<DynamicObstacle>
         // 동적 장애물의 경로를 전체를 파악해서 dynamic obstacle의 path를 모두 판단한 후 potential map을 만든다.
         // 밑에처럼 작동하게 바꿔야한다.
         // 동적 장애물의 현 위치를 기준을 potential map을 만든다.
-        Map present_dynamicPotentialMap(map_size.first, vector<ll>(map_size.second, 0));
 
         pairInt path = ob_iter->DoB_path[0];
         int direct = path_direc[0];
@@ -91,15 +90,14 @@ Map MAP_GEN::dynamic_potential_map(const Map& map, const vector<DynamicObstacle>
 
                 if (Ellipse_equation(i, j, search_x, search_y, direct, speed, 'B')) {
                     dynamicPotentialMap[x_iter][y_iter] += 15;
-                    present_dynamicPotentialMap[x_iter][y_iter] += 15;
                 }
 
                 if (Ellipse_equation(i, j, search_x, search_y, direct, speed, 'S'))
-                    present_dynamicPotentialMap[x_iter][y_iter] += 15;
+                    dynamicPotentialMap[x_iter][y_iter] += 15;
             }
         }
-        path_direc.erase(path_direc.begin());  // path_direction을 빼는 것
-        
+        ob_iter->direct_vector.erase(ob_iter->direct_vector.begin());
+        ob_iter->DoB_path.erase(ob_iter->DoB_path.begin());
     }
 
     return dynamicPotentialMap;

@@ -22,6 +22,10 @@ typedef vector<vecPInt> vec2PInt;
 typedef vector<pairInt> Path;
 typedef vector<vector<ll>> Map;
 
+bool cmp(const Node* n1, const Node* n2);
+
+
+vector<Node*>::const_iterator findIdx(Node* child, const vector<Node*>& openList);
 
 template<class T>
 void deleteVector(vector<T*> pVector);

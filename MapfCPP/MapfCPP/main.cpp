@@ -2,7 +2,7 @@
 
 #include "AStar.h"
 #include "AStarMapGen.h"
-
+#include "PathAnalyzer.h"
 #include "Agent.h"
 #include "CTNode.h"
 #include "Constraints.h"
@@ -121,7 +121,6 @@ int main()
 {
 	clock_t startClock, endClock;
 
-	startClock = clock();
 
 	// 시뮬레이션 상황 처리 
 	vector<pairInt> start = { {8, 3}, {32, 7}, {40, 22}, {34, 36}, {44, 58}, {8, 27}, {12, 42}, {13, 81} };
@@ -135,24 +134,40 @@ int main()
 	DynamicObstacle DynamicObstacle3("dy_ob3", { {51, 6}, {51, 7}, {51, 8}, {51, 9}, {51, 10}, {51, 11}, {51, 12}, {51, 13}, {51, 14}, {51, 15}, {51, 16}, {51, 17}, {51, 18}, {51, 19}, {51, 20}, {51, 21}, {51, 22}, {51, 23}, {51, 24}, {51, 25}, {51, 26}, {51, 27}, {51, 28}, {51, 29}, {51, 30}, {51, 31}, {51, 32}, {51, 33}, {51, 34}, {51, 35}, {51, 36}, {51, 37}, {51, 38}, {51, 39}, {51, 40}, {51, 41}, {51, 42}, {51, 43}, {51, 44}, {51, 45}, {51, 46}, {51, 47}, {52, 47}, {53, 47} });
 	vector<DynamicObstacle> dynamic_obstacle = { DynamicObstacle1, DynamicObstacle2, DynamicObstacle3 }; // 동적 장애물을 직접 만들어서 넣어줌!
 	Planner planner(start, goal, 1, 1, static_obstacle, dynamic_obstacle);
+	planner.set_max_core();
 
 	if (planner.validate_agent_position())
 	{
 		cout << "not valid agent position\n";
 		return 0;
 	}
-
-	planner.set_max_core();
-	vec2PInt result = planner.plan(200, 5000);
-
+	vec2PInt result;
+	startClock = clock();
+	for (int i = 0; i < 10; i++)
+		result = planner.plan(200, 2000);
 	endClock = clock();
-	cout << "\n\n\ttime: " << endClock - startClock << "  (ms)\n";
 
-	print_path(result);
 
-	print_origin_map(planner);
-	print_static_potential_map(planner);
-	print_dynamic_potential_map(planner);
+	cout << "time: " << (endClock - startClock)/10.0 << "  (ms)\n";
+	getPathLength(result);
+	nearestDistance2Obstacle(result);
+	averageDistance2Obstacle(result);
+
+
+
+	/*while (DynamicObstacle1.DoB_path.size() ||  DynamicObstacle2.DoB_path.size() || DynamicObstacle3.DoB_path.size()) {
+		startClock = clock();
+		vec2PInt result = planner.plan(200, 2000);
+
+		endClock = clock();
+		cout << "\n\n\ttime: " << endClock - startClock << "  (ms)\n";
+
+		print_path(result);
+		if (!(planner.checkGoal(result)))
+			break;
+		planner.set_starts(result);
+	}*/
+	
 	
 
 	return 0;

@@ -23,6 +23,7 @@
     <ClCompile Include="AStarPlanner.cpp" />
     <ClCompile Include="Assigner.cpp" />
     <ClCompile Include="AStar.cpp" />
+    <ClCompile Include="Astar_Origin.cpp" />
     <ClCompile Include="Constraints.cpp" />
     <ClCompile Include="CTNode.cpp" />
     <ClCompile Include="DynamicObstacle.cpp" />
@@ -31,6 +32,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="AStarMapGen.cpp" />
     <ClCompile Include="AStarNode.cpp" />
+    <ClCompile Include="PathAnalyzer.cpp" />
     <ClCompile Include="planner.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -45,7 +47,9 @@
     <ClInclude Include="Hungarian.h" />
     <ClInclude Include="AStarMapGen.h" />
     <ClInclude Include="AStarNode.h" />
+    <ClInclude Include="PathAnalyzer.h" />
     <ClInclude Include="planner.h" />
+    <ClInclude Include="Astar_Origin.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

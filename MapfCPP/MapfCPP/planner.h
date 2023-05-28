@@ -93,6 +93,8 @@ public:
 	void set_max_core();
 	void set_max_core(int n_core);
 	int get_max_core() { return max_core; };
+	void set_starts(vec2PInt results);
+	bool checkGoal(vec2PInt results);
 };
 
 

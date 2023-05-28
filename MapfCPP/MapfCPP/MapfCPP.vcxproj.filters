@@ -60,6 +60,12 @@
     <ClCompile Include="DynamicObstacle.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="PathAnalyzer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Astar_Origin.cpp">
+      <Filter>소스 파일\astar</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Agent.h">
@@ -97,6 +103,12 @@
     </ClInclude>
     <ClInclude Include="DynamicObstacle.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="PathAnalyzer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Astar_Origin.h">
+      <Filter>헤더 파일\astar</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

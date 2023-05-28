@@ -10,6 +10,7 @@
 #include "DynamicObstacle.h"
 #include "AStar.h"
 #include "AStarMapGen.h"
+#include "Astar_Origin.h"
 
 using namespace std;
 typedef long long ll;
@@ -34,7 +35,7 @@ public:
 
 	void set_static_obstacle(const vecPInt& static_obstacle);
 	void set_dynamic_obstacle(const vecPInt& dynamic_obstacle);
-	void modify_potential_map(const vector<DynamicObstacle>& dynamic_obstacle);
+	void modify_potential_map(vector<DynamicObstacle>& dynamic_obstacle);
 	Path aStarPlan(pairInt start, pairInt goal, const map<int, set<pairInt>>& conf_path, const map<int, set<pairInt>>& semi_dynamic_obstacles, vector<DynamicObstacle> dynamic_obstacle, int time_step);
 
 	Map get_origin_map() { return origin_map; }

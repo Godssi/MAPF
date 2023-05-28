@@ -340,3 +340,34 @@ void Planner::set_max_core(int n_core)
 {
     max_core = n_core;
 }
+
+void Planner::set_starts(vec2PInt results)
+{
+    vecPInt tmp;
+    for (auto iter = results.begin(); iter != results.end(); iter++) {
+        if ((*iter).size() > 2) {
+            tmp.push_back({ (*iter)[1].first, (*iter)[1].second });
+        }
+        else
+        {
+            tmp.push_back({ (*iter)[0].first, (*iter)[0].second });
+        }
+    }
+    this->starts = tmp;
+}
+
+bool Planner::checkGoal(vec2PInt results)
+{
+    bool flag = false;
+    while(!(results.empty()))
+    {
+        vecPInt path = results.back();
+        if (path.size() != 2)
+        {
+            flag = true;
+            break;
+        }
+        results.pop_back();
+    }
+    return flag;
+}
