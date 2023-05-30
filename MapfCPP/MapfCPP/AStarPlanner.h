@@ -28,6 +28,7 @@ private:
 	Map static_potential_map;
 	Map dynamic_potential_map;
 	int low_level_max_iter;
+	bool origin;
 
 public:
 	AStarPlanner();
@@ -42,6 +43,7 @@ public:
 	Map get_static_potential_map() { return static_potential_map; }
 	Map get_dynamic_potential_map() { return dynamic_potential_map; }
 	void set_origin_map(Map& map) { origin_map = map; }
+	void set_origin_path(bool origin) { this->origin = origin; }
 };
 
 #endif

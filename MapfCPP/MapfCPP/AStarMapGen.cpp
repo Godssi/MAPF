@@ -89,11 +89,11 @@ Map MAP_GEN::dynamic_potential_map(const Map& map, vector<DynamicObstacle>& dyna
                 int search_y = y_iter;
 
                 if (Ellipse_equation(i, j, search_x, search_y, direct, speed, 'B')) {
-                    dynamicPotentialMap[x_iter][y_iter] += 15;
+                    dynamicPotentialMap[x_iter][y_iter] += 50;
                 }
 
                 if (Ellipse_equation(i, j, search_x, search_y, direct, speed, 'S'))
-                    dynamicPotentialMap[x_iter][y_iter] += 15;
+                    dynamicPotentialMap[x_iter][y_iter] += 50;
             }
         }
         ob_iter->direct_vector.erase(ob_iter->direct_vector.begin());

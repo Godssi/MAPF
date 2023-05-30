@@ -209,6 +209,7 @@ double heuristic(pairInt node, pairInt goal, const Map& map, const Map& static_p
 	double r = 3; // around radius
 	h += heuristic_around_obstacle(node, goal, r, R, map, static_potential_map);
 	h += heuristic_dynamic(node, dynamic_potential_map);
+	cout << heuristic_dynamic(node, dynamic_potential_map);
 	return h;
 }
 
