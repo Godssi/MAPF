@@ -38,93 +38,93 @@ void getPathLength(vec2PInt result)
 
 void nearestDistance2Obstacle(vec2PInt result)
 {
-	vector<pairInt> staticOb;
-	Map map = MAP_GEN::test_maze_gen();
-	pair<ll, ll> map_size = { map.size() , map[0].size() };
-	for (ll i = 0; i < map_size.first; i++)
-	{
-		for (ll j = 0; j < map_size.second; j++)
-		{
-			if (map[i][j] == Static_Ob)
-			{
-				staticOb.push_back({ i, j });
-			}
-			if (map[i][j] == Dynamic_Ob)
-			{
-				staticOb.push_back({ i, j });
-			}
-		}
-	}
+    vector<pairInt> staticOb;
+    Map map = MAP_GEN::test_maze_gen();
+    pair<ll, ll> map_size = { map.size() , map[0].size() };
+    for (ll i = 0; i < map_size.first; i++)
+    {
+        for (ll j = 0; j < map_size.second; j++)
+        {
+            if (map[i][j] == Static_Ob)
+            {
+                staticOb.push_back({ i, j });
+            }
+            //if (map[i][j] == Dynamic_Ob)
+            //{
+            //   staticOb.push_back({ i, j });
+            //}
+        }
+    }
 
-	vector<double> NDO;
-	for (auto iter1 = result.begin(); iter1 != result.end(); iter1++)
-	{
-		double distance = MAX;
-		for (auto iter2 = iter1->begin(); iter2 != iter1->end(); iter2++)
-		{
-			for (auto obIter = staticOb.begin(); obIter != staticOb.end(); obIter++)
-			{
-				distance = min(distance, sqrt(pow(iter2->first - obIter->first, 2) + pow(iter2->first - obIter->first, 2)) + 1);
-			}
-		}
-		NDO.push_back(distance);
-	}
+    vector<double> NDO;
+    for (auto iter1 = result.begin(); iter1 != result.end(); iter1++)
+    {
+        double distance = MAX;
+        for (auto iter2 = iter1->begin(); iter2 != iter1->end(); iter2++)
+        {
+            for (auto obIter = staticOb.begin(); obIter != staticOb.end(); obIter++)
+            {
+                distance = min(distance, sqrt(pow(iter2->first - obIter->first, 2) + pow(iter2->second - obIter->second, 2)));
+            }
+        }
+        NDO.push_back(distance);
+    }
 
-	int i = 1;
-	cout << "NDO\n";
-	for (auto iter = NDO.begin(); iter != NDO.end(); iter++)
-	{
-		cout << "agent " << i << " : " << (*iter) << "\n";
-		i++;
-	}
-	cout << "\n";
+    int i = 1;
+    cout << "NDO\n";
+    for (auto iter = NDO.begin(); iter != NDO.end(); iter++)
+    {
+        cout << "agent " << i << " : " << (*iter) << "\n";
+        i++;
+    }
+    cout << "\n";
 }
 
 void averageDistance2Obstacle(vec2PInt result)
 {
-	vector<pairInt> staticOb;
-	Map map = MAP_GEN::test_maze_gen();
-	pair<ll, ll> map_size = { map.size() , map[0].size() };
-	for (ll i = 0; i < map_size.first; i++)
-	{
-		for (ll j = 0; j < map_size.second; j++)
-		{
-			if (map[i][j] == Static_Ob)
-			{
-				staticOb.push_back({ i, j });
-			}
-			if (map[i][j] == Dynamic_Ob)
-			{
-				staticOb.push_back({ i, j });
-			}
-		}
-	}
+    vector<pairInt> staticOb;
+    Map map = MAP_GEN::test_maze_gen();
+    pair<ll, ll> map_size = { map.size() , map[0].size() };
+    for (ll i = 0; i < map_size.first; i++)
+    {
+        for (ll j = 0; j < map_size.second; j++)
+        {
+            if (map[i][j] == Static_Ob)
+            {
+                staticOb.push_back({ i, j });
+            }
+            //if (map[i][j] == Dynamic_Ob)
+            //{
+            //   staticOb.push_back({ i, j });
+            //}
+        }
+    }
 
-	vector<vector<double>> NDO;
-	for (auto iter1 = result.begin(); iter1 != result.end(); iter1++)
-	{
-		vector<double> Dis;
-		for (auto iter2 = iter1->begin(); iter2 != iter1->end(); iter2++)
-		{
-			double distance = MAX;
-			for (auto obIter = staticOb.begin(); obIter != staticOb.end(); obIter++)
-			{
-				distance = min(distance, sqrt(pow(iter2->first - obIter->first, 2) + pow(iter2->first - obIter->first, 2)) + 1);
-			}
-			Dis.push_back(distance);
-		}
-		NDO.push_back(Dis);
-	}
+    vector<vector<double>> NDO;
+    for (auto iter1 = result.begin(); iter1 != result.end(); iter1++)
+    {
+        vector<double> Dis;
+        for (auto iter2 = iter1->begin(); iter2 != iter1->end(); iter2++)
+        {
+            double distance = MAX;
+            for (auto obIter = staticOb.begin(); obIter != staticOb.end(); obIter++)
+            {
+                distance = min(distance, sqrt(pow(iter2->first - obIter->first, 2) + pow(iter2->second - obIter->second, 2)) + 1);
+            }
+            Dis.push_back(distance);
+        }
+        NDO.push_back(Dis);
+    }
 
-	vector<double> Dis;
-	cout << "ADO\n";
-	int i = 1;
-	for (auto iter = NDO.begin(); iter != NDO.end(); iter++)
-	{
-		double tmp = accumulate(iter->begin(), iter->end(), 0.0) / iter->size();
-		cout << "agent " << i << " : " << tmp << "\n";
-		Dis.push_back(tmp);
-		i++;
-	}
-	cout << "total : " << accumulate(Dis.begin(), Dis.end(), 0.0) / Dis.size() << "\n";
+    vector<double> Dis;
+    cout << "ADO\n";
+    int i = 1;
+    for (auto iter = NDO.begin(); iter != NDO.end(); iter++)
+    {
+        double tmp = accumulate(iter->begin(), iter->end(), 0.0) / iter->size();
+        cout << "agent " << i << " : " << tmp << "\n";
+        Dis.push_back(tmp);
+        i++;
+    }
+    cout << "total : " << accumulate(Dis.begin(), Dis.end(), 0.0) / Dis.size() << "\n";
 }

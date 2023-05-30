@@ -117,14 +117,43 @@ void print_path_text(vec2PInt pPath)
 	fout.close();
 }
 
+
+void print_potential_map(Planner planner)
+{
+	Map map1 = planner.get_static_potential_map();
+	Map map2 = planner.get_aStarPlanner().get_dynamic_potential_map();
+	cout << "\n\t\t\t\tPotential Map\n";
+
+	for (int i = 0; i < map1.size(); i++)
+	{
+		for (int j = 0; j < map1[0].size(); j++)
+		{
+			map1[i][j] += map2[i][j];
+		}
+	}
+
+	for (auto iter1 = map1.begin(); iter1 != map1.end(); iter1++)
+	{
+		cout << "\n\t";
+		for (auto iter2 = iter1->begin(); iter2 != iter1->end(); iter2++)
+		{
+			cout.width(2);
+			cout.fill('0');
+			cout << *iter2 << " ";
+		}
+	}
+	cout << "\n";
+}
+
+
 int main()
 {
 	clock_t startClock, endClock;
 
 
 	// 시뮬레이션 상황 처리 
-	vector<pairInt> start = { {8, 3}, {32, 7}, {40, 22}, {34, 36}, {44, 58}, {8, 27}, {12, 42}, {13, 81} };
-	vector<pairInt> goal = { {17, 17}, {40, 9}, {51, 22}, {46, 37}, {45, 47}, {22, 23}, {33, 37}, {14, 64} };
+	vector<pairInt> start = { {16,83},{35,83},{29,66},{10,66}, {3,10},{48,8},{48,34},{50,66} };
+	vector<pairInt> goal = { {40,3},{3,63},{20,15},{48,20},{57,50},{8,50},{15,6},{35,4} };
 	vector<pairInt> static_obstacle = { {24, 12}, {10, 20} };
 	// 컨베이어 벨트 확인하는 사람의 경로 
 	DynamicObstacle DynamicObstacle1("dy_ob1", { {2, 81}, {3, 81}, {4, 81}, {5, 81}, {6, 81}, {7, 81}, {8, 81}, {9, 81}, {10, 81}, {11, 81}, {12, 81}, {13, 81}, {14, 81}, {15, 81}, {16, 81}, {17, 81}, {18, 81}, {19, 81}, {20, 81}, {21, 81}, {22, 81}, {23, 81}, {24, 81}, {25, 81}, {26, 81}, {27, 81}, {28, 81}, {29, 81}, {30, 81}, {31, 81}, {32, 81} });

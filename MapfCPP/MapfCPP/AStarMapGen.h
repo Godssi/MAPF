@@ -15,9 +15,9 @@ enum Object
 {
 	Ground,
 	Outer_Wall,
-	Inner_Wall,
 	Static_Ob,
 	Dynamic_Ob,
+	Inner_Wall
 };
 
 using namespace std;
