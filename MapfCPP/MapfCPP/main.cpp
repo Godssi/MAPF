@@ -153,12 +153,12 @@ int main()
 
 	// 시뮬레이션 상황 처리 
 	vector<pairInt> start = { {16,83},{35,83},{29,66},{10,66}, {3,10},{48,8},{48,34},{50,66} };
-	vector<pairInt> goal = { {40,3},{3,63},{20,15},{48,20},{57,50},{8,50},{15,6},{35,4} };
+	vector<pairInt> goal = { {40, 3},{3,63},{20,15},{48,20},{57,50},{8,50},{13,6},{35,4} };
 
 	// vector<pairInt> start = { {8, 3}, {32, 7}, {40, 22}, {34, 36}, {44, 58}, {8, 27}, {12, 42}, {13, 81} };
 	// vector<pairInt> goal = { {17, 17}, {40, 9}, {51, 22}, {46, 37}, {45, 47}, {22, 23}, {33, 37}, {14, 64} };
 
-	vector<pairInt> static_obstacle = { {24, 12}, {10, 20} };
+	vector<pairInt> static_obstacle;
 	// 컨베이어 벨트 확인하는 사람의 경로 
 	DynamicObstacle DynamicObstacle1("dy_ob1", { {2, 81}, {3, 81}, {4, 81}, {5, 81}, {6, 81}, {7, 81}, {8, 81}, {9, 81}, {10, 81}, {11, 81}, {12, 81}, {13, 81}, {14, 81}, {15, 81}, {16, 81}, {17, 81}, {18, 81}, {19, 81}, {20, 81}, {21, 81}, {22, 81}, {23, 81}, {24, 81}, {25, 81}, {26, 81}, {27, 81}, {28, 81}, {29, 81}, {30, 81}, {31, 81}, {32, 81} });
 	// 위 물건 창고 확인하는 사람의 경로
@@ -166,7 +166,8 @@ int main()
 	// 아래 물건 창고 확인하는 사람의 경로
 	DynamicObstacle DynamicObstacle3("dy_ob3", { {51, 6}, {51, 7}, {51, 8}, {51, 9}, {51, 10}, {51, 11}, {51, 12}, {51, 13}, {51, 14}, {51, 15}, {51, 16}, {51, 17}, {51, 18}, {51, 19}, {51, 20}, {51, 21}, {51, 22}, {51, 23}, {51, 24}, {51, 25}, {51, 26}, {51, 27}, {51, 28}, {51, 29}, {51, 30}, {51, 31}, {51, 32}, {51, 33}, {51, 34}, {51, 35}, {51, 36}, {51, 37}, {51, 38}, {51, 39}, {51, 40}, {51, 41}, {51, 42}, {51, 43}, {51, 44}, {51, 45}, {51, 46}, {51, 47}, {52, 47}, {53, 47} });
 	vector<DynamicObstacle> dynamic_obstacle = { DynamicObstacle1, DynamicObstacle2, DynamicObstacle3 }; // 동적 장애물을 직접 만들어서 넣어줌!
-	Planner planner(start, goal, 1, 1, static_obstacle, dynamic_obstacle);
+	vector<DynamicObstacle> dynamic_obstacle3;
+	Planner planner(start, goal, 1, 1, static_obstacle, dynamic_obstacle3);
 	planner.set_max_core();
 
 	if (planner.validate_agent_position())
@@ -185,6 +186,9 @@ int main()
 	getPathLength(result);
 	nearestDistance2Obstacle(result);
 	averageDistance2Obstacle(result);
+	// print_path(result);
+	print_path_text(result);
+	
 
 
 	cout << "\n\n\n";
@@ -194,18 +198,18 @@ int main()
 	DynamicObstacle DynamicObstacle6("dy_ob3", { {51, 6}, {51, 7}, {51, 8}, {51, 9}, {51, 10}, {51, 11}, {51, 12}, {51, 13}, {51, 14}, {51, 15}, {51, 16}, {51, 17}, {51, 18}, {51, 19}, {51, 20}, {51, 21}, {51, 22}, {51, 23}, {51, 24}, {51, 25}, {51, 26}, {51, 27}, {51, 28}, {51, 29}, {51, 30}, {51, 31}, {51, 32}, {51, 33}, {51, 34}, {51, 35}, {51, 36}, {51, 37}, {51, 38}, {51, 39}, {51, 40}, {51, 41}, {51, 42}, {51, 43}, {51, 44}, {51, 45}, {51, 46}, {51, 47}, {52, 47}, {53, 47} });
 	vector<DynamicObstacle> dynamic_obstacle2 = { DynamicObstacle4, DynamicObstacle5, DynamicObstacle6 };
 
-	Planner planner2(start, goal, 1, 1, static_obstacle, dynamic_obstacle2);
+	Planner planner2(start, goal, 1, 1, static_obstacle, dynamic_obstacle3);
 	planner2.set_max_core();
-	planner.get_aStarPlanner().set_origin_path(true);
+	planner2.aStarPlanner.set_origin_path(true);
 
-	if (planner.validate_agent_position())
+	if (planner2.validate_agent_position())
 	{
 		cout << "not valid agent position\n";
 		return 0;
 	}
 	startClock = clock();
 	for (int i = 0; i < 1; i++)
-		result = planner.plan(200, 100000);
+		result = planner2.plan(200, 100000);
 	endClock = clock();
 
 	//print_potential_map(planner);
@@ -213,6 +217,8 @@ int main()
 	getPathLength(result);
 	nearestDistance2Obstacle(result);
 	averageDistance2Obstacle(result);
+	// print_path(result);
+	// print_path_text(result);
 
 	/*while (DynamicObstacle1.DoB_path.size() ||  DynamicObstacle2.DoB_path.size() || DynamicObstacle3.DoB_path.size()) {
 	   startClock = clock();

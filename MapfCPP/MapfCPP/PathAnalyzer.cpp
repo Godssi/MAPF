@@ -38,17 +38,19 @@ void getPathLength(vec2PInt result)
 
 void nearestDistance2Obstacle(vec2PInt result)
 {
-    vector<pairInt> Ob = { {2, 81} , {25, 48}, {51, 6}};   // {2, 2}
+    // vector<pairInt> Ob = { {2, 81} , {2, 2}, {51, 6}};   // {2, 2}
+    vector<pairInt> Ob;
     Map map = MAP_GEN::test_maze_gen();
     pair<ll, ll> map_size = { map.size() , map[0].size() };
     for (ll i = 0; i < map_size.first; i++)
     {
         for (ll j = 0; j < map_size.second; j++)
         {
-            //if (map[i][j] == Static_Ob)
-            //{
-            //    Ob.push_back({ i, j });
-            //}
+            if (map[i][j] == Static_Ob)
+            {
+                Ob.push_back({ i, j });
+            }
+
             if (map[i][j] == Dynamic_Ob)
             {
                Ob.push_back({ i, j });
@@ -82,21 +84,22 @@ void nearestDistance2Obstacle(vec2PInt result)
 
 void averageDistance2Obstacle(vec2PInt result)
 {
-    vector<pairInt> Ob = { {2, 81} , {25, 48}, {51, 6} };
+    // vector<pairInt> Ob = { {2, 81} , {25, 48}, {51, 6} };
+    vector<pairInt> Ob;
     Map map = MAP_GEN::test_maze_gen();
     pair<ll, ll> map_size = { map.size() , map[0].size() };
     for (ll i = 0; i < map_size.first; i++)
     {
         for (ll j = 0; j < map_size.second; j++)
         {
-            //if (map[i][j] == Static_Ob)
-            //{
-            //    Ob.push_back({ i, j });
-            //}
-            if (map[i][j] == Dynamic_Ob)
+            if (map[i][j] == Static_Ob)
             {
-               Ob.push_back({ i, j });
+                Ob.push_back({ i, j });
             }
+            //if (map[i][j] == Dynamic_Ob)
+            //{
+            //   Ob.push_back({ i, j });
+            //}
         }
     }
 
@@ -104,14 +107,20 @@ void averageDistance2Obstacle(vec2PInt result)
     for (auto iter1 = result.begin(); iter1 != result.end(); iter1++)
     {
         vector<double> Dis;
+        pairInt pre_cord = { -1, -1 };
         for (auto iter2 = iter1->begin(); iter2 != iter1->end(); iter2++)
         {
+            if (pre_cord.first == iter2->first && pre_cord.second == iter2->second)
+            {
+                break;
+            }
             double distance = MAX;
             for (auto obIter = Ob.begin(); obIter != Ob.end(); obIter++)
             {
                 distance = min(distance, sqrt(pow(iter2->first - obIter->first, 2) + pow(iter2->second - obIter->second, 2)) + 1);
             }
             Dis.push_back(distance);
+            pre_cord = { iter2->first, iter2->second };
         }
         NDO.push_back(Dis);
     }
@@ -128,3 +137,4 @@ void averageDistance2Obstacle(vec2PInt result)
     }
     cout << "total : " << accumulate(Dis.begin(), Dis.end(), 0.0) / Dis.size() << "\n";
 }
+

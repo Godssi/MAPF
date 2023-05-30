@@ -44,7 +44,6 @@ private:
 	int core = 0;
 	int max_core = 2;
 
-	AStarPlanner aStarPlanner;
 	vecPInt starts;
 	vecPInt goals;
 	vecAgent agents;
@@ -56,6 +55,7 @@ private:
 	vector<pair<Agent, Agent>> combi;
 
 public:
+	AStarPlanner aStarPlanner;
 	Planner(int grid_size, int robot_radius, vecPInt static_obstacle, int low_level_max_iter = 100) :
 		robot_radius(robot_radius)
 	{
