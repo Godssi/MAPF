@@ -146,6 +146,7 @@ void print_potential_map(Planner planner)
 }
 
 
+
 int main()
 {
 	clock_t startClock, endClock;
@@ -160,14 +161,34 @@ int main()
 
 	vector<pairInt> static_obstacle;
 	// 컨베이어 벨트 확인하는 사람의 경로 
-	DynamicObstacle DynamicObstacle1("dy_ob1", { {2, 81}, {3, 81}, {4, 81}, {5, 81}, {6, 81}, {7, 81}, {8, 81}, {9, 81}, {10, 81}, {11, 81}, {12, 81}, {13, 81}, {14, 81}, {15, 81}, {16, 81}, {17, 81}, {18, 81}, {19, 81}, {20, 81}, {21, 81}, {22, 81}, {23, 81}, {24, 81}, {25, 81}, {26, 81}, {27, 81}, {28, 81}, {29, 81}, {30, 81}, {31, 81}, {32, 81} });
-	// 위 물건 창고 확인하는 사람의 경로
-	DynamicObstacle DynamicObstacle2("dy_bo2", { {2, 2}, {3, 2}, {4, 2}, {5, 2}, {6, 2}, {7, 2}, {8, 2}, {9, 2}, {10, 2}, {11, 2}, {12, 2}, {13, 2}, {14, 2},{15, 2}, {16, 2}, {17, 2}, {18, 2}, {19, 2}, {20, 2}, {21, 2}, {22, 2}, {23, 2}, {23, 3}, {23, 4}, {23, 5}, {23, 6}, {23, 7}, {23, 8}, {23, 9}, {23, 10}, {23, 11}, {23, 12}, {23, 13}, {23, 14}, {23, 15}, {23, 16}, {23, 17}, {23, 18}, {23, 19}, {23, 20}, {23, 21}, {23, 22}, {23, 23} });
-	// 아래 물건 창고 확인하는 사람의 경로
-	DynamicObstacle DynamicObstacle3("dy_ob3", { {51, 6}, {51, 7}, {51, 8}, {51, 9}, {51, 10}, {51, 11}, {51, 12}, {51, 13}, {51, 14}, {51, 15}, {51, 16}, {51, 17}, {51, 18}, {51, 19}, {51, 20}, {51, 21}, {51, 22}, {51, 23}, {51, 24}, {51, 25}, {51, 26}, {51, 27}, {51, 28}, {51, 29}, {51, 30}, {51, 31}, {51, 32}, {51, 33}, {51, 34}, {51, 35}, {51, 36}, {51, 37}, {51, 38}, {51, 39}, {51, 40}, {51, 41}, {51, 42}, {51, 43}, {51, 44}, {51, 45}, {51, 46}, {51, 47}, {52, 47}, {53, 47} });
+	//DynamicObstacle DynamicObstacle1("dy_ob1", { {4, 81}, {3, 81}, {4, 81}, {5, 81}, {6, 81}, {7, 81}, {8, 81}, {9, 81}, {10, 81}, {11, 81}, {12, 81}, {13, 81}, {14, 81}, {15, 81}, {16, 81}, {17, 81}, {18, 81}, {19, 81}, {20, 81}, {21, 81}, {22, 81}, {23, 81}, {24, 81}, {25, 81}, {26, 81}, {27, 81}, {28, 81}, {29, 81}, {30, 81}, {31, 81}, {32, 81} });
+	//// 위 물건 창고 확인하는 사람의 경로
+	//DynamicObstacle DynamicObstacle2("dy_bo2", { {2, 2}, {3, 2}, {4, 2}, {5, 2}, {6, 2}, {7, 2}, {8, 2}, {9, 2}, {10, 2}, {11, 2}, {12, 2}, {13, 2}, {14, 2},{15, 2}, {16, 2}, {17, 2}, {18, 2}, {19, 2}, {20, 2}, {21, 2}, {22, 2}, {23, 2}, {23, 3}, {23, 4}, {23, 5}, {23, 6}, {23, 7}, {23, 8}, {23, 9}, {23, 10}, {23, 11}, {23, 12}, {23, 13}, {23, 14}, {23, 15}, {23, 16}, {23, 17}, {23, 18}, {23, 19}, {23, 20}, {23, 21}, {23, 22}, {23, 23} });
+	//// 아래 물건 창고 확인하는 사람의 경로
+	//DynamicObstacle DynamicObstacle3("dy_ob3", { {10, 81}, {, 81}, {51, 8}, {51, 9}, {51, 10}, {51, 11}, {51, 12}, {51, 13}, {51, 14}, {51, 15}, {51, 16}, {51, 17}, {51, 18}, {51, 19}, {51, 20}, {51, 21}, {51, 22}, {51, 23}, {51, 24}, {51, 25}, {51, 26}, {51, 27}, {51, 28}, {51, 29}, {51, 30}, {51, 31}, {51, 32}, {51, 33}, {51, 34}, {51, 35}, {51, 36}, {51, 37}, {51, 38}, {51, 39}, {51, 40}, {51, 41}, {51, 42}, {51, 43}, {51, 44}, {51, 45}, {51, 46}, {51, 47}, {52, 47}, {53, 47} });
+	
+	DynamicObstacle DynamicObstacle1("dy_ob1");
+	dynamic_path_input_x(DynamicObstacle1, 48, 19, 39, 19);
+	dynamic_path_input_y(DynamicObstacle1, 39, 20, 39, 43);
+	dynamic_path_input_x(DynamicObstacle1, 38, 43, 14, 43);
+	dynamic_path_input_y(DynamicObstacle1, 14, 42, 14, 12);
+	dynamic_path_input_x(DynamicObstacle1, 13, 12, 1, 12);
+	DynamicObstacle1.Direction();
+
+	DynamicObstacle DynamicObstacle2("dy_ob2");
+	dynamic_path_input_x(DynamicObstacle2, 13, 58, 16, 58);
+	dynamic_path_input_y(DynamicObstacle2, 16, 57, 16, 30);
+	dynamic_path_input_x(DynamicObstacle2, 17, 30, 35, 30);
+	dynamic_path_input_y(DynamicObstacle2, 35, 29, 35, 13);
+	DynamicObstacle2.Direction();
+
+	DynamicObstacle DynamicObstacle3("dy_ob3");
+	dynamic_path_input_x(DynamicObstacle3, 10, 81, 51, 81);
+	dynamic_path_input_y(DynamicObstacle3, 51, 80, 51, 64);
+	DynamicObstacle3.Direction();
+
 	vector<DynamicObstacle> dynamic_obstacle = { DynamicObstacle1, DynamicObstacle2, DynamicObstacle3 }; // 동적 장애물을 직접 만들어서 넣어줌!
-	vector<DynamicObstacle> dynamic_obstacle3;
-	Planner planner(start, goal, 1, 1, static_obstacle, dynamic_obstacle3);
+	Planner planner(start, goal, 1, 1, static_obstacle, dynamic_obstacle);
 	planner.set_max_core();
 
 	if (planner.validate_agent_position())
@@ -193,12 +214,29 @@ int main()
 
 	cout << "\n\n\n";
 
-	DynamicObstacle DynamicObstacle4("dy_ob1", { {2, 81}, {3, 81}, {4, 81}, {5, 81}, {6, 81}, {7, 81}, {8, 81}, {9, 81}, {10, 81}, {11, 81}, {12, 81}, {13, 81}, {14, 81}, {15, 81}, {16, 81}, {17, 81}, {18, 81}, {19, 81}, {20, 81}, {21, 81}, {22, 81}, {23, 81}, {24, 81}, {25, 81}, {26, 81}, {27, 81}, {28, 81}, {29, 81}, {30, 81}, {31, 81}, {32, 81} });
-	DynamicObstacle DynamicObstacle5("dy_bo2", { {2, 2}, {3, 2}, {4, 2}, {5, 2}, {6, 2}, {7, 2}, {8, 2}, {9, 2}, {10, 2}, {11, 2}, {12, 2}, {13, 2}, {14, 2},{15, 2}, {16, 2}, {17, 2}, {18, 2}, {19, 2}, {20, 2}, {21, 2}, {22, 2}, {23, 2}, {23, 3}, {23, 4}, {23, 5}, {23, 6}, {23, 7}, {23, 8}, {23, 9}, {23, 10}, {23, 11}, {23, 12}, {23, 13}, {23, 14}, {23, 15}, {23, 16}, {23, 17}, {23, 18}, {23, 19}, {23, 20}, {23, 21}, {23, 22}, {23, 23} });
-	DynamicObstacle DynamicObstacle6("dy_ob3", { {51, 6}, {51, 7}, {51, 8}, {51, 9}, {51, 10}, {51, 11}, {51, 12}, {51, 13}, {51, 14}, {51, 15}, {51, 16}, {51, 17}, {51, 18}, {51, 19}, {51, 20}, {51, 21}, {51, 22}, {51, 23}, {51, 24}, {51, 25}, {51, 26}, {51, 27}, {51, 28}, {51, 29}, {51, 30}, {51, 31}, {51, 32}, {51, 33}, {51, 34}, {51, 35}, {51, 36}, {51, 37}, {51, 38}, {51, 39}, {51, 40}, {51, 41}, {51, 42}, {51, 43}, {51, 44}, {51, 45}, {51, 46}, {51, 47}, {52, 47}, {53, 47} });
-	vector<DynamicObstacle> dynamic_obstacle2 = { DynamicObstacle4, DynamicObstacle5, DynamicObstacle6 };
+	DynamicObstacle DynamicObstacle4("dy_ob1");
+	dynamic_path_input_x(DynamicObstacle1, 48, 19, 39, 19);
+	dynamic_path_input_y(DynamicObstacle1, 39, 20, 39, 43);
+	dynamic_path_input_x(DynamicObstacle1, 38, 43, 14, 43);
+	dynamic_path_input_y(DynamicObstacle1, 14, 42, 14, 12);
+	dynamic_path_input_x(DynamicObstacle1, 13, 12, 1, 12);
+	DynamicObstacle1.Direction();
 
-	Planner planner2(start, goal, 1, 1, static_obstacle, dynamic_obstacle3);
+	DynamicObstacle DynamicObstacle5("dy_ob2");
+	dynamic_path_input_x(DynamicObstacle2, 13, 58, 16, 58);
+	dynamic_path_input_y(DynamicObstacle2, 16, 57, 16, 30);
+	dynamic_path_input_x(DynamicObstacle2, 17, 30, 35, 30);
+	dynamic_path_input_y(DynamicObstacle2, 35, 29, 35, 13);
+	DynamicObstacle2.Direction();
+
+	DynamicObstacle DynamicObstacle6("dy_ob3");
+	dynamic_path_input_x(DynamicObstacle3, 10, 81, 51, 81);
+	dynamic_path_input_y(DynamicObstacle3, 51, 80, 51, 64);
+	DynamicObstacle3.Direction();
+
+	vector<DynamicObstacle> dynamic_obstacle2 = { DynamicObstacle4, DynamicObstacle5, DynamicObstacle6 }; // 동적 장애물을 직접 만들어서 넣어줌!
+
+	Planner planner2(start, goal, 1, 1, static_obstacle, dynamic_obstacle2);
 	planner2.set_max_core();
 	planner2.aStarPlanner.set_origin_path(true);
 
@@ -217,8 +255,7 @@ int main()
 	getPathLength(result);
 	nearestDistance2Obstacle(result);
 	averageDistance2Obstacle(result);
-	// print_path(result);
-	// print_path_text(result);
+	print_path_text(result);
 
 	/*while (DynamicObstacle1.DoB_path.size() ||  DynamicObstacle2.DoB_path.size() || DynamicObstacle3.DoB_path.size()) {
 	   startClock = clock();

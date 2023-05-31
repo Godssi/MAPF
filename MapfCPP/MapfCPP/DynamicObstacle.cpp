@@ -98,3 +98,35 @@ void DynamicObstacle::Direction(vector<pairInt> path)
 	}
 }
 
+void DynamicObstacle::Direction()
+{
+	this->Direction(DoB_path);
+}
+
+void dynamic_path_input_x(DynamicObstacle& DO, int s_x, int s_y, int e_x, int e_y)
+{
+	if (s_x <= e_x)
+		for (int x = s_x; x <= e_x; x++)
+		{
+			DO.DoB_path.push_back({ x, s_y });
+		}
+	else
+		for (int x = s_x; x >= e_x; x--)
+		{
+			DO.DoB_path.push_back({ x, s_y });
+		}
+}
+
+void dynamic_path_input_y(DynamicObstacle& DO, int s_x, int s_y, int e_x, int e_y)
+{
+	if (s_y <= e_y)
+		for (int y = s_y; y <= e_y; y++)
+		{
+			DO.DoB_path.push_back({ s_x, y });
+		}
+	else
+		for (int y = s_y; y >= e_y; y--)
+		{
+			DO.DoB_path.push_back({ s_x, y });
+		}
+}

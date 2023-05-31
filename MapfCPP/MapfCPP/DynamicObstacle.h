@@ -41,6 +41,12 @@ public:
 	int present_idx;
 	int after_idx;
 
+	DynamicObstacle(string dynamicObstacle_Name) : dynamicObstacle_Name(dynamicObstacle_Name)
+	{
+		present_idx = 0;
+		after_idx = 1;
+	}
+
 	DynamicObstacle(string dynamicObstacle_Name, vector<pairInt> path) : dynamicObstacle_Name(dynamicObstacle_Name), DoB_path(path)
 	{
 		present_idx = 0;
@@ -56,6 +62,10 @@ public:
 	friend std::ostream& operator<< (std::ostream& os, const DynamicObstacle& a);
 
 	void Direction(vector<pairInt> path);
+	void Direction();
 };
+
+void dynamic_path_input_x(DynamicObstacle& DO, int s_x, int s_y, int e_x, int e_y);
+void dynamic_path_input_y(DynamicObstacle& DO, int s_x, int s_y, int e_x, int e_y);
 
 #endif

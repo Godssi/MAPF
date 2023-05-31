@@ -262,8 +262,8 @@ bool MAP_GEN::Ellipse_equation(int x, int y, int search_x, int search_y, int dir
         double center_x = x + 1.5 * speed * cosine_degree(45 * (direct - 1));  
         double center_y = y + 1.5 * speed * sine_degree(45 * (direct - 1));  
 
-        int a1 = 3.5 * speed;
-        int b1 = 2 * speed;
+        int a1 = 5 * speed;
+        int b1 = 3 * speed;
 
         double a1_part = pow(cosine_degree(45 * (direct - 1)) * (search_x - center_x) + sine_degree(search_y - center_y), 2);
         double b1_part = pow((-1) * sine_degree(45 * (direct - 1)) * (search_x - center_x) + cosine_degree(search_y - center_y), 2);

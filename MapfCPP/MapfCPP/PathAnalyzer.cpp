@@ -38,19 +38,17 @@ void getPathLength(vec2PInt result)
 
 void nearestDistance2Obstacle(vec2PInt result)
 {
-    // vector<pairInt> Ob = { {2, 81} , {2, 2}, {51, 6}};   // {2, 2}
-    vector<pairInt> Ob;
+    vector<pairInt> Ob = { {48, 19}, {13, 58}, {10, 81} };
     Map map = MAP_GEN::test_maze_gen();
     pair<ll, ll> map_size = { map.size() , map[0].size() };
     for (ll i = 0; i < map_size.first; i++)
     {
         for (ll j = 0; j < map_size.second; j++)
         {
-            if (map[i][j] == Static_Ob)
-            {
-                Ob.push_back({ i, j });
-            }
-
+            //if (map[i][j] == Static_Ob)
+            //{
+            //    Ob.push_back({ i, j });
+            //}
             if (map[i][j] == Dynamic_Ob)
             {
                Ob.push_back({ i, j });
@@ -84,22 +82,21 @@ void nearestDistance2Obstacle(vec2PInt result)
 
 void averageDistance2Obstacle(vec2PInt result)
 {
-    // vector<pairInt> Ob = { {2, 81} , {25, 48}, {51, 6} };
-    vector<pairInt> Ob;
+    vector<pairInt> Ob = { {48, 19}, {13, 58}, {10, 81} };
     Map map = MAP_GEN::test_maze_gen();
     pair<ll, ll> map_size = { map.size() , map[0].size() };
     for (ll i = 0; i < map_size.first; i++)
     {
         for (ll j = 0; j < map_size.second; j++)
         {
-            if (map[i][j] == Static_Ob)
-            {
-                Ob.push_back({ i, j });
-            }
-            //if (map[i][j] == Dynamic_Ob)
+            //if (map[i][j] == Static_Ob)
             //{
-            //   Ob.push_back({ i, j });
+            //    Ob.push_back({ i, j });
             //}
+            if (map[i][j] == Dynamic_Ob)
+            {
+               Ob.push_back({ i, j });
+            }
         }
     }
 
