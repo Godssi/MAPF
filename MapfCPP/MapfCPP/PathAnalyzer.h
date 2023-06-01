@@ -34,4 +34,7 @@ void averageDistance2Obstacle(vec2PInt result);
 void nearestDistance2Obstacle(vec3PInt results, vector<DynamicObstacle> DO);
 void averageDistance2Obstacle(vec3PInt results, vector<DynamicObstacle> DO);
 
+void nearestDistance2Obstacle(vec3PInt results);
+void averageDistance2Obstacle(vec3PInt results);
+
 # endif

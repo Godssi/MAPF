@@ -152,112 +152,9 @@ int main()
 	clock_t startClock, endClock;
 
 
-	// 시뮬레이션 상황 처리 
-	//vector<pairInt> start = { {16,83},{35,83},{29,66},{10,66}, {3,10},{48,8},{48,34},{50,66} };
-	//vector<pairInt> goal = { {40, 3},{3,63},{20,15},{48,25},{57,50},{8,50},{13,6},{35,4} };
-
-	//vector<pairInt> static_obstacle;
-	//
-	//DynamicObstacle DynamicObstacle1("dy_ob1");
-	//dynamic_path_input_y(DynamicObstacle1, 48, 19, 48, 29);
-	//dynamic_path_input_x(DynamicObstacle1, 47, 29, 39, 29);
-	//dynamic_path_input_y(DynamicObstacle1, 39, 30, 39, 43);
-	//dynamic_path_input_x(DynamicObstacle1, 38, 43, 14, 43);
-	//dynamic_path_input_y(DynamicObstacle1, 14, 42, 14, 12);
-	//dynamic_path_input_x(DynamicObstacle1, 13, 12, 1, 12);
-	//DynamicObstacle1.Direction();
-
-	//DynamicObstacle DynamicObstacle2("dy_ob2");
-	//dynamic_path_input_x(DynamicObstacle2, 13, 58, 16, 58);
-	//dynamic_path_input_y(DynamicObstacle2, 16, 57, 16, 30);
-	//dynamic_path_input_x(DynamicObstacle2, 17, 30, 35, 30);
-	//dynamic_path_input_y(DynamicObstacle2, 35, 29, 35, 13);
-	//DynamicObstacle2.Direction();
-
-	//DynamicObstacle DynamicObstacle3("dy_ob3");
-	//dynamic_path_input_x(DynamicObstacle3, 10, 81, 51, 81);
-	//dynamic_path_input_y(DynamicObstacle3, 51, 80, 51, 64);
-	//DynamicObstacle3.Direction();
-
-	//vector<DynamicObstacle> dynamic_obstacle = { DynamicObstacle1, DynamicObstacle2, DynamicObstacle3 }; // 동적 장애물을 직접 만들어서 넣어줌!
-	//Planner planner(start, goal, 1, 1, static_obstacle, dynamic_obstacle);
-	//planner.set_max_core();
-
-	//if (planner.validate_agent_position())
-	//{
-	//	cout << "not valid agent position\n";
-	//	return 0;
-	//}
-	//vec2PInt result;
-	//startClock = clock();
-	//for (int i = 0; i < 1; i++)
-	//	result = planner.plan(200, 100000);
-	//endClock = clock();
-
-	////print_potential_map(planner);
-	//cout << "time: " << (endClock - startClock) / 10.0 << "  (ms)\n";
-	//getPathLength(result);
-	//nearestDistance2Obstacle(result);
-	//averageDistance2Obstacle(result);
-	////print_path(result);
-	////print_path_text(result);
-	//
-
-
-	//cout << "\n\n\n";
-
-	//DynamicObstacle DynamicObstacle4("dy_ob4");
-	//dynamic_path_input_y(DynamicObstacle4, 48, 19, 48, 29);
-	//dynamic_path_input_x(DynamicObstacle4, 47, 29, 39, 29);
-	//dynamic_path_input_y(DynamicObstacle4, 39, 30, 39, 43);
-	//dynamic_path_input_x(DynamicObstacle4, 38, 43, 14, 43);
-	//dynamic_path_input_y(DynamicObstacle4, 14, 42, 14, 12);
-	//dynamic_path_input_x(DynamicObstacle4, 13, 12, 1, 12);
-	//DynamicObstacle4.Direction();
-
-	//DynamicObstacle DynamicObstacle5("dy_ob2");
-	//dynamic_path_input_x(DynamicObstacle5, 13, 58, 16, 58);
-	//dynamic_path_input_y(DynamicObstacle5, 16, 57, 16, 30);
-	//dynamic_path_input_x(DynamicObstacle5, 17, 30, 35, 30);
-	//dynamic_path_input_y(DynamicObstacle5, 35, 29, 35, 13);
-	//DynamicObstacle5.Direction();
-
-	//DynamicObstacle DynamicObstacle6("dy_ob3");
-	//dynamic_path_input_x(DynamicObstacle6, 10, 81, 51, 81);
-	//dynamic_path_input_y(DynamicObstacle6, 51, 80, 51, 64);
-	//DynamicObstacle6.Direction();
-
-	//vector<DynamicObstacle> dynamic_obstacle2 = { DynamicObstacle4, DynamicObstacle5, DynamicObstacle6 }; // 동적 장애물을 직접 만들어서 넣어줌!
-
-	//Planner planner2(start, goal, 1, 1, static_obstacle, dynamic_obstacle2);
-	//planner2.set_max_core();
-	//planner2.aStarPlanner.set_origin_path(true);
-
-	//if (planner2.validate_agent_position())
-	//{
-	//	cout << "not valid agent position\n";
-	//	return 0;
-	//}
-	//startClock = clock();
-	//for (int i = 0; i < 1; i++)
-	//	result = planner2.plan(200, 100000);
-	//endClock = clock();
-
-	////print_potential_map(planner);
-	//cout << "time: " << (endClock - startClock) / 10.0 << "  (ms)\n";
-	//getPathLength(result);
-	//nearestDistance2Obstacle(result);
-	//averageDistance2Obstacle(result);
-	////print_path_text(result);
-
-
 
 	// 시뮬레이션 상황 처리
 	vec3PInt results;
-	vector<pairInt> blank_start;
-	vector<pairInt> blank_goal;
-	vector<pairInt> one_start = { {16 ,83 }, {29, 66} };
-	vector<pairInt> one_goal = { {54, 51}, {20, 15} };
 	vector<pairInt> start = { {16 ,83}, {35, 83}, {29, 66}, {10, 66}, {3, 10}, {48, 8}, {48, 34}, {50, 66} };
 	vector<pairInt> goal = { {54, 51}, {3, 63}, {20, 15}, {45, 25}, {57, 50}, {8, 50}, {13, 6}, {29, 26} };
 
@@ -282,9 +179,9 @@ int main()
 	DynamicObstacle3.Direction();
 
 	vector<DynamicObstacle> dynamic_obstacle = { DynamicObstacle1, DynamicObstacle2, DynamicObstacle3 };
-	vector<DynamicObstacle> blank_dynamic_obstacle;
 	vector<DynamicObstacle> dynamic_obstacle_valid = { DynamicObstacle1, DynamicObstacle2, DynamicObstacle3 };
-	Planner planner(start, goal, 1, 1, static_obstacle, dynamic_obstacle);
+	vector<DynamicObstacle> dynamic_obstacle_blank;
+	Planner planner(start, goal, 1, 1, static_obstacle, dynamic_obstacle_blank);
 	planner.set_max_core();
 
 	if (planner.validate_agent_position())
@@ -293,98 +190,90 @@ int main()
 		return 0;
 	}
 	vec2PInt result;
-	//startClock = clock();
-	//result = planner.plan(200, 200000);
-	//endClock = clock();
-	//print_static_potential_map(planner);
 
-	////print_potential_map(planner);
-	//cout << "time: " << (endClock - startClock) << "  (ms)\n";
-	//getPathLength(result);
-	//nearestDistance2Obstacle(result);
-	//averageDistance2Obstacle(result);
-	////print_path(result);
-	//print_path_text(result);
-	
-
-
-	cout << "\n\n\n";
-
-	startClock = clock();
 	int i = 0;
-	while (i < 2)
+	while (i < 20)
 	{
-		vec2PInt result = planner.plan(200, 10000);
+		startClock = clock();
+		result = planner.plan(200, 200000);
+		endClock = clock();
+		getPathLength(result);
+		cout << "time: " << (endClock - startClock) << "  (ms)\n";
 		results.push_back(result);
-		
+
 		if (!(planner.checkGoal(result)))
 			break;
 		planner.set_starts(result);
-		endClock = clock();
-		cout << "time: " << (endClock - startClock) << "  (ms)\n";
-		//print_path(result);
-		//print_path_text(result, i+1);
-		nearestDistance2Obstacle(results, dynamic_obstacle_valid);
-		averageDistance2Obstacle(results, dynamic_obstacle_valid);
 		i++;
 	}
+	nearestDistance2Obstacle(results);
+	averageDistance2Obstacle(results);
+
+	//nearestDistance2Obstacle(results, dynamic_obstacle_valid);
+	//averageDistance2Obstacle(results, dynamic_obstacle_valid);
 
 
-	vector<pairInt> start2 = { {16 ,83}, {35, 83}, {29, 66}, {10, 66}, {3, 10}, {48, 8}, {48, 34}, {50, 66} };
-	vector<pairInt> goal2 = { {54, 51}, {3, 63}, {20, 15}, {45, 25}, {57, 50}, {8, 50}, {13, 6}, {29, 26} };
+	//cout << "\n\n\n";
 
-	DynamicObstacle DynamicObstacle4("dy_ob1");
-	dynamic_path_input_y(DynamicObstacle4, 48, 19, 48, 29);
-	dynamic_path_input_x(DynamicObstacle4, 47, 29, 39, 29);
-	dynamic_path_input_y(DynamicObstacle4, 39, 30, 39, 43);
-	dynamic_path_input_x(DynamicObstacle4, 38, 43, 14, 43);
-	DynamicObstacle4.Direction();
+	//vec3PInt results;
+	//vector<pairInt> start2 = { {16 ,83}, {35, 83}, {29, 66}, {10, 66}, {3, 10}, {48, 8}, {48, 34}, {50, 66} };
+	//vector<pairInt> goal2 = { {54, 51}, {3, 63}, {20, 15}, {45, 25}, {57, 50}, {8, 50}, {13, 6}, {29, 26} };
 
-	DynamicObstacle DynamicObstacle5("dy_ob2");
-	dynamic_path_input_x(DynamicObstacle5, 13, 58, 16, 58);
-	dynamic_path_input_y(DynamicObstacle5, 16, 57, 16, 30);
-	dynamic_path_input_x(DynamicObstacle5, 17, 30, 35, 30);
-	dynamic_path_input_y(DynamicObstacle5, 35, 29, 35, 13);
-	DynamicObstacle5.Direction();
+	//vector<pairInt> static_obstacle;
+	//DynamicObstacle DynamicObstacle4("dy_ob1");
+	//dynamic_path_input_y(DynamicObstacle4, 48, 19, 48, 29);
+	//dynamic_path_input_x(DynamicObstacle4, 47, 29, 39, 29);
+	//dynamic_path_input_y(DynamicObstacle4, 39, 30, 39, 43);
+	//dynamic_path_input_x(DynamicObstacle4, 38, 43, 14, 43);
+	//DynamicObstacle4.Direction();
 
-	DynamicObstacle DynamicObstacle6("dy_ob3");
-	dynamic_path_input_x(DynamicObstacle6, 10, 81, 51, 81);
-	dynamic_path_input_y(DynamicObstacle6, 51, 80, 51, 64);
-	DynamicObstacle6.Direction();
+	//DynamicObstacle DynamicObstacle5("dy_ob2");
+	//dynamic_path_input_x(DynamicObstacle5, 13, 58, 16, 58);
+	//dynamic_path_input_y(DynamicObstacle5, 16, 57, 16, 30);
+	//dynamic_path_input_x(DynamicObstacle5, 17, 30, 35, 30);
+	//dynamic_path_input_y(DynamicObstacle5, 35, 29, 35, 13);
+	//DynamicObstacle5.Direction();
 
-	vector<DynamicObstacle> dynamic_obstacle2 = { DynamicObstacle4, DynamicObstacle5, DynamicObstacle6 };
-	vector<DynamicObstacle> dynamic_obstacle_valid2 = { DynamicObstacle4, DynamicObstacle5, DynamicObstacle6 };
+	//DynamicObstacle DynamicObstacle6("dy_ob3");
+	//dynamic_path_input_x(DynamicObstacle6, 10, 81, 51, 81);
+	//dynamic_path_input_y(DynamicObstacle6, 51, 80, 51, 64);
+	//DynamicObstacle6.Direction();
 
-	Planner planner2(start2, goal2, 1, 1, static_obstacle, dynamic_obstacle2);
-	planner2.set_max_core();
-	planner2.aStarPlanner.set_origin_path(true);
-	planner2.set_max_core();
+	//vector<DynamicObstacle> dynamic_obstacle2 = { DynamicObstacle4, DynamicObstacle5, DynamicObstacle6 };
+	//vector<DynamicObstacle> dynamic_obstacle_valid2 = { DynamicObstacle4, DynamicObstacle5, DynamicObstacle6 };
 
-	if (planner2.validate_agent_position())
-	{
-		cout << "not valid agent position\n";
-		return 0;
-	}
+	//vector<DynamicObstacle> dynamic_obstacle_blank;
 
-	startClock = clock();
-	while (i < 4)
-	{
-		vec2PInt result = planner2.plan(200, 10000);
-		results.push_back(result);
+	//Planner planner2(start2, goal2, 1, 1, static_obstacle, dynamic_obstacle_blank);
+	//planner2.aStarPlanner.set_origin_path(true);
+	//planner2.set_max_core();
 
-		if (!(planner2.checkGoal(result)))
-			break;
-		planner2.set_starts(result);
-		endClock = clock();
-		cout << "time: " << (endClock - startClock) << "  (ms)\n";
-		//print_path(result);
-		//print_path_text(result, i+1);
-		nearestDistance2Obstacle(results, dynamic_obstacle_valid2);
-		averageDistance2Obstacle(results, dynamic_obstacle_valid2);
-		i++;
-	}
+	//if (planner2.validate_agent_position())
+	//{
+	//	cout << "not valid agent position\n";
+	//	return 0;
+	//}
 
-	 
+	//int i = 0;
+	//while (i < 20)
+	//{
+	//	startClock = clock();
+	//	vec2PInt result = planner2.plan(200, 200000);
+	//	endClock = clock();
+	//	getPathLength(result);
+	//	cout << "time: " << (endClock - startClock) << "  (ms)\n";
+	//	results.push_back(result);
+
+	//	if (!(planner2.checkGoal(result)))
+	//		break;
+	//	planner2.set_starts(result);
+	//	i++;
+	//}
+	//nearestDistance2Obstacle(results);
+	//averageDistance2Obstacle(results);
+
+	////nearestDistance2Obstacle(results, dynamic_obstacle_valid2);
+	////averageDistance2Obstacle(results, dynamic_obstacle_valid2);
 
 	return 0;
 }
