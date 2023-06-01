@@ -154,7 +154,7 @@ def path_generation():
     path = []
     agents = []
     print(os.getcwd())
-    filename = os.getcwd() + "/multiagentpath.txt"
+    filename = os.getcwd() + "/multiagentpath4.txt"
     f = open(filename, 'r')
 
     path_size = int(f.readline()) * 2

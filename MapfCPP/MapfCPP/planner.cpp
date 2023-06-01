@@ -50,7 +50,6 @@ vec2PInt Planner::plan(int high_level_max_iter, int low_level_max_iter)
 
     while (!open.empty() && iter_ < high_level_max_iter) {
         iter_++;
-        modify_potential_map();
         pair<vector<pairCTNode>, vector<vec2PInt>> results;
 
         for (auto iter = open.begin(); iter != open.end();) {
@@ -252,19 +251,19 @@ map<int, setPInt> Planner::calculate_goal_times(CTNode& node, Agent& agent, vecA
 
 vecPInt Planner::calculate_path(Agent agent, Constraints& constraints, map<int, setPInt> goal_times)
 {
-    clock_t startClock = clock();
+    //clock_t startClock = clock();
     map<int, setPInt> a;
     map<int, setPInt> constraint = constraints.setdefault(agent, a);
     planResults[agent] = aStarPlanner.aStarPlan(agent.start, agent.goal, constraint, goal_times, dynamic_obstacle, 0);
-    clock_t endClock = clock();
-    cout << "time: " << (endClock - startClock) << "  (ms)\n";
+    //clock_t endClock = clock();
+    //cout << "time: " << (endClock - startClock) << "  (ms)\n";
 
     return planResults[agent];
 }
 
 vecPInt Planner::recalculate_path(Agent agent, Constraints& constraints, map<int, setPInt> goal_times, int& time_of_conflict)
 {
-    clock_t startClock = clock();
+    //clock_t startClock = clock();
     map<int, setPInt> a;
     map<int, setPInt> constraint = constraints.setdefault(agent, a);
     if (time_of_conflict > robot_radius + 2)
@@ -277,8 +276,8 @@ vecPInt Planner::recalculate_path(Agent agent, Constraints& constraints, map<int
     {
         planResults[agent] = aStarPlanner.aStarPlan(agent.start, agent.goal, constraint, goal_times, dynamic_obstacle, 0);
     }
-    clock_t endClock = clock();
-    cout << "time: " << (endClock - startClock) << "  (ms)\n";
+   // clock_t endClock = clock();
+    //cout << "time: " << (endClock - startClock) << "  (ms)\n";
 
     return planResults[agent];
 }

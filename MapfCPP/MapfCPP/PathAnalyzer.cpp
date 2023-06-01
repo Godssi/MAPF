@@ -158,8 +158,8 @@ void nearestDistance2Obstacle(vec3PInt results, vector<DynamicObstacle> DO)
                         distance = std::min(distance, sqrt(pow(iter2->first - obIter->DoB_path[i].first, 2) + pow(iter2->second - obIter->DoB_path[i].second, 2)));
                 }
             }
-            j++;
             NDO[j] = std::min(distance, NDO[j]);
+            j++;
         }
     }
 
@@ -171,6 +171,56 @@ void nearestDistance2Obstacle(vec3PInt results, vector<DynamicObstacle> DO)
         i++;
     }
     cout << "\n";
+}
+
+void averageDistance2Obstacle(vec3PInt results, vector<DynamicObstacle> DO)
+{
+    Map map = MAP_GEN::test_maze_gen();
+    pair<ll, ll> map_size = { map.size() , map[0].size() };
+    int resultIdx = results.size();
+    int robotSize = results[0].size();
+
+    vector<double> ADO;
+    ADO.resize(robotSize, MAX);
+
+    for (int i = 0; i < resultIdx; i++)
+    {
+        int j = 0;
+        for (vec2PInt::iterator iter1 = results[i].begin(); iter1 != results[i].end(); iter1++)
+        {
+            vector<double> Dis;
+            pairInt pre_cord = { -1, -1 };
+            for (auto iter2 = iter1->begin(); iter2 != iter1->end(); iter2++)
+            {
+                if (pre_cord.first == iter2->first && pre_cord.second == iter2->second)
+                {
+                    break;
+                }
+                double distance = MAX;
+                for (auto obIter = DO.begin(); obIter != DO.end(); obIter++)
+                {
+                    distance = min(distance, sqrt(pow(iter2->first - obIter->DoB_path[i].first, 2) + pow(iter2->second - obIter->DoB_path[i].second, 2)) + 1);
+                }
+                Dis.push_back(distance);
+
+                double tmp = accumulate(Dis.begin(), Dis.end(), 0.0) / Dis.size();
+                ADO[j] = min(ADO[j], tmp);
+
+                pre_cord = { iter2->first, iter2->second };
+            }
+        }
+    }
+
+    vector<double> total;
+    cout << "ADO\n";
+    int i = 1;
+    for (auto iter = ADO.begin(); iter != ADO.end(); iter++)
+    {
+        cout << "agent " << i << " : " << (*iter) << "\n";
+        total.push_back((*iter));
+        i++;
+    }
+    cout << "total : " << accumulate(total.begin(), total.end(), 0.0) / total.size() << "\n";
 }
 
 //void averageDistance2Obstacle(vec3PInt results, vector<DynamicObstacle> DO)
