@@ -26,7 +26,7 @@ Map MAP_GEN::potential_map_generator(const Map& map)
             else if (map[i][j] == Static_Ob)
             {
                 ll outer_r = 5;
-                ll inner_r = 3;
+                ll inner_r = 2;
                 ll alpha = 5;
 
                 for (ll k = i - outer_r; k < i + outer_r + 1; k++)
@@ -63,7 +63,7 @@ Map MAP_GEN::dynamic_potential_map(const Map& map, vector<DynamicObstacle>& dyna
 
     for (auto ob_iter = dynamic_obstacles.begin(); ob_iter != dynamic_obstacles.end(); ob_iter++)
     {
-        vector<int> path_direc = ob_iter->direct_vector;
+        int path_direc = ob_iter->direct_vector[0];
 
         if (ob_iter->DoB_path.empty())
             break;
@@ -73,7 +73,6 @@ Map MAP_GEN::dynamic_potential_map(const Map& map, vector<DynamicObstacle>& dyna
         // 동적 장애물의 현 위치를 기준을 potential map을 만든다.
 
         pairInt path = ob_iter->DoB_path[0];
-        int direct = path_direc[0];
         int i = path.first;
         int j = path.second;
 
@@ -88,16 +87,18 @@ Map MAP_GEN::dynamic_potential_map(const Map& map, vector<DynamicObstacle>& dyna
                 int search_x = x_iter;
                 int search_y = y_iter;
 
-                if (Ellipse_equation(i, j, search_x, search_y, direct, speed, 'B')) {
-                    dynamicPotentialMap[x_iter][y_iter] += 50;
+                if (Ellipse_equation(i, j, search_x, search_y, path_direc, speed, 'B')) {
+                    dynamicPotentialMap[x_iter][y_iter] += 20;
                 }
 
-                if (Ellipse_equation(i, j, search_x, search_y, direct, speed, 'S'))
-                    dynamicPotentialMap[x_iter][y_iter] += 50;
+                if (Ellipse_equation(i, j, search_x, search_y, path_direc, speed, 'S'))
+                    dynamicPotentialMap[x_iter][y_iter] += 20;
             }
         }
-        ob_iter->direct_vector.erase(ob_iter->direct_vector.begin());
-        ob_iter->DoB_path.erase(ob_iter->DoB_path.begin());
+        // size() == 0 인 경우, 즉 마지막 도착 위치는 Dynamic_Obstacle의 마지막 위치이므로 그것은 남겨두려고 한다.
+        if(ob_iter->DoB_path.size() != 1)
+            ob_iter->direct_vector.erase(ob_iter->direct_vector.begin());
+            ob_iter->DoB_path.erase(ob_iter->DoB_path.begin());
     }
 
     return dynamicPotentialMap;

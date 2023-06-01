@@ -45,14 +45,14 @@ void nearestDistance2Obstacle(vec2PInt result)
     {
         for (ll j = 0; j < map_size.second; j++)
         {
-            //if (map[i][j] == Static_Ob)
-            //{
-            //    Ob.push_back({ i, j });
-            //}
-            if (map[i][j] == Dynamic_Ob)
+            if (map[i][j] == Static_Ob)
+            {
+                Ob.push_back({ i, j });
+            }
+            /*if (map[i][j] == Dynamic_Ob)
             {
                Ob.push_back({ i, j });
-            }
+            }*/
         }
     }
 
@@ -89,14 +89,14 @@ void averageDistance2Obstacle(vec2PInt result)
     {
         for (ll j = 0; j < map_size.second; j++)
         {
-            //if (map[i][j] == Static_Ob)
-            //{
-            //    Ob.push_back({ i, j });
-            //}
-            if (map[i][j] == Dynamic_Ob)
+            if (map[i][j] == Static_Ob)
+            {
+                Ob.push_back({ i, j });
+            }
+            /*if (map[i][j] == Dynamic_Ob)
             {
                Ob.push_back({ i, j });
-            }
+            }*/
         }
     }
 
@@ -154,11 +154,12 @@ void nearestDistance2Obstacle(vec3PInt results, vector<DynamicObstacle> DO)
             {
                 for (auto obIter = DO.begin(); obIter != DO.end(); obIter++)
                 {
-                    distance = std::min(distance, sqrt(pow(iter2->first - obIter->DoB_path[resultIdx].first, 2) + pow(iter2->second - obIter->DoB_path[resultIdx].second, 2)));
+                    if (i < obIter->DoB_path.size())
+                        distance = std::min(distance, sqrt(pow(iter2->first - obIter->DoB_path[i].first, 2) + pow(iter2->second - obIter->DoB_path[i].second, 2)));
                 }
             }
             j++;
-            NDO[j] = distance;
+            NDO[j] = std::min(distance, NDO[j]);
         }
     }
 

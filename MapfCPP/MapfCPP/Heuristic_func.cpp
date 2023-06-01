@@ -169,7 +169,7 @@ double get_heuristic_to_goal_rect(pairInt node, pairInt goal, double R, const Ma
 
 	h_add1 = (h_add1 / upperCnt) * sqrt(R);
 	h_add2 = (h_add2 / lowerCnt) * sqrt(R);
-	return min(h_add1, h_add2);
+	return  min(h_add1, h_add2);
 }
 
 double heuristic_around_obstacle(pairInt node, pairInt goal, ll r, double R, const Map& map, const Map& static_potential_map)
@@ -178,11 +178,11 @@ double heuristic_around_obstacle(pairInt node, pairInt goal, ll r, double R, con
 	double h = 0;
 	ll aroundCnt = 0;
 
-	for (ll i = node.first - r; i < node.first + r + 1; i++)
+	/*for (ll i = goal.first - r; i < goal.first + r + 1; i++)
 	{
-		for (ll j = node.second - r; j < node.second + r + 1; j++)
+		for (ll j = goal.second - r; j < goal.second + r + 1; j++)
 		{
-			if ((0 <= i && i < map_size.first) && (0 <= j && j < map_size.second) && (r >= sqrt(pow(i - map_size.first, 2) + pow(j - map_size.second, 2))))
+			if ((0 <= i && i < map_size.first) && (0 <= j && j < map_size.second) && (r <= sqrt(pow(i - map_size.first, 2) + pow(j - map_size.second, 2))))
 			{
 				h += static_potential_map[i][j];
 				aroundCnt++;
@@ -192,8 +192,12 @@ double heuristic_around_obstacle(pairInt node, pairInt goal, ll r, double R, con
 
 	if (aroundCnt != 0) {
 		h = (h / aroundCnt) * sqrt(R);
-	}
-	h = h * 30;
+	}*/
+	h = static_potential_map[node.first][node.second];
+
+	// h = h * 100;
+	if (h > 0)
+		int a = 0;
 	return h;
 }
 
@@ -203,14 +207,19 @@ double heuristic(pairInt node, pairInt goal, const Map& map, const Map& static_p
 	double R = h;
 
 	if (goal.first - node.first == goal.second - node.second)
-		h = get_heuristic_to_goal_sq(node, goal, R, static_potential_map);
+		h += get_heuristic_to_goal_sq(node, goal, R, static_potential_map);
 	else
-		h = get_heuristic_to_goal_rect(node, goal, R, static_potential_map);
+		h += get_heuristic_to_goal_rect(node, goal, R, static_potential_map);
+	// cout << "--------------------" << endl;
+	// cout << "°Å¸® h : " << h << endl;
 
 	double r = 3; // around radius
 	h += heuristic_around_obstacle(node, goal, r, R, map, static_potential_map);
-	h += 10 * heuristic_dynamic(node, dynamic_potential_map);
-	// cout << heuristic_dynamic(node, dynamic_potential_map);
+	h += 5 * heuristic_dynamic(node, dynamic_potential_map);
+	// cout << "static h : " << heuristic_around_obstacle(node, goal, r, R, map, static_potential_map) << endl;
+	// cout << "ÇÕ h : " << h << endl;
+	// cout << "--------------------" << endl;
+
 	return h;
 }
 
